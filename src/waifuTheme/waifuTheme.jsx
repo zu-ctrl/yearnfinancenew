@@ -17,6 +17,10 @@ const WorkSans = {
 }
 
 export const colors = {
+  beta: {
+    bg: '#F3F4F8;',
+    color: '#252626',
+  },
   white: '#ffede7',
   black: '#000',
   darkBlue: '#2c3b57',

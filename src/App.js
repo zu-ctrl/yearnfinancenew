@@ -21,6 +21,7 @@ import Header from './components/header'
 import Vaults from './components/vault'
 import Dashboard from './components/dashboard'
 import ThemeChooser from './components/themeChooser'
+import BetaBanner from './components/betaBanner'
 
 import { injected } from './stores/connectors'
 
@@ -38,11 +39,16 @@ class App extends Component {
 
     this.state = {
       currentTheme: localStorage.getItem('yearnfinewTheme') || THEMES_LIST[0],
+      isBeta: localStorage.getItem('yearnfiBeta') !== 'false',
     }
   }
 
   setCurrentTheme = (newTheme) => {
     if (THEMES_LIST.includes(newTheme)) this.setState({ currentTheme: newTheme })
+  }
+
+  setIsBeta = (beta) => {
+    this.setState({ isBeta: beta })
   }
 
   componentWillMount() {
@@ -65,8 +71,8 @@ class App extends Component {
 
   render() {
     const themes = { lightTheme, waifuTheme, darkTheme }
-    const { setCurrentTheme } = this
-    const { currentTheme } = this.state
+    const { setCurrentTheme, setIsBeta } = this
+    const { currentTheme, isBeta } = this.state
     return (
       <MuiThemeProvider theme={createMuiTheme(themes[`${currentTheme}Theme`])}>
         <CssBaseline />
@@ -80,39 +86,40 @@ class App extends Component {
               background: '#f9fafb',
             }}
           >
+            <BetaBanner isBeta={isBeta} setIsBeta={setIsBeta} />
             <Switch>
-              <Route path="/apr">
+              <Route path='/apr'>
                 <Header />
                 <APR />
               </Route>
-              <Route path="/earn">
+              <Route path='/earn'>
                 <Header />
                 <InvestSimple />
               </Route>
-              <Route path="/zap">
+              <Route path='/zap'>
                 <Header />
                 <Zap />
               </Route>
-              <Route path="/idai">
+              <Route path='/idai'>
                 <IDai />
               </Route>
-              <Route path="/performance">
+              <Route path='/performance'>
                 <Header />
                 <Performance />
               </Route>
-              <Route path="/manage">
+              <Route path='/manage'>
                 <Header />
                 <Manage />
               </Route>
-              <Route path="/vaults">
+              <Route path='/vaults'>
                 <Header />
                 <Vaults />
               </Route>
-              <Route path="/dashboard">
+              <Route path='/dashboard'>
                 <Header />
                 <Dashboard />
               </Route>
-              <Route path="/">
+              <Route path='/'>
                 <Home />
               </Route>
             </Switch>

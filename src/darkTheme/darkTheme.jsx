@@ -17,6 +17,11 @@ const WorkSans = {
 }
 
 export const colors = {
+  beta: {
+    bg: 'radial-gradient(22.99% 100% at 50.42% 100%, rgba(64, 169, 255, 0.3) 0%, rgba(64, 169, 255, 0) 100%), #293140;',
+    color: '#fff',
+  },
+  betaBackground: '',
   white: '#654321',
   black: '#000',
   darkBlue: '#2c3b57',
