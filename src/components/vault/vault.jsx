@@ -22,6 +22,7 @@ import { withNamespaces } from 'react-i18next'
 import Snackbar from '../snackbar'
 import Asset from './asset'
 import Loader from '../loader'
+import ApyTable from '../apyTable'
 
 import {
   ERROR,
@@ -579,45 +580,7 @@ class Vault extends Component {
                 </div>
               </div>
             </AccordionSummary>
-            <div style={{ padding: '10px' }}>
-              <div style={{ display: 'inline-block' }}>APY</div>
-              <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
-                {!asset.pyEarnData ? (
-                  <Skeleton style={{ width: '50px' }} />
-                ) : asset.pyEarnData.day === 'N/A' ? (
-                  'N/A'
-                ) : (
-                  `${asset.pyEarnData.day}%`
-                )}
-              </div>
-              <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
-                {!asset.pyEarnData ? (
-                  <Skeleton style={{ width: '50px' }} />
-                ) : asset.pyEarnData.day === 'N/A' ? (
-                  'N/A'
-                ) : (
-                  `${asset.pyEarnData.week}%`
-                )}
-              </div>
-              <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
-                {!asset.pyEarnData ? (
-                  <Skeleton style={{ width: '50px' }} />
-                ) : asset.pyEarnData.day === 'N/A' ? (
-                  'N/A'
-                ) : (
-                  `${asset.pyEarnData.month}%`
-                )}
-              </div>
-              <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
-                {!asset.pyEarnData ? (
-                  <Skeleton style={{ width: '50px' }} />
-                ) : asset.pyEarnData.day === 'N/A' ? (
-                  'N/A'
-                ) : (
-                  `${asset.pyEarnData.year}%`
-                )}
-              </div>
-            </div>
+            <ApyTable pyEarnData={asset.pyEarnData} />
             <AccordionDetails>
               <Asset asset={asset} startLoading={this.startLoading} />
             </AccordionDetails>

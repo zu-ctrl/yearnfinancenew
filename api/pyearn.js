@@ -46,7 +46,6 @@ module.exports = async (req, res) => {
         return obj
       })
     })
-    console.log(JSON.stringify(values, null, 2))
     await browser.close()
     return res.json({
       body: { success: true, data: values.filter((v) => !!v.symbol) },
