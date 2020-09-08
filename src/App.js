@@ -30,7 +30,7 @@ import Store from './stores'
 const emitter = Store.emitter
 const store = Store.store
 
-const THEMES_LIST = ['light', 'waifu', 'dark']
+const THEMES_LIST = ['dark', 'waifu', 'light']
 
 class App extends Component {
   constructor(props) {

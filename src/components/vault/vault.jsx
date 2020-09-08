@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
 import {
   Typography,
@@ -322,8 +323,47 @@ class Vault extends Component {
     dispatcher.dispatch({ type: GET_VAULT_BALANCES, content: {} })
   }
 
-  balancesReturned = (balances) => {
-    this.setState({ assets: store.getStore('vaultAssets') })
+  balancesReturned = async (balances) => {
+    let updatedAssets = store.getStore('vaultAssets')
+    // ADD GRAPHS TO ASSETS
+    updatedAssets = updatedAssets.map((asset) => {
+      const mapObj = {
+        YFI: 'yfi',
+        yCRV: 'ycurve',
+        DAI: 'stablecoin',
+        TUSD: 'stablecoin',
+        USDC: 'stablecoin',
+        USDT: 'stablecoin',
+        aLINK: 'link',
+        LINK: 'link',
+      }
+      asset.vaultGraphName = mapObj[asset.symbol]
+      return asset
+    })
+    // ADD PYEARN DATA TO ASSETS
+    try {
+      const {
+        body: { data: pyEarnArr },
+      } = (
+        await axios({
+          url: '/api/pyearn',
+          method: 'GET',
+        })
+      ).data
+      updatedAssets = updatedAssets.map((a) => {
+        const obj = pyEarnArr.find((d) => d.symbol === a.vaultSymbol)
+        if (!obj) {
+          a.pyEarnData = { day: 'N/A', week: 'N/A', month: 'N/A', year: 'N/A' }
+        } else {
+          a.pyEarnData = { ...obj.pyEarnData }
+        }
+        return a
+      })
+    } catch (e) {
+      console.error('[pyearn]', e.toString())
+    }
+    this.setState({ assets: updatedAssets })
+    console.log('updatedAssets', updatedAssets)
     setTimeout(this.refresh, 300000)
   }
 
