@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
+import Skeleton from '@material-ui/lab/Skeleton'
 import {
   Typography,
   Accordion,
@@ -546,7 +547,14 @@ class Vault extends Component {
                     </Typography>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
-                        {asset.apy ? asset.apy.toFixed(2) : '0.00'}%{' '}
+                        {/* {asset.apy ? asset.apy.toFixed(2) : '0.00'}%{' '} */}
+                        {!asset.pyEarnData ? (
+                          <Skeleton style={{ width: '50px' }} />
+                        ) : asset.pyEarnData.day === 'N/A' ? (
+                          'N/A'
+                        ) : (
+                          `${asset.pyEarnData.year}%`
+                        )}
                       </Typography>
                     </div>
                   </div>
@@ -557,7 +565,7 @@ class Vault extends Component {
                       You are earning:
                     </Typography>
                     <Typography variant={'h3'} noWrap>
-                      Not Available
+                      N/A
                     </Typography>
                   </div>
                 )}
@@ -571,6 +579,45 @@ class Vault extends Component {
                 </div>
               </div>
             </AccordionSummary>
+            <div style={{ padding: '10px' }}>
+              <div style={{ display: 'inline-block' }}>APY</div>
+              <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+                {!asset.pyEarnData ? (
+                  <Skeleton style={{ width: '50px' }} />
+                ) : asset.pyEarnData.day === 'N/A' ? (
+                  'N/A'
+                ) : (
+                  `${asset.pyEarnData.day}%`
+                )}
+              </div>
+              <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+                {!asset.pyEarnData ? (
+                  <Skeleton style={{ width: '50px' }} />
+                ) : asset.pyEarnData.day === 'N/A' ? (
+                  'N/A'
+                ) : (
+                  `${asset.pyEarnData.week}%`
+                )}
+              </div>
+              <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+                {!asset.pyEarnData ? (
+                  <Skeleton style={{ width: '50px' }} />
+                ) : asset.pyEarnData.day === 'N/A' ? (
+                  'N/A'
+                ) : (
+                  `${asset.pyEarnData.month}%`
+                )}
+              </div>
+              <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+                {!asset.pyEarnData ? (
+                  <Skeleton style={{ width: '50px' }} />
+                ) : asset.pyEarnData.day === 'N/A' ? (
+                  'N/A'
+                ) : (
+                  `${asset.pyEarnData.year}%`
+                )}
+              </div>
+            </div>
             <AccordionDetails>
               <Asset asset={asset} startLoading={this.startLoading} />
             </AccordionDetails>
