@@ -20,6 +20,7 @@ import Home from './components/home'
 import Header from './components/header'
 import Vaults from './components/vault'
 import Dashboard from './components/dashboard'
+import ConnectWallet from './components/connectWallet'
 import ThemeChooser from './components/themeChooser'
 
 import { injected } from './stores/connectors'

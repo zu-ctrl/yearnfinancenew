@@ -10,6 +10,7 @@ import { withNamespaces } from 'react-i18next'
 import Snackbar from '../snackbar'
 import Asset from './asset'
 import Loader from '../loader'
+import ConnectWallet from '../connectWallet'
 
 import {
   ERROR,
@@ -348,19 +349,7 @@ class InvestSimple extends Component {
     const { loading, account, snackbarMessage, value } = this.state
 
     if (!account || !account.address) {
-      return (
-        <div className={classes.root}>
-          <div className={classes.investedContainerLoggedOut}>
-            <Typography variant={'h5'} className={classes.disaclaimer}>
-              This project is in beta. Use at your own risk.
-            </Typography>
-            <div className={classes.introCenter}>
-              <Typography variant="h3">Connect your wallet to continue</Typography>
-            </div>
-          </div>
-          {snackbarMessage && this.renderSnackbar()}
-        </div>
-      )
+      return <ConnectWallet />
     }
 
     return (
