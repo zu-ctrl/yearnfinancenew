@@ -21,7 +21,6 @@ import Header from './components/header'
 import Vaults from './components/vault'
 import Dashboard from './components/dashboard'
 import ConnectWallet from './components/connectWallet'
-import ThemeChooser from './components/themeChooser'
 import BetaBanner from './components/betaBanner'
 
 import { injected } from './stores/connectors'
@@ -124,8 +123,7 @@ class App extends Component {
                 <Home isBeta={isBeta} currentTheme={currentTheme} />
               </Route>
             </Switch>
-            <Footer />
-            <ThemeChooser theme={currentTheme} setTheme={setCurrentTheme} />
+            <Footer theme={currentTheme} setTheme={setCurrentTheme} />
           </div>
         </IpfsRouter>
       </MuiThemeProvider>

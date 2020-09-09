@@ -1,4 +1,7 @@
 import React from 'react'
+import LightThemeIcon from '../icons/lightThemeIcon'
+import WaifuThemeIcon from '../icons/waifuThemeIcon'
+import DarkThemeIcon from '../icons/darkThemeIcon'
 
 const ThemeChooser = ({ theme, setTheme }) => {
   const handleChangeTheme = (newTheme) => {
@@ -6,15 +9,15 @@ const ThemeChooser = ({ theme, setTheme }) => {
     localStorage.setItem('yearnfinewTheme', newTheme)
   }
   return (
-    <div style={{ position: 'fixed', bottom: '25px', right: '25px' }}>
+    <div>
       <button disabled={theme === 'light'} onClick={() => handleChangeTheme('light')}>
-        light
+        <LightThemeIcon color="red" />
       </button>
       <button disabled={theme === 'waifu'} onClick={() => handleChangeTheme('waifu')}>
-        waifu
+        <WaifuThemeIcon colorBg="blue" color="red" />
       </button>
       <button disabled={theme === 'dark'} onClick={() => handleChangeTheme('dark')}>
-        dark
+        <DarkThemeIcon colorBg="blue" color="red" />
       </button>
     </div>
   )

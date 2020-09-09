@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
+import { withTheme } from '@material-ui/core/styles'
 
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
 import HowToVoteIcon from '@material-ui/icons/HowToVote'
@@ -14,6 +15,8 @@ import BarChartIcon from '@material-ui/icons/BarChart'
 import BuildIcon from '@material-ui/icons/Build'
 
 import BuiltWithModal from '../builtwith/builtwithModal.jsx'
+import ThemeChooser from '../themeChooser'
+import BuiltWithIcon from '../icons/builtWithIcon'
 
 const styles = (theme) => {
   const colors = theme.themeColors
@@ -103,7 +106,7 @@ class Footer extends Component {
   }
 
   render() {
-    const { classes, location } = this.props
+    const { classes, location, theme, setTheme } = this.props
     const { modalBuiltWithOpen } = this.state
 
     if (location.pathname === '' || location.pathname === '/') {
@@ -123,9 +126,10 @@ class Footer extends Component {
               this.builtWithOverlayClicked()
             }}
           >
-            <BuildIcon height="15px" className={classes.icon} />
-            <Typography variant={'h4'}>Built with</Typography>
+            <BuiltWithIcon color="red" />
+            <Typography variant={'h4'}>built with...</Typography>
           </div>
+          <ThemeChooser theme={theme} setTheme={setTheme} />
         </div>
         <div className={classes.products}>
           <Typography className={classes.heading} variant={'h6'}>
@@ -224,4 +228,4 @@ class Footer extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(Footer))
+export default withRouter(withStyles(styles)(withTheme(Footer)))
