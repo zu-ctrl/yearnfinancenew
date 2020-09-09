@@ -120,7 +120,7 @@ class App extends Component {
                 <Dashboard />
               </Route>
               <Route path='/'>
-                <Home />
+                <Home isBeta={isBeta} currentTheme={currentTheme} />
               </Route>
             </Switch>
             <Footer />

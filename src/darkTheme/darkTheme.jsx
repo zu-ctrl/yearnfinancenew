@@ -1,16 +1,12 @@
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 
-import WorkSansTTF from '../assets/fonts/WorkSans-VariableFont_wght.ttf'
-
-const WorkSans = {
-  fontFamily: 'Work Sans Thin',
-  fontStyle: 'normal',
+const PTSansFont = {
+  fontFamily: 'PT Sans',
   fontDisplay: 'swap',
-  fontWeight: 400,
   src: `
-    local('Work Sans Thin'),
-    local('Work Sans Thin'),
-    url(${WorkSansTTF}) format('truetype')
+    local('PT Sans'),
+    local('PT Sans'),
+    url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap') format('truetype')
   `,
   unicodeRange:
     'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF',
@@ -23,7 +19,11 @@ export const colors = {
     shadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
     close: '#E6F7FF',
   },
-  betaBackground: '',
+  home: {
+    text: '#fff',
+    bg: '#111A21',
+    hover: '#fff',
+  },
   white: '#654321',
   black: '#000',
   darkBlue: '#2c3b57',
@@ -61,7 +61,7 @@ const breakpoints = createBreakpoints({
 const iswapTheme = {
   typography: {
     fontFamily: [
-      '"Work Sans Thin"',
+      '"PT Sans"',
       'BlinkMacSystemFont',
       '"Segoe UI"',
       'Roboto',
@@ -124,7 +124,7 @@ const iswapTheme = {
   overrides: {
     MuiCssBaseline: {
       '@global': {
-        '@font-face': [WorkSans],
+        '@font-face': [PTSansFont],
       },
     },
     MuiSelect: {
@@ -268,6 +268,9 @@ const iswapTheme = {
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: 'transparent',
+      },
       elevation1: {
         boxShadow: 'none',
       },
