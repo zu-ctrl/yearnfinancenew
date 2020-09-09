@@ -86,7 +86,7 @@ class App extends Component {
               background: '#f9fafb',
             }}
           >
-            <BetaBanner isBeta={isBeta} setIsBeta={setIsBeta} />
+            <BetaBanner isBeta={isBeta} setIsBeta={setIsBeta} currentTheme={currentTheme} />
             <Switch>
               <Route path='/apr'>
                 <Header />

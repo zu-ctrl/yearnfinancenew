@@ -20,6 +20,8 @@ export const colors = {
   beta: {
     bg: 'radial-gradient(22.99% 100% at 50.42% 100%, rgba(64, 169, 255, 0.3) 0%, rgba(64, 169, 255, 0) 100%), #293140;',
     color: '#fff',
+    shadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+    close: '#E6F7FF',
   },
   betaBackground: '',
   white: '#654321',

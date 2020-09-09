@@ -13,7 +13,9 @@ const styles = (theme) => {
       alignItems: 'center',
       position: 'relative',
       background: colors.beta.bg,
+      boxShadow: colors.beta.shadow,
       padding: '9px 15px',
+      zIndex: '2',
     },
     close: {
       position: 'absolute',
@@ -21,7 +23,22 @@ const styles = (theme) => {
       right: '20px',
       transform: 'translateY(-50%)',
       cursor: 'pointer',
-      padding: '4px',
+      width: '18px',
+      height: '18px',
+      '&::before, &::after': {
+        position: 'absolute',
+        left: '8px',
+        content: '""',
+        height: '19px',
+        width: '2px',
+        backgroundColor: colors.beta.close,
+      },
+      '&::before': {
+        transform: 'rotate(40deg)',
+      },
+      '&::after': {
+        transform: 'rotate(-40deg)',
+      },
     },
     title: {
       color: colors.beta.color,
@@ -39,7 +56,7 @@ const styles = (theme) => {
   }
 }
 
-const BetaBanner = ({ classes, isBeta, setIsBeta }) => {
+const BetaBanner = ({ classes, isBeta, setIsBeta, currentTheme }) => {
   const handleCloseBetaBanner = () => {
     setIsBeta(false)
     localStorage.setItem('yearnfiBeta', 'false')
@@ -47,17 +64,18 @@ const BetaBanner = ({ classes, isBeta, setIsBeta }) => {
   if (!isBeta) return null
   return (
     <div className={classes.root}>
-      <img alt='info icon' src={require('../../assets/info_banner_icon.svg')} />
+      <img alt='info icon' src={require(`../../assets/theme/info-banner-${currentTheme}.svg`)} />
       <Typography className={classes.title} variant={'h6'}>
         This project is in beta. Use at your own risk.
       </Typography>
-      <img className={classes.bottomLine} alt='info icon' src={require('../../assets/beta_linear_line.svg')} />
-      <img
-        onClick={handleCloseBetaBanner}
-        className={classes.close}
-        alt='info icon'
-        src={require('../../assets/close_banner_icon.svg')}
-      />
+      {currentTheme === 'dark' && (
+        <img
+          className={classes.bottomLine}
+          alt='info icon'
+          src={require('../../assets/theme/beta-linear-line-dark.svg')}
+        />
+      )}
+      <div className={classes.close} onClick={handleCloseBetaBanner} />
     </div>
   )
 }

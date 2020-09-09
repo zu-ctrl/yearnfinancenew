@@ -20,6 +20,8 @@ export const colors = {
   beta: {
     bg: '#F7F9FC',
     color: '#252626',
+    shadow: '0px 2px 6px rgba(0, 0, 0, 0.15)',
+    close: '#1890FF',
   },
   white: '#fff',
   black: '#000',
