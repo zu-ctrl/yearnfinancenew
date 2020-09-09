@@ -59,19 +59,19 @@ const styles = (theme) => {
 const BetaBanner = ({ classes, isBeta, setIsBeta, currentTheme }) => {
   const handleCloseBetaBanner = () => {
     setIsBeta(false)
-    localStorage.setItem('yearnfiBeta', 'false')
+    localStorage.setItem('yearnfinewBeta', 'false')
   }
   if (!isBeta) return null
   return (
     <div className={classes.root}>
-      <img alt='info icon' src={require(`../../assets/theme/info-banner-${currentTheme}.svg`)} />
+      <img alt="info icon" src={require(`../../assets/theme/info-banner-${currentTheme}.svg`)} />
       <Typography className={classes.title} variant={'h6'}>
         This project is in beta. Use at your own risk.
       </Typography>
       {currentTheme === 'dark' && (
         <img
           className={classes.bottomLine}
-          alt='info icon'
+          alt="info icon"
           src={require('../../assets/theme/beta-linear-line-dark.svg')}
         />
       )}

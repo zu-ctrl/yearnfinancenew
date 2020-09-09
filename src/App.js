@@ -40,7 +40,7 @@ class App extends Component {
 
     this.state = {
       currentTheme: localStorage.getItem('yearnfinewTheme') || THEMES_LIST[0],
-      isBeta: localStorage.getItem('yearnfiBeta') !== 'false',
+      isBeta: localStorage.getItem('yearnfinewBeta') !== 'false',
     }
   }
 
@@ -89,38 +89,38 @@ class App extends Component {
           >
             <BetaBanner isBeta={isBeta} setIsBeta={setIsBeta} currentTheme={currentTheme} />
             <Switch>
-              <Route path='/apr'>
+              <Route path="/apr">
                 <Header />
                 <APR />
               </Route>
-              <Route path='/earn'>
+              <Route path="/earn">
                 <Header />
                 <InvestSimple />
               </Route>
-              <Route path='/zap'>
+              <Route path="/zap">
                 <Header />
                 <Zap />
               </Route>
-              <Route path='/idai'>
+              <Route path="/idai">
                 <IDai />
               </Route>
-              <Route path='/performance'>
+              <Route path="/performance">
                 <Header />
                 <Performance />
               </Route>
-              <Route path='/manage'>
+              <Route path="/manage">
                 <Header />
                 <Manage />
               </Route>
-              <Route path='/vaults'>
+              <Route path="/vaults">
                 <Header />
                 <Vaults />
               </Route>
-              <Route path='/dashboard'>
+              <Route path="/dashboard">
                 <Header />
                 <Dashboard />
               </Route>
-              <Route path='/'>
+              <Route path="/">
                 <Home isBeta={isBeta} currentTheme={currentTheme} />
               </Route>
             </Switch>
