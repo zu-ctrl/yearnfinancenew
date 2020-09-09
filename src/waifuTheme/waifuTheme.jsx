@@ -24,6 +24,7 @@ export const colors = {
     bg: '#f7f9fc',
     hover: '#f7f9fc',
   },
+  bg: '#111a21',
   white: '#ffede7',
   black: '#000',
   darkBlue: '#2c3b57',

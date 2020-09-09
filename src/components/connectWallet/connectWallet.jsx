@@ -1,16 +1,96 @@
 import React, { useState } from 'react'
 import { withNamespaces } from 'react-i18next'
+import { withStyles } from '@material-ui/core/styles'
 import Carousel, { Dots } from '@brainhubeu/react-carousel'
 import { withRouter } from 'react-router-dom'
 import Connector from './connector'
+import { Typography, Button } from '@material-ui/core'
 import '@brainhubeu/react-carousel/lib/style.css'
 
-const ConnectWallet = ({ t, history }) => {
+const styles = (theme) => {
+  const colors = theme.themeColors
+  return {
+    root: {
+      background: colors.bg,
+      width: '100%',
+    },
+    carousel: {
+      maxWidth: '460px',
+      width: '100%',
+      margin: '79px auto 0',
+      position: 'relative',
+      '& .BrainhubCarousel__dots': {
+        marginTop: '40px',
+      },
+      '& .BrainhubCarousel__dot': {
+        background: 'transparent',
+        opacity: '1',
+        '&:before': {
+          width: '12px',
+          height: '12px',
+          background: '#394861',
+        },
+        '&:hover': {
+          '&:before': {
+            background: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
+          },
+        },
+      },
+      '& .BrainhubCarousel__dot--selected': {
+        '&:before': {
+          background: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%) !important',
+        },
+      },
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '24px',
+      lineHeight: '36px',
+      textAlign: 'center',
+      color: colors.text,
+    },
+    subTitle: {
+      fontWeight: 'normal',
+      fontSize: '16px',
+      lineHeight: '24px',
+      textAlign: 'center',
+      color: colors.text,
+      marginTop: '32px',
+    },
+    button: {
+      position: 'absolute',
+      bottom: '0',
+    },
+    imageSlide: {
+      width: 'auto',
+      marginTop: '49px',
+    },
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    linearContainerSm: {
+      maxWidth: '379px',
+      width: '100%',
+      minHeight: '69px',
+      display: 'flex',
+      alignItems: 'flex-start',
+      margin: '23px auto -68px',
+      background:
+        'radial-gradient(52.66% 50.98% at 50% 0%, rgba(64, 169, 255, 0.15) 0%, rgba(64, 169, 255, 0) 89.58%);',
+    },
+    linear: {},
+  }
+}
+
+const ConnectWallet = ({ t, history, classes }) => {
   const [selectedSlide, setSelectedSlide] = useState(0)
 
   const slidesData = [
     {
-      title: 'Welcome to Yearn: The simplest way to earn yield on crypto assets for investors large and small',
+      title: 'Welcome to Yearn:',
+      title2: 'The simplest way to earn yield on crypto assets for investors large and small',
       subtitle: `If you've never used the Yearn dApp before, read through this quick introduction first.`,
       imagePath: require('../../assets/connect-wallet-slide-1.svg'),
     },
@@ -46,8 +126,8 @@ const ConnectWallet = ({ t, history }) => {
   ]
 
   return (
-    <div style={{ width: '600px' }}>
-      <div>
+    <div className={classes.root}>
+      <div className={classes.carousel}>
         <Carousel
           plugins={['clickToChange', 'infinite', 'arrows', 'autoplay']}
           infinite
@@ -56,20 +136,34 @@ const ConnectWallet = ({ t, history }) => {
           value={selectedSlide}
           onChange={(val) => setSelectedSlide(val)}
           addArrowClickHandler
-          arrowLeft={<button>{t('PREVIOUS')}</button>}
-          arrowRight={<button>{t('NEXT')}</button>}
+          arrowLeft={<button className={classes.button}>{t('PREVIOUS')}</button>}
+          arrowRight={<button className={classes.button}>{t('NEXT')}</button>}
           slides={slidesData.map((o, i) => (
-            <div key={i}>
-              <p>{o.title}</p>
-              <p>{o.subtitle}</p>
-              <img alt={o.title} src={o.imagePath} />
+            <div className={classes.content} key={i}>
+              <Typography className={classes.title} variant={'h3'}>
+                {o.title}
+              </Typography>
+              {o.title2 && (
+                <Typography className={classes.title} variant={'h3'}>
+                  {o.title2}
+                </Typography>
+              )}
+              <Typography className={classes.subTitle} variant={'h4'}>
+                {o.subtitle}
+              </Typography>
+              <img className={classes.imageSlide} alt={o.title} src={o.imagePath} />
             </div>
           ))}
         />
         <Dots value={selectedSlide} onChange={(val) => setSelectedSlide(val)} number={slidesData.length} />
       </div>
-
-      <hr style={{ width: '100%' }} />
+      <div className={classes.linearContainerSm}>
+        <img
+          className={classes.linear}
+          alt='connect linear'
+          src={require('../../assets/theme/connect-linear-middle-dark.svg')}
+        />
+      </div>
 
       <div>
         <h2>Please connect a wallet to start:</h2>
@@ -79,4 +173,4 @@ const ConnectWallet = ({ t, history }) => {
   )
 }
 
-export default withNamespaces()(withRouter(ConnectWallet))
+export default withNamespaces()(withRouter(withStyles(styles)(ConnectWallet)))

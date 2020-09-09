@@ -262,8 +262,8 @@ function MyComponent(props) {
                 justifyContent: 'space-between',
                 minWidth: '250px',
               }}
-              variant="outlined"
-              color="primary"
+              variant='outlined'
+              color='primary'
               onClick={() => {
                 onConnectionClicked(currentConnector, name, setActivatingConnector, activate)
               }}
@@ -291,7 +291,7 @@ function MyComponent(props) {
                     height: '30px',
                   }}
                   src={url}
-                  alt=""
+                  alt=''
                 />
               )}
               {activating && <CircularProgress size={15} style={{ marginRight: '10px' }} />}

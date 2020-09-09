@@ -24,6 +24,7 @@ export const colors = {
     bg: '#111A21',
     hover: '#fff',
   },
+  bg: '#111a21',
   white: '#654321',
   black: '#000',
   darkBlue: '#2c3b57',
@@ -40,7 +41,7 @@ export const colors = {
   tomato: '#e56b73',
   purple: '#935dff',
 
-  text: '#212529',
+  text: '#fff',
   lightBlue: '#2F80ED',
   topaz: '#0b8f92',
   darkGray: 'rgba(43,57,84,.5)',

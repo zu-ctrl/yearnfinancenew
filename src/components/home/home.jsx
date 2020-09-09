@@ -3,11 +3,6 @@ import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Card, Typography } from '@material-ui/core'
 import { withNamespaces } from 'react-i18next'
-import FlashOnIcon from '@material-ui/icons/FlashOn'
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
-import BarChartIcon from '@material-ui/icons/BarChart'
-import PieChartIcon from '@material-ui/icons/PieChart'
-import SecurityIcon from '@material-ui/icons/Security'
 
 const styles = (theme) => {
   const colors = theme.themeColors
