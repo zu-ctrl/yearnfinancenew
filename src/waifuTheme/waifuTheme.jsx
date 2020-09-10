@@ -53,6 +53,13 @@ export const colors = {
   glowShadow: 'none',
   textShadow: 'none',
   connectedShadow: 'none',
+  footer: {
+    gradient: 'none',
+    bg: '#F7F9FC',
+    link: '#080809',
+    title: '#888A8C',
+    icon: '#9551BA',
+  },
   bg: '#f7f9fc',
   white: '#ffede7',
   black: '#000',

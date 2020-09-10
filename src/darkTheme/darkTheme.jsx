@@ -54,6 +54,13 @@ export const colors = {
   textShadow: '0px 0px 10px #40A9FF',
   connectedShadow: '0px 0px 10px #73D13D',
   bg: '#111a21',
+  footer: {
+    gradient: 'radial-gradient(36.39% 35.59% at 49.38% 0%, rgba(64, 169, 255, 0.2) 0%, rgba(64, 169, 255, 0) 100%)',
+    bg: '#111a21',
+    link: '#FFFFFF',
+    title: '#AEB7C6',
+    icon: '#BAE7FF',
+  },
   white: '#654321',
   black: '#000',
   darkBlue: '#2c3b57',
