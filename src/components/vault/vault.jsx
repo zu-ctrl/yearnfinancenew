@@ -421,11 +421,11 @@ class Vault extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, currentTheme } = this.props
     const { loading, account, snackbarMessage } = this.state
 
     if (!account || !account.address) {
-      return <ConnectWallet />
+      return <ConnectWallet currentTheme={currentTheme} />
     }
 
     return (
@@ -491,12 +491,12 @@ class Vault extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=""
+                      alt=''
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
@@ -586,8 +586,8 @@ class Vault extends Component {
       <div className={classes.filters}>
         <FormControlLabel
           className={classes.checkbox}
-          control={<Checkbox checked={hideZero} onChange={this.handleChecked} color="primary" />}
-          label="Hide zero balances"
+          control={<Checkbox checked={hideZero} onChange={this.handleChecked} color='primary' />}
+          label='Hide zero balances'
         />
         <div className={classes.between}>
           <Tooltip
@@ -614,11 +614,11 @@ class Vault extends Component {
           value={search}
           error={searchError}
           onChange={this.onSearchChanged}
-          placeholder="ETH, CRV, ..."
-          variant="outlined"
+          placeholder='ETH, CRV, ...'
+          variant='outlined'
           InputProps={{
             startAdornment: (
-              <InputAdornment position="end" className={classes.inputAdornment}>
+              <InputAdornment position='end' className={classes.inputAdornment}>
                 <SearchIcon />
               </InputAdornment>
             ),

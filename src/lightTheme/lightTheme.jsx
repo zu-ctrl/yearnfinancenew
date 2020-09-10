@@ -24,7 +24,25 @@ export const colors = {
     bg: '#f7f9fc',
     hover: '#f7f9fc',
   },
-  bg: '#111a21',
+  button: {
+    bg: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
+    color: '#096DD9',
+    hover: '#fff',
+    border: '1px solid #096DD9',
+    shadow: 'none',
+  },
+  wallet: {
+    dot: '#E3E5E8',
+    dotSelected: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
+    button: {
+      bg: '#E3E5E8',
+      shadow: '0px 0px 1px rgba(0, 0, 0, 0.25)',
+      hover: '#E3E5E8',
+    },
+  },
+  glowShadow: 'none',
+  textShadow: 'none',
+  bg: '#f7f9fc',
   white: '#fff',
   black: '#000',
   darkBlue: '#2c3b57',
@@ -140,12 +158,15 @@ const iswapTheme = {
     },
     MuiButton: {
       root: {
-        borderRadius: '50px',
-        padding: '10px 24px',
+        borderRadius: '20px',
+        padding: '7px 10px',
+        color: colors.button.color,
       },
       outlined: {
-        padding: '10px 24px',
-        borderWidth: '2px !important',
+        color: colors.button.color,
+      },
+      outlinedPrimary: {
+        color: colors.button.color,
       },
       text: {
         padding: '10px 24px',

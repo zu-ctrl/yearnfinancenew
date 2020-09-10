@@ -13,14 +13,15 @@ const styles = (theme) => {
     root: {
       background: colors.bg,
       width: '100%',
+      padding: '50px 0 100px',
     },
     carousel: {
       maxWidth: '460px',
       width: '100%',
-      margin: '79px auto 0',
+      margin: '0 auto',
       position: 'relative',
       '& .BrainhubCarousel__dots': {
-        marginTop: '40px',
+        marginTop: '10px',
       },
       '& .BrainhubCarousel__dot': {
         background: 'transparent',
@@ -28,17 +29,17 @@ const styles = (theme) => {
         '&:before': {
           width: '12px',
           height: '12px',
-          background: '#394861',
+          background: colors.wallet.dot,
         },
         '&:hover': {
           '&:before': {
-            background: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
+            background: colors.wallet.dotSelected,
           },
         },
       },
       '& .BrainhubCarousel__dot--selected': {
         '&:before': {
-          background: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%) !important',
+          background: `${colors.wallet.dotSelected} !important`,
         },
       },
     },
@@ -51,17 +52,38 @@ const styles = (theme) => {
     },
     subTitle: {
       fontWeight: 'normal',
-      fontSize: '16px',
-      lineHeight: '24px',
+      fontSize: '18px',
+      lineHeight: '28px',
       textAlign: 'center',
       color: colors.text,
       marginTop: '32px',
     },
     button: {
       position: 'absolute',
-      bottom: '0',
+      fontWeight: 'bold',
+      fontSize: '14px;',
+      lineHeight: '22px',
+      letterSpacing: '0.02em',
+      bottom: '-90px',
+      maxWidth: '195px',
+      width: '100%',
+      minHeight: '36px',
+      border: colors.button.border,
+      '&:hover': {
+        boxShadow: colors.button.shadow,
+        background: colors.button.bg,
+        border: 'none',
+        color: colors.button.hover,
+      },
+    },
+    buttonLeft: {
+      left: '0',
+    },
+    buttonRight: {
+      right: '0',
     },
     imageSlide: {
+      maxWidth: '100%',
       width: 'auto',
       marginTop: '49px',
     },
@@ -77,14 +99,35 @@ const styles = (theme) => {
       display: 'flex',
       alignItems: 'flex-start',
       margin: '23px auto -68px',
-      background:
-        'radial-gradient(52.66% 50.98% at 50% 0%, rgba(64, 169, 255, 0.15) 0%, rgba(64, 169, 255, 0) 89.58%);',
+      background: colors.glowShadow,
     },
-    linear: {},
+    linear: {
+      display: 'flex',
+      margin: '154px auto 0',
+      maxWidth: '840px',
+      width: '100%',
+      justifyContent: 'center',
+    },
+    connectContainer: {
+      margin: '78px auto 0',
+      maxWidth: '460px',
+      width: '100%',
+    },
+    walletTitle: {
+      fontWeight: 'bold',
+      fontSize: '20px',
+      lineHeight: '32px',
+      textAlign: 'center',
+      color: colors.text,
+      textShadow: colors.textShadow,
+    },
+    line: {
+      width: '100%',
+    },
   }
 }
 
-const ConnectWallet = ({ t, history, classes }) => {
+const ConnectWallet = ({ t, history, classes, currentTheme }) => {
   const [selectedSlide, setSelectedSlide] = useState(0)
 
   const slidesData = [
@@ -136,8 +179,16 @@ const ConnectWallet = ({ t, history, classes }) => {
           value={selectedSlide}
           onChange={(val) => setSelectedSlide(val)}
           addArrowClickHandler
-          arrowLeft={<button className={classes.button}>{t('PREVIOUS')}</button>}
-          arrowRight={<button className={classes.button}>{t('NEXT')}</button>}
+          arrowLeft={
+            <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonLeft}`}>
+              {t('PREVIOUS')}
+            </Button>
+          }
+          arrowRight={
+            <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonRight}`}>
+              {t('NEXT')}
+            </Button>
+          }
           slides={slidesData.map((o, i) => (
             <div className={classes.content} key={i}>
               <Typography className={classes.title} variant={'h3'}>
@@ -159,14 +210,22 @@ const ConnectWallet = ({ t, history, classes }) => {
       </div>
       <div className={classes.linearContainerSm}>
         <img
-          className={classes.linear}
+          className={classes.line}
           alt='connect linear'
-          src={require('../../assets/theme/connect-linear-middle-dark.svg')}
+          src={require(`../../assets/theme/connect-linear-middle-${currentTheme}.svg`)}
         />
       </div>
-
-      <div>
-        <h2>Please connect a wallet to start:</h2>
+      <div className={classes.linear}>
+        <img
+          className={classes.line}
+          alt='connect linear'
+          src={require(`../../assets/theme/connect-linear-lg-${currentTheme}.svg`)}
+        />
+      </div>
+      <div className={classes.connectContainer}>
+        <Typography className={classes.walletTitle} variant={'h3'}>
+          Please connect a wallet to start:
+        </Typography>
         <Connector closeModal={() => window.scrollTo(0, 0)} />
       </div>
     </div>
