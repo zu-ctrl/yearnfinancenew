@@ -357,7 +357,7 @@ class InvestSimple extends Component {
       <div className={classes.root}>
         <div className={classes.investedContainer}>
           <h2>
-            How does <WalletIcon color="red" /> <span style={{ color: 'red' }}>Earn</span> work?
+            How does <WalletIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Earn</span> work?
           </h2>
           <p>
             Earn is a yield aggregator for lending platforms that rebalances for highest yield during contract

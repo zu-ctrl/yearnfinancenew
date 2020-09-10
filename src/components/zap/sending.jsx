@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Typography, TextField, InputAdornment, Button } from '@material-ui/core'
+import { Typography, TextField, InputAdornment, Button, Slider } from '@material-ui/core'
 
 import { withNamespaces } from 'react-i18next'
 // import {
@@ -63,12 +63,19 @@ class Sending extends Component {
 
     this.state = {
       loading: false,
+      slider: 0,
     }
+  }
+
+  handleChangeSlider = (value) => {
+    const { setSendAmountPercent } = this.props
+    this.setState({ slider: value })
+    setSendAmountPercent(value)
   }
 
   render() {
     const { classes, sendAsset, sendAmount, loading, t } = this.props
-
+    const { slider } = this.state
     return (
       <div className={classes.root}>
         <div className={classes.inputCard}>
@@ -76,51 +83,23 @@ class Sending extends Component {
             {t('Zap.SendAmount')}
           </Typography>
           {this.renderAmountInput('amount', sendAmount, false, 'Amount', '0.00', sendAsset ? sendAsset.symbol : '')}
-          <div className={classes.scaleContainer}>
-            <Button
-              className={classes.scale}
-              variant="text"
-              disabled={loading}
-              color="primary"
-              onClick={() => {
-                this.props.setSendAmountPercent(25)
-              }}
-            >
-              <Typography variant={'h5'}>25%</Typography>
-            </Button>
-            <Button
-              className={classes.scale}
-              variant="text"
-              disabled={loading}
-              color="primary"
-              onClick={() => {
-                this.props.setSendAmountPercent(50)
-              }}
-            >
-              <Typography variant={'h5'}>50%</Typography>
-            </Button>
-            <Button
-              className={classes.scale}
-              variant="text"
-              disabled={loading}
-              color="primary"
-              onClick={() => {
-                this.props.setSendAmountPercent(75)
-              }}
-            >
-              <Typography variant={'h5'}>75%</Typography>
-            </Button>
-            <Button
-              className={classes.scale}
-              variant="text"
-              disabled={loading}
-              color="primary"
-              onClick={() => {
-                this.props.setSendAmountPercent(100)
-              }}
-            >
-              <Typography variant={'h5'}>100%</Typography>
-            </Button>
+          <Slider
+            value={slider}
+            aria-labelledby="discrete-slider"
+            step={1}
+            marks
+            min={0}
+            max={100}
+            valueLabelDisplay="on"
+            disabled={loading}
+            onChange={(_, value) => this.handleChangeSlider(value)}
+          />
+          <div>
+            <div onClick={() => this.handleChangeSlider(0)}>0%</div>
+            <div onClick={() => this.handleChangeSlider(25)}>25%</div>
+            <div onClick={() => this.handleChangeSlider(50)}>50%</div>
+            <div onClick={() => this.handleChangeSlider(75)}>75%</div>
+            <div onClick={() => this.handleChangeSlider(100)}>100%</div>
           </div>
         </div>
       </div>
@@ -135,7 +114,6 @@ class Sending extends Component {
 
   renderAmountInput = (id, value, error, label, placeholder, inputAdornment) => {
     const { classes, loading } = this.props
-
     return (
       <TextField
         fullWidth
@@ -146,6 +124,7 @@ class Sending extends Component {
         error={error}
         onChange={(e) => {
           this.props.setSendAmount(e.target.value)
+          this.setState({ slider: 0 })
         }}
         disabled={loading}
         placeholder={placeholder}

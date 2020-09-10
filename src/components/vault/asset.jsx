@@ -148,7 +148,7 @@ class Asset extends Component {
     this.setState({ loading: false })
   }
 
-  handleChangeLeftSLider = (value) => {
+  handleChangeLeftSlider = (value) => {
     this.setState({ leftSlider: value })
     this.setAmount(value)
   }

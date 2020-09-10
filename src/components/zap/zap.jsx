@@ -10,6 +10,7 @@ import ConversionRatios from './conversionRatios'
 import Loader from '../loader'
 import Snackbar from '../snackbar'
 import ConnectWallet from '../connectWallet'
+import ZapIcon from '../icons/zapIcon'
 
 import {
   ERROR,
@@ -349,6 +350,14 @@ class Zap extends Component {
 
     return (
       <div className={classes.root}>
+        <h2>
+          How does <ZapIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Zap</span> work?
+        </h2>
+        <p>
+          Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
+          is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in the
+          list below to get started!{' '}
+        </p>
         <div className={classes.card}>
           <Card className={classes.iHaveContainer}>
             <Have
@@ -516,7 +525,7 @@ class Zap extends Component {
 
   setSendAmountPercent = (percent) => {
     const { sendAsset, receiveAsset } = this.state
-
+    console.log({ sendAsset, receiveAsset })
     const balance = sendAsset.balance
     let sendAmount = (balance * percent) / 100
 

@@ -118,6 +118,7 @@ class Have extends Component {
             {t('Zap.IHave')}
           </Typography>
           <div className={classes.tradeContainer}>
+            {this.renderAssetSelect('asset', asset, assetOptions, assetError)}
             {sendAsset && (
               <div className={classes.balances}>
                 <Typography variant="h3" className={classes.title}></Typography>
@@ -134,7 +135,6 @@ class Have extends Component {
                 </Typography>
               </div>
             )}
-            {this.renderAssetSelect('asset', asset, assetOptions, assetError)}
           </div>
         </div>
       </div>
