@@ -8,9 +8,11 @@ const ApyTable = ({ pyEarnData }) => {
     <div style={{ padding: '10px' }}>
       <div style={{ display: 'inline-block' }}>APY</div>
       <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+        Dayly{' '}
         {!pyEarnData ? <Skeleton style={{ width: '50px' }} /> : pyEarnData.day === 'N/A' ? 'N/A' : `${pyEarnData.day}%`}
       </div>
       <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+        Weekly{' '}
         {!pyEarnData ? (
           <Skeleton style={{ width: '50px' }} />
         ) : pyEarnData.day === 'N/A' ? (
@@ -20,6 +22,7 @@ const ApyTable = ({ pyEarnData }) => {
         )}
       </div>
       <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+        Monthly{' '}
         {!pyEarnData ? (
           <Skeleton style={{ width: '50px' }} />
         ) : pyEarnData.day === 'N/A' ? (
@@ -29,6 +32,7 @@ const ApyTable = ({ pyEarnData }) => {
         )}
       </div>
       <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+        Yearly{' '}
         {!pyEarnData ? (
           <Skeleton style={{ width: '50px' }} />
         ) : pyEarnData.day === 'N/A' ? (

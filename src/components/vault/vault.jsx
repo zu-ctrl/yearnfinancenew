@@ -299,7 +299,7 @@ class Vault extends Component {
       search: '',
       searchError: false,
       hideZero: localStorage.getItem('yearn.finance-hideZero') === '1' ? true : false,
-      sortBy: 'balance',
+      sortBy: 'apy',
     }
 
     if (account && account.address) {
@@ -530,14 +530,15 @@ class Vault extends Component {
                     </Typography>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
-                        {asset.apy ? asset.apy.toFixed(2) : '0.00'}%{' '}
+                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
                       </Typography>
                       <Typography variant={'h5'} className={classes.on}>
                         {' '}
                         on{' '}
                       </Typography>
                       <Typography variant={'h3'} noWrap>
-                        {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : '0.00'} {asset.vaultSymbol}
+                        {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : <Skeleton style={{ width: '50px' }} />}{' '}
+                        {asset.vaultSymbol}
                       </Typography>
                     </div>
                   </div>
@@ -546,7 +547,7 @@ class Vault extends Component {
                   <div className={classes.headingEarning}>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
-                        {asset.apy ? asset.apy.toFixed(2) : '0.00'}%{' '}
+                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
                       </Typography>
                     </div>
                     <Typography variant={'h5'} className={classes.grey}>
