@@ -275,12 +275,12 @@ class Home extends Component {
             <img
               className={`${currentTheme === 'dark' && classes.glowVaults} vault-icon`}
               src={require(`../../assets/theme/menu-vaults-icon.svg`)}
-              alt='vaults icon'
+              alt="vaults icon"
             />
             <img
               className={`${currentTheme === 'dark' && classes.glowVault} ${classes.hoverIcon} vault-hover`}
               src={require(`../../assets/theme/menu-vaults-icon-hover.svg`)}
-              alt='vaults icon'
+              alt="vaults icon"
             />
             <Typography variant={'h3'} className={`${classes.title} title`}>
               {t('Home.Vaults')}
@@ -302,12 +302,12 @@ class Home extends Component {
             <img
               className={`${currentTheme === 'dark' && classes.glowEarn} earn-icon`}
               src={require(`../../assets/theme/menu-earn-icon.svg`)}
-              alt='earn icon'
+              alt="earn icon"
             />
             <img
               className={`${currentTheme === 'dark' && classes.glowEarn} ${classes.hoverIcon} earn-hover`}
               src={require(`../../assets/theme/menu-earn-icon-hover.svg`)}
-              alt='earn icon'
+              alt="earn icon"
             />
             <Typography variant={'h3'} className={`${classes.title} title`}>
               {t('Home.Earn')}
@@ -329,12 +329,12 @@ class Home extends Component {
             <img
               className={`${currentTheme === 'dark' && classes.glowZap} zap-icon`}
               src={require(`../../assets/theme/menu-zap-icon.svg`)}
-              alt='zap icon'
+              alt="zap icon"
             />
             <img
               className={`${currentTheme === 'dark' && classes.glowZap} ${classes.hoverIcon} zap-hover`}
               src={require(`../../assets/theme/menu-zap-icon-hover.svg`)}
-              alt='zap icon'
+              alt="zap icon"
             />
             <Typography variant={'h3'} className={`${classes.title} title`}>
               {t('Home.Zap')}
@@ -347,19 +347,19 @@ class Home extends Component {
         <Card
           className={`${classes.card} ${isBeta ? classes.cardHeight : classes.fullHeight} ${classes.apr}`}
           onClick={() => {
-            this.nav(location.pathname + 'dashboard')
+            this.nav(location.pathname + 'apr')
           }}
         >
           <div className={classes.content}>
             <img
               className={`${currentTheme === 'dark' && classes.glowApr} apr-icon`}
               src={require(`../../assets/theme/menu-apr-icon.svg`)}
-              alt='apr icon'
+              alt="apr icon"
             />
             <img
               className={`${currentTheme === 'dark' && classes.glowApr} ${classes.hoverIcon} apr-hover`}
               src={require(`../../assets/theme/menu-apr-icon-hover.svg`)}
-              alt='apr icon'
+              alt="apr icon"
             />
             <Typography variant={'h3'} className={`${classes.title} title`}>
               APR
@@ -379,12 +379,12 @@ class Home extends Component {
             <img
               className={`${currentTheme === 'dark' && classes.glowCover} cover-icon`}
               src={require(`../../assets/theme/menu-cover-icon.svg`)}
-              alt='cover icon'
+              alt="cover icon"
             />
             <img
               className={`${currentTheme === 'dark' && classes.glowCover} ${classes.hoverIcon} cover-hover`}
               src={require(`../../assets/theme/menu-cover-icon-hover.svg`)}
-              alt='cover icon'
+              alt="cover icon"
             />
             <Typography variant={'h3'} className={`${classes.title} title`}>
               {t('Home.Cover')}

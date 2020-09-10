@@ -1,11 +1,7 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { withStyles } from '@material-ui/core/styles';
-import {
-  Typography,
-  TextField,
-  Button
-} from '@material-ui/core';
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { withStyles, withTheme } from '@material-ui/core/styles'
+import { Typography, TextField, Button, Slider } from '@material-ui/core'
 
 import {
   ERROR,
@@ -16,47 +12,47 @@ import {
   DEPOSIT_ALL_VAULT,
   DEPOSIT_ALL_VAULT_RETURNED,
   WITHDRAW_ALL_VAULT,
-  WITHDRAW_ALL_VAULT_RETURNED
+  WITHDRAW_ALL_VAULT_RETURNED,
 } from '../../constants'
 
-import Store from "../../stores";
+import Store from '../../stores'
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
 
-const styles = theme => ({
+const styles = (theme) => ({
   value: {
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   actionInput: {
     padding: '0px 0px 12px 0px',
-    fontSize: '0.5rem'
+    fontSize: '0.5rem',
   },
   balances: {
     width: '100%',
     textAlign: 'right',
     paddingRight: '20px',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   actionsContainer: {
     paddingBottom: '12px',
     display: 'flex',
     flex: '1',
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column'
-    }
+      flexDirection: 'column',
+    },
   },
   title: {
-    paddingRight: '24px'
+    paddingRight: '24px',
   },
   actionButton: {
-    height: '47px'
+    height: '47px',
   },
   tradeContainer: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   sepperator: {
     borderBottom: '1px solid #E1E1E1',
@@ -64,8 +60,8 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       width: '40px',
       borderBottom: 'none',
-      margin: '0px'
-    }
+      margin: '0px',
+    },
   },
   scaleContainer: {
     display: 'flex',
@@ -75,7 +71,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   scale: {
-    minWidth: '10px'
+    minWidth: '10px',
   },
   buttonText: {
     fontWeight: '700',
@@ -85,7 +81,7 @@ const styles = theme => ({
     display: 'flex',
     [theme.breakpoints.up('sm')]: {
       display: 'none',
-    }
+    },
   },
   heading: {
     paddingBottom: '12px',
@@ -93,25 +89,23 @@ const styles = theme => ({
     flexShrink: 0,
     [theme.breakpoints.up('sm')]: {
       display: 'none',
-    }
+    },
   },
   right: {
-    textAlign: 'right'
+    textAlign: 'right',
   },
   buttons: {
     display: 'flex',
-    width: '100%'
+    width: '100%',
   },
   disabledContainer: {
     width: '100%',
     paddingTop: '12px',
-    textAlign: 'center'
-  }
-});
-
+    textAlign: 'center',
+  },
+})
 
 class Asset extends Component {
-
   constructor() {
     super()
 
@@ -121,220 +115,231 @@ class Asset extends Component {
       redeemAmount: '',
       redeemAmountError: false,
       account: store.getStore('account'),
+      leftSlider: 0,
+      rightSlider: 0,
     }
   }
 
   componentWillMount() {
-    emitter.on(DEPOSIT_VAULT_RETURNED, this.depositReturned);
-    emitter.on(WITHDRAW_VAULT_RETURNED, this.withdrawReturned);
-    emitter.on(DEPOSIT_ALL_VAULT_RETURNED, this.depositReturned);
-    emitter.on(WITHDRAW_ALL_VAULT_RETURNED, this.withdrawReturned);
-    emitter.on(ERROR, this.errorReturned);
+    emitter.on(DEPOSIT_VAULT_RETURNED, this.depositReturned)
+    emitter.on(WITHDRAW_VAULT_RETURNED, this.withdrawReturned)
+    emitter.on(DEPOSIT_ALL_VAULT_RETURNED, this.depositReturned)
+    emitter.on(WITHDRAW_ALL_VAULT_RETURNED, this.withdrawReturned)
+    emitter.on(ERROR, this.errorReturned)
   }
 
   componentWillUnmount() {
-    emitter.removeListener(DEPOSIT_VAULT_RETURNED, this.depositReturned);
-    emitter.removeListener(WITHDRAW_VAULT_RETURNED, this.withdrawReturned);
-    emitter.removeListener(DEPOSIT_ALL_VAULT_RETURNED, this.depositReturned);
-    emitter.removeListener(WITHDRAW_ALL_VAULT_RETURNED, this.withdrawReturned);
-    emitter.removeListener(ERROR, this.errorReturned);
-  };
+    emitter.removeListener(DEPOSIT_VAULT_RETURNED, this.depositReturned)
+    emitter.removeListener(WITHDRAW_VAULT_RETURNED, this.withdrawReturned)
+    emitter.removeListener(DEPOSIT_ALL_VAULT_RETURNED, this.depositReturned)
+    emitter.removeListener(WITHDRAW_ALL_VAULT_RETURNED, this.withdrawReturned)
+    emitter.removeListener(ERROR, this.errorReturned)
+  }
 
   depositReturned = () => {
     this.setState({ loading: false, amount: '' })
-  };
+  }
 
   withdrawReturned = (txHash) => {
     this.setState({ loading: false, redeemAmount: '' })
-  };
+  }
 
   errorReturned = (error) => {
     this.setState({ loading: false })
-  };
+  }
+
+  handleChangeLeftSLider = (value) => {
+    this.setState({ leftSlider: value })
+    this.setAmount(value)
+  }
+
+  handleChangeRightSlider = (value) => {
+    this.setState({ rightSlider: value })
+    this.setRedeemAmount(value)
+  }
 
   render() {
-    const { classes, asset } = this.props;
-    const {
-      amount,
-      amountError,
-      redeemAmount,
-      redeemAmountError,
-      loading
-    } = this.state
-
-    return (<div className={ classes.actionsContainer }>
-      <div className={ classes.tradeContainer }>
-        <div className={ classes.balances }>
-            <Typography variant='h4' onClick={ () => { this.setAmount(100) } } className={ classes.value } noWrap>{ 'Balance: '+ (asset.balance ? (Math.floor(asset.balance*10000)/10000).toFixed(4) : '0.0000') } { asset.tokenSymbol ? asset.tokenSymbol : asset.symbol }</Typography>
-        </div>
-        <TextField
-          fullWidth
-          className={ classes.actionInput }
-          id='amount'
-          value={ amount }
-          error={ amountError }
-          onChange={ this.onChange }
-          disabled={ loading }
-          placeholder="0.00"
-          variant="outlined"
-          onKeyDown={ this.inputKeyDown }
-        />
-        <div className={ classes.scaleContainer }>
-          <Button
-            className={ classes.scale }
-            variant='text'
-            disabled={ loading }
-            color="primary"
-            onClick={ () => { this.setAmount(25) } }>
-            <Typography variant={'h5'}>25%</Typography>
-          </Button>
-          <Button
-            className={ classes.scale }
-            variant='text'
-            disabled={ loading }
-            color="primary"
-            onClick={ () => { this.setAmount(50) } }>
-            <Typography variant={'h5'}>50%</Typography>
-          </Button>
-          <Button
-            className={ classes.scale }
-            variant='text'
-            disabled={ loading }
-            color="primary"
-            onClick={ () => { this.setAmount(75) } }>
-            <Typography variant={'h5'}>75%</Typography>
-          </Button>
-          <Button
-            className={ classes.scale }
-            variant='text'
-            disabled={ loading }
-            color="primary"
-            onClick={ () => { this.setAmount(100) } }>
-            <Typography variant={'h5'}>100%</Typography>
-          </Button>
-        </div>
-        <div className={ classes.buttons }>
-          { asset.deposit === true &&
-            <Button
-              className={ classes.actionButton }
-              variant="outlined"
-              color="primary"
-              disabled={ loading || asset.balance <= 0 || asset.depositDisabled === true }
-              onClick={ this.onDeposit }
-              fullWidth
-              >
-              <Typography className={ classes.buttonText } variant={ 'h5'} color={asset.disabled?'':'secondary'}>Deposit</Typography>
-            </Button>
-          }
-          { asset.depositAll === true &&
-            <Button
-              className={ classes.actionButton }
-              variant="outlined"
-              color="primary"
-              disabled={ loading || asset.balance <= 0 || asset.depositDisabled === true }
-              onClick={ this.onDepositAll }
-              fullWidth
-              >
-              <Typography className={ classes.buttonText } variant={ 'h5'} color={asset.disabled?'':'secondary'}>Deposit All</Typography>
-            </Button>
-          }
-        </div>
-        { asset.depositDisabled === true &&
-          <div className={classes.disabledContainer}>
-            <Typography variant='h4'>Deposits are currently disabled for this vault</Typography>
+    const { classes, asset, theme } = this.props
+    const { amount, amountError, redeemAmount, redeemAmountError, loading, leftSlider, rightSlider } = this.state
+    return (
+      <div className={classes.actionsContainer}>
+        <div className={classes.tradeContainer}>
+          <TextField
+            fullWidth
+            className={classes.actionInput}
+            id="amount"
+            value={amount}
+            error={amountError}
+            onChange={this.onChange}
+            disabled={loading}
+            placeholder="0.00"
+            variant="outlined"
+            onKeyDown={this.inputKeyDown}
+          />
+          <div className={classes.balances}>
+            <Typography
+              variant="h4"
+              onClick={() => {
+                this.setAmount(100)
+              }}
+              className={classes.value}
+              noWrap
+            >
+              {`Wallet Balance: ${asset.balance ? (Math.floor(asset.balance * 10000) / 10000).toFixed(4) : '0.0000'} ${
+                asset.tokenSymbol ? asset.tokenSymbol : asset.symbol
+              }`}
+            </Typography>
           </div>
-        }
-      </div>
-      <div className={ classes.sepperator }></div>
-      <div className={classes.tradeContainer}>
-        <div className={ classes.balances }>
-          <Typography variant='h4' onClick={ () => { this.setRedeemAmount(100) } }  className={ classes.value } noWrap>{ asset.vaultBalance ? (Math.floor(asset.vaultBalance*10000)/10000).toFixed(4) : '0.0000' } { asset.vaultSymbol } ({ (asset.vaultBalance ? (Math.floor(asset.vaultBalance*asset.pricePerFullShare*10000)/10000).toFixed(4) : '0.0000') } { asset.symbol }) </Typography>
-        </div>
-        <TextField
-          fullWidth
-          className={ classes.actionInput }
-          id='redeemAmount'
-          value={ redeemAmount }
-          error={ redeemAmountError }
-          onChange={ this.onChange }
-          disabled={ loading }
-          placeholder="0.00"
-          variant="outlined"
-          onKeyDown={ this.inputRedeemKeyDown }
-        />
-        <div className={ classes.scaleContainer }>
-          <Button
-            className={ classes.scale }
-            variant='text'
-            disabled={ loading }
-            color="primary"
-            onClick={ () => { this.setRedeemAmount(25) } }>
-            <Typography variant={'h5'}>25%</Typography>
-          </Button>
-          <Button
-            className={ classes.scale }
-            variant='text'
-            disabled={ loading }
-            color="primary"
-            onClick={ () => { this.setRedeemAmount(50) } }>
-            <Typography variant={'h5'}>50%</Typography>
-          </Button>
-          <Button
-            className={ classes.scale }
-            variant='text'
-            disabled={ loading }
-            color="primary"
-            onClick={ () => { this.setRedeemAmount(75) } }>
-            <Typography variant={'h5'}>75%</Typography>
-          </Button>
-          <Button
-            className={ classes.scale }
-            variant='text'
-            disabled={ loading }
-            color="primary"
-            onClick={ () => { this.setRedeemAmount(100) } }>
-            <Typography variant={'h5'}>100%</Typography>
-          </Button>
-        </div>
-        <div className={ classes.buttons }>
-          { asset.withdraw === true &&
-            <Button
-              className={ classes.actionButton }
-              variant="outlined"
-              color="primary"
-              disabled={ loading || asset.vaultBalance <= 0 }
-              onClick={ this.onWithdraw }
-              fullWidth
+          <Slider
+            value={leftSlider}
+            aria-labelledby="discrete-slider"
+            step={1}
+            marks
+            min={0}
+            max={100}
+            valueLabelDisplay="on"
+            disabled={loading || asset.disabled}
+            onChange={(_, value) => this.handleChangeLeftSLider(value)}
+          />
+          <div>
+            <div onClick={() => this.handleChangeLeftSLider(0)}>0%</div>
+            <div onClick={() => this.handleChangeLeftSLider(25)}>25%</div>
+            <div onClick={() => this.handleChangeLeftSLider(50)}>50%</div>
+            <div onClick={() => this.handleChangeLeftSLider(75)}>75%</div>
+            <div onClick={() => this.handleChangeLeftSLider(100)}>100%</div>
+          </div>
+          <div className={classes.buttons}>
+            {asset.deposit === true && (
+              <Button
+                className={classes.actionButton}
+                variant="outlined"
+                color="primary"
+                disabled={loading || asset.balance <= 0 || asset.depositDisabled === true}
+                onClick={this.onDeposit}
+                fullWidth
               >
-              <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>Withdraw</Typography>
-            </Button>
-          }
-          { asset.withdrawAll === true &&
-            <Button
-              className={ classes.actionButton }
-              variant="outlined"
-              color="primary"
-              disabled={ loading || asset.vaultBalance <= 0 }
-              onClick={ this.onWithdrawAll }
-              fullWidth
+                <Typography className={classes.buttonText} variant={'h5'} color={asset.disabled ? '' : 'secondary'}>
+                  Deposit
+                </Typography>
+              </Button>
+            )}
+            {asset.depositAll === true && (
+              <Button
+                className={classes.actionButton}
+                variant="outlined"
+                color="primary"
+                disabled={loading || asset.balance <= 0 || asset.depositDisabled === true}
+                onClick={this.onDepositAll}
+                fullWidth
               >
-              <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>Withdraw All</Typography>
-            </Button>
-          }
+                <Typography className={classes.buttonText} variant={'h5'} color={asset.disabled ? '' : 'secondary'}>
+                  Deposit All
+                </Typography>
+              </Button>
+            )}
+          </div>
+          {asset.depositDisabled === true && (
+            <div className={classes.disabledContainer}>
+              <Typography variant="h4">Deposits are currently disabled for this vault</Typography>
+            </div>
+          )}
+        </div>
+        <div className={classes.sepperator}></div>
+        <div className={classes.tradeContainer}>
+          <TextField
+            fullWidth
+            className={classes.actionInput}
+            id="redeemAmount"
+            value={redeemAmount}
+            error={redeemAmountError}
+            onChange={this.onChange}
+            disabled={loading}
+            placeholder="0.00"
+            variant="outlined"
+            onKeyDown={this.inputRedeemKeyDown}
+          />
+          <div className={classes.balances}>
+            <Typography
+              variant="h4"
+              onClick={() => {
+                this.setRedeemAmount(100)
+              }}
+              className={classes.value}
+              noWrap
+            >
+              {asset.vaultBalance ? (Math.floor(asset.vaultBalance * 10000) / 10000).toFixed(4) : '0.0000'}{' '}
+              {asset.vaultSymbol} (
+              {asset.vaultBalance
+                ? (Math.floor(asset.vaultBalance * asset.pricePerFullShare * 10000) / 10000).toFixed(4)
+                : '0.0000'}{' '}
+              {asset.symbol}){' '}
+            </Typography>
+          </div>
+          <Slider
+            value={rightSlider}
+            aria-labelledby="discrete-slider"
+            step={1}
+            marks
+            min={0}
+            max={100}
+            valueLabelDisplay="on"
+            disabled={loading || asset.disabled}
+            onChange={(_, value) => this.handleChangeRightSlider(value)}
+          />
+          <div>
+            <div onClick={() => this.handleChangeRightSlider(0)}>0%</div>
+            <div onClick={() => this.handleChangeRightSlider(25)}>25%</div>
+            <div onClick={() => this.handleChangeRightSlider(50)}>50%</div>
+            <div onClick={() => this.handleChangeRightSlider(75)}>75%</div>
+            <div onClick={() => this.handleChangeRightSlider(100)}>100%</div>
+          </div>
+          <div className={classes.buttons}>
+            {asset.withdraw === true && (
+              <Button
+                className={classes.actionButton}
+                variant="outlined"
+                color="primary"
+                disabled={loading || asset.vaultBalance <= 0}
+                onClick={this.onWithdraw}
+                fullWidth
+              >
+                <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                  Withdraw
+                </Typography>
+              </Button>
+            )}
+            {asset.withdrawAll === true && (
+              <Button
+                className={classes.actionButton}
+                variant="outlined"
+                color="primary"
+                disabled={loading || asset.vaultBalance <= 0}
+                onClick={this.onWithdrawAll}
+                fullWidth
+              >
+                <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                  Withdraw All
+                </Typography>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
-    </div>)
-  };
+    )
+  }
 
   onChange = (event) => {
     let val = []
     val[event.target.id] = event.target.value
     this.setState(val)
+
+    if (event.target.id === 'amount') this.setState({ leftSlider: 0 })
+    if (event.target.id === 'redeemAmount') this.setState({ rightSlider: 0 })
   }
 
   inputKeyDown = (event) => {
     if (event.which === 13) {
-      this.onInvest();
+      this.onInvest()
     }
   }
 
@@ -344,7 +349,7 @@ class Asset extends Component {
     const { amount } = this.state
     const { asset, startLoading } = this.props
 
-    if(!amount || isNaN(amount) || amount <= 0 || amount > asset.balance) {
+    if (!amount || isNaN(amount) || amount <= 0 || amount > asset.balance) {
       this.setState({ amountError: true })
       return false
     }
@@ -366,9 +371,9 @@ class Asset extends Component {
     this.setState({ redeemAmountError: false })
 
     const { redeemAmount } = this.state
-    const { asset, startLoading  } = this.props
+    const { asset, startLoading } = this.props
 
-    if(!redeemAmount || isNaN(redeemAmount) || redeemAmount <= 0 || redeemAmount > asset.vaultBalance) {
+    if (!redeemAmount || isNaN(redeemAmount) || redeemAmount <= 0 || redeemAmount > asset.vaultBalance) {
       this.setState({ redeemAmountError: true })
       return false
     }
@@ -388,30 +393,20 @@ class Asset extends Component {
   }
 
   setAmount = (percent) => {
-    if(this.state.loading) {
-      return
-    }
-
     const { asset } = this.props
-
-    const balance = asset.balance
-    let amount = balance*percent/100
-    amount = Math.floor(amount*10000)/10000;
-
-    this.setState({ amount: amount.toFixed(4) })
+    const { loading } = this.state
+    if (loading) return
+    const updatedAmount = Math.floor(((asset.balance * percent) / 100) * 10000) / 10000
+    this.setState({ amount: updatedAmount.toFixed(4) })
   }
 
   setRedeemAmount = (percent) => {
-    if(this.state.loading) {
-      return
-    }
-
-    const balance = this.props.asset.vaultBalance
-    let amount = balance*percent/100
-    amount = Math.floor(amount*10000)/10000;
-
-    this.setState({ redeemAmount: amount.toFixed(4) })
+    const { asset } = this.props
+    const { loading } = this.state
+    if (loading) return
+    const updatedRedeemAmount = Math.floor(((asset.vaultBalance * percent) / 100) * 10000) / 10000
+    this.setState({ redeemAmount: updatedRedeemAmount.toFixed(4) })
   }
 }
 
-export default withRouter(withStyles(styles, { withTheme: true })(Asset));
+export default withRouter(withStyles(styles, { withTheme: true })(Asset))

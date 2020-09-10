@@ -24,6 +24,7 @@ import Asset from './asset'
 import Loader from '../loader'
 import ApyTable from '../apyTable'
 import ConnectWallet from '../connectWallet'
+import VaultIcon from '../icons/vaultIcon'
 
 import {
   ERROR,
@@ -298,6 +299,7 @@ class Vault extends Component {
       search: '',
       searchError: false,
       hideZero: localStorage.getItem('yearn.finance-hideZero') === '1' ? true : false,
+      sortBy: 'apy',
     }
 
     if (account && account.address) {
@@ -359,6 +361,7 @@ class Vault extends Component {
           a.pyEarnData = { day: 'N/A', week: 'N/A', month: 'N/A', year: 'N/A' }
         } else {
           a.pyEarnData = { ...obj.pyEarnData }
+          a.apy = +obj.pyEarnData.year
         }
         return a
       })
@@ -431,9 +434,14 @@ class Vault extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
-          <Typography variant={'h5'} className={classes.disaclaimer}>
-            This project is in beta. Use at your own risk.
-          </Typography>
+          <h2>
+            How does <VaultIcon color='red' glowColor='blue' /> <span style={{ color: 'red' }}>Vault</span> work?
+          </h2>
+          <p>
+            Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
+            is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in
+            the list below to get started!{' '}
+          </p>
           {this.renderFilters()}
           {this.renderAssetBlocks()}
         </div>
@@ -455,12 +463,16 @@ class Vault extends Component {
     this.setState(val)
   }
 
+  sortedAssets = (assets, sortBy) => {
+    return assets.sort((a, b) => parseFloat(b[sortBy]) - parseFloat(a[sortBy]))
+  }
+
   renderAssetBlocks = () => {
-    const { assets, expanded, search, hideZero } = this.state
+    const { assets, expanded, search, hideZero, sortBy } = this.state
     const { classes } = this.props
     const width = window.innerWidth
-
-    return assets
+    const _assets = [...assets]
+    return this.sortedAssets(_assets, sortBy)
       .filter((asset) => {
         if (hideZero && asset.balance === 0 && asset.vaultBalance === 0) {
           return false
@@ -518,53 +530,47 @@ class Vault extends Component {
                     </Typography>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
-                        {asset.apy ? asset.apy.toFixed(2) : '0.00'}%{' '}
+                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
                       </Typography>
                       <Typography variant={'h5'} className={classes.on}>
                         {' '}
                         on{' '}
                       </Typography>
                       <Typography variant={'h3'} noWrap>
-                        {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : '0.00'} {asset.vaultSymbol}
+                        {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : <Skeleton style={{ width: '50px' }} />}{' '}
+                        {asset.vaultSymbol}
                       </Typography>
                     </div>
                   </div>
                 )}
                 {!['LINK'].includes(asset.id) && asset.vaultBalance === 0 && (
                   <div className={classes.headingEarning}>
-                    <Typography variant={'h5'} className={classes.grey}>
-                      This vault is earning:
-                    </Typography>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
-                        {/* {asset.apy ? asset.apy.toFixed(2) : '0.00'}%{' '} */}
-                        {!asset.pyEarnData ? (
-                          <Skeleton style={{ width: '50px' }} />
-                        ) : asset.pyEarnData.day === 'N/A' ? (
-                          'N/A'
-                        ) : (
-                          `${asset.pyEarnData.year}%`
-                        )}
+                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
                       </Typography>
                     </div>
+                    <Typography variant={'h5'} className={classes.grey}>
+                      This vault is earning
+                    </Typography>
                   </div>
                 )}
                 {['LINK'].includes(asset.id) && (
                   <div className={classes.headingEarning}>
-                    <Typography variant={'h5'} className={classes.grey}>
-                      You are earning:
-                    </Typography>
                     <Typography variant={'h3'} noWrap>
                       N/A
+                    </Typography>
+                    <Typography variant={'h5'} className={classes.grey}>
+                      This vault is earning
                     </Typography>
                   </div>
                 )}
                 <div className={classes.heading}>
-                  <Typography variant={'h5'} className={classes.grey}>
-                    Available to deposit:
-                  </Typography>
                   <Typography variant={'h3'} noWrap>
                     {(asset.balance ? asset.balance.toFixed(2) : '0.00') + ' ' + asset.symbol}
+                  </Typography>
+                  <Typography variant={'h5'} className={classes.grey}>
+                    Available to deposit
                   </Typography>
                 </div>
               </div>
@@ -579,52 +585,61 @@ class Vault extends Component {
   }
 
   renderFilters = () => {
-    const { loading, search, searchError, hideZero } = this.state
+    const { loading, search, searchError, hideZero, sortBy } = this.state
     const { classes } = this.props
 
     return (
-      <div className={classes.filters}>
-        <FormControlLabel
-          className={classes.checkbox}
-          control={<Checkbox checked={hideZero} onChange={this.handleChecked} color='primary' />}
-          label='Hide zero balances'
-        />
-        <div className={classes.between}>
-          <Tooltip
-            title={
-              <React.Fragment>
-                <Typography variant={'h5'} className={classes.fees}>
-                  There is a 0.5% withdrawal fee on all vaults.
-                  <br />
-                  <br />
-                  There is a 5% performance fee on subsidized gas.
-                </Typography>
-              </React.Fragment>
-            }
-            arrow
-          >
-            <InfoIcon />
-          </Tooltip>
+      <>
+        <div className={classes.filters}>
+          <FormControlLabel
+            className={classes.checkbox}
+            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color='primary' />}
+            label='Hide zero balances'
+          />
+          <div className={classes.between}>
+            <Tooltip
+              title={
+                <React.Fragment>
+                  <Typography variant={'h5'} className={classes.fees}>
+                    There is a 0.5% withdrawal fee on all vaults.
+                    <br />
+                    <br />
+                    There is a 5% performance fee on subsidized gas.
+                  </Typography>
+                </React.Fragment>
+              }
+              arrow
+            >
+              <InfoIcon />
+            </Tooltip>
+          </div>
+          <TextField
+            fullWidth
+            disabled={loading}
+            className={classes.searchField}
+            id={'search'}
+            value={search}
+            error={searchError}
+            onChange={this.onSearchChanged}
+            placeholder='ETH, CRV, ...'
+            variant='outlined'
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='end' className={classes.inputAdornment}>
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
         </div>
-        <TextField
-          fullWidth
-          disabled={loading}
-          className={classes.searchField}
-          id={'search'}
-          value={search}
-          error={searchError}
-          onChange={this.onSearchChanged}
-          placeholder='ETH, CRV, ...'
-          variant='outlined'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='end' className={classes.inputAdornment}>
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
+        <div>
+          <label>Sort by </label>
+          <select value={sortBy} onChange={(e) => this.setState({ sortBy: e.target.value })}>
+            <option value='balance'>Balance</option>
+            <option value='apy'>APY</option>
+          </select>
+        </div>
+      </>
     )
   }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, withTheme } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 
@@ -144,7 +144,7 @@ class Header extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, theme } = this.props
 
     const { account, modalOpen } = this.state
 
@@ -179,10 +179,10 @@ class Header extends Component {
             </Typography>
           </div>
           <div className={classes.links}>
-            {this.renderLink('dashboard')}
             {this.renderLink('vaults')}
             {this.renderLink('earn')}
             {this.renderLink('zap')}
+            {this.renderLink('apr')}
             {this.renderLink('cover')}
           </div>
           <div className={classes.account}>
@@ -210,9 +210,7 @@ class Header extends Component {
     return (
       <div
         className={window.location.pathname === '/' + screen ? classes.linkActive : classes.link}
-        onClick={() => {
-          this.nav(screen)
-        }}
+        onClick={() => this.nav(screen)}
       >
         <Typography variant={'h4'} className={`title`}>
           {screen}
@@ -242,4 +240,4 @@ class Header extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(Header))
+export default withRouter(withStyles(styles)(withTheme(Header)))

@@ -350,9 +350,6 @@ class Zap extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.card}>
-          <Typography variant={'h5'} className={classes.disaclaimer}>
-            This project is in beta. Use at your own risk.
-          </Typography>
           <Card className={classes.iHaveContainer}>
             <Have
               assets={assets}

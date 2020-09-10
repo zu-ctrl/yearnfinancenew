@@ -355,9 +355,6 @@ class InvestSimple extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
-          <Typography variant={'h5'} className={classes.disaclaimer}>
-            This project is in beta. Use at your own risk.
-          </Typography>
           <div className={classes.intro}>
             <ToggleButtonGroup
               value={value}
