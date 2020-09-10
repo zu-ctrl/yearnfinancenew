@@ -298,6 +298,7 @@ class Vault extends Component {
       search: '',
       searchError: false,
       hideZero: localStorage.getItem('yearn.finance-hideZero') === '1' ? true : false,
+      sortBy: 'balance',
     }
 
     if (account && account.address) {
@@ -359,6 +360,7 @@ class Vault extends Component {
           a.pyEarnData = { day: 'N/A', week: 'N/A', month: 'N/A', year: 'N/A' }
         } else {
           a.pyEarnData = { ...obj.pyEarnData }
+          a.apy = +obj.pyEarnData.year
         }
         return a
       })
@@ -455,12 +457,16 @@ class Vault extends Component {
     this.setState(val)
   }
 
+  sortedAssets = (assets, sortBy) => {
+    return assets.sort((a, b) => parseFloat(b[sortBy]) - parseFloat(a[sortBy]))
+  }
+
   renderAssetBlocks = () => {
-    const { assets, expanded, search, hideZero } = this.state
+    const { assets, expanded, search, hideZero, sortBy } = this.state
     const { classes } = this.props
     const width = window.innerWidth
-
-    return assets
+    const _assets = [...assets]
+    return this.sortedAssets(_assets, sortBy)
       .filter((asset) => {
         if (hideZero && asset.balance === 0 && asset.vaultBalance === 0) {
           return false
@@ -537,14 +543,14 @@ class Vault extends Component {
                     </Typography>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
-                        {/* {asset.apy ? asset.apy.toFixed(2) : '0.00'}%{' '} */}
-                        {!asset.pyEarnData ? (
+                        {asset.apy ? asset.apy.toFixed(2) : '0.00'}%{' '}
+                        {/* {!asset.pyEarnData ? (
                           <Skeleton style={{ width: '50px' }} />
                         ) : asset.pyEarnData.day === 'N/A' ? (
                           'N/A'
                         ) : (
                           `${asset.pyEarnData.year}%`
-                        )}
+                        )} */}
                       </Typography>
                     </div>
                   </div>
@@ -579,52 +585,61 @@ class Vault extends Component {
   }
 
   renderFilters = () => {
-    const { loading, search, searchError, hideZero } = this.state
+    const { loading, search, searchError, hideZero, sortBy } = this.state
     const { classes } = this.props
 
     return (
-      <div className={classes.filters}>
-        <FormControlLabel
-          className={classes.checkbox}
-          control={<Checkbox checked={hideZero} onChange={this.handleChecked} color="primary" />}
-          label="Hide zero balances"
-        />
-        <div className={classes.between}>
-          <Tooltip
-            title={
-              <React.Fragment>
-                <Typography variant={'h5'} className={classes.fees}>
-                  There is a 0.5% withdrawal fee on all vaults.
-                  <br />
-                  <br />
-                  There is a 5% performance fee on subsidized gas.
-                </Typography>
-              </React.Fragment>
-            }
-            arrow
-          >
-            <InfoIcon />
-          </Tooltip>
+      <>
+        <div className={classes.filters}>
+          <FormControlLabel
+            className={classes.checkbox}
+            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color="primary" />}
+            label="Hide zero balances"
+          />
+          <div className={classes.between}>
+            <Tooltip
+              title={
+                <React.Fragment>
+                  <Typography variant={'h5'} className={classes.fees}>
+                    There is a 0.5% withdrawal fee on all vaults.
+                    <br />
+                    <br />
+                    There is a 5% performance fee on subsidized gas.
+                  </Typography>
+                </React.Fragment>
+              }
+              arrow
+            >
+              <InfoIcon />
+            </Tooltip>
+          </div>
+          <TextField
+            fullWidth
+            disabled={loading}
+            className={classes.searchField}
+            id={'search'}
+            value={search}
+            error={searchError}
+            onChange={this.onSearchChanged}
+            placeholder="ETH, CRV, ..."
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="end" className={classes.inputAdornment}>
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
         </div>
-        <TextField
-          fullWidth
-          disabled={loading}
-          className={classes.searchField}
-          id={'search'}
-          value={search}
-          error={searchError}
-          onChange={this.onSearchChanged}
-          placeholder="ETH, CRV, ..."
-          variant="outlined"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="end" className={classes.inputAdornment}>
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
+        <div>
+          <label>Sort by </label>
+          <select value={sortBy} onChange={(e) => this.setState({ sortBy: e.target.value })}>
+            <option value="balance">Balance</option>
+            <option value="apy">APY</option>
+          </select>
+        </div>
+      </>
     )
   }
 
