@@ -11,6 +11,7 @@ import Snackbar from '../snackbar'
 import Asset from './asset'
 import Loader from '../loader'
 import ConnectWallet from '../connectWallet'
+import WalletIcon from '../icons/walletIcon'
 
 import {
   ERROR,
@@ -355,6 +356,14 @@ class InvestSimple extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
+          <h2>
+            How does <WalletIcon color="red" /> <span style={{ color: 'red' }}>Earn</span> work?
+          </h2>
+          <p>
+            Earn is a yield aggregator for lending platforms that rebalances for highest yield during contract
+            interaction. Below is a diagram of how things might work in practice. Go ahead and choose the asset you want
+            to deposit in the list to your left to get started!
+          </p>
           <div className={classes.intro}>
             <ToggleButtonGroup
               value={value}
