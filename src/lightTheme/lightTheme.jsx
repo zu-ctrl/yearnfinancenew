@@ -40,8 +40,19 @@ export const colors = {
       hover: '#E3E5E8',
     },
   },
+  header: {
+    text: '#080809',
+    connect: {
+      border: '1px solid #3a9dfe',
+      bg: '#E3E5E8',
+      shadow: '0px 0px 1px rgba(0, 0, 0, 0.25)',
+      hover: 'rgba(47, 128, 237, 0.1)',
+      arrow: '6px solid #818FA6',
+    },
+  },
   glowShadow: 'none',
   textShadow: 'none',
+  connectedShadow: 'none',
   bg: '#f7f9fc',
   white: '#fff',
   black: '#000',
@@ -55,7 +66,7 @@ export const colors = {
   red: '#ed4337',
   orange: 'orange',
   pink: '#DC6BE5',
-  compoundGreen: '#00d395',
+  compoundGreen: '#52C41A',
   tomato: '#e56b73',
   purple: '#935dff',
 

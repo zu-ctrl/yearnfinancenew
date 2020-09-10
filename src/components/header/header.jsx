@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles, withTheme } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from '../../constants'
@@ -18,23 +18,22 @@ const styles = (theme) => {
       verticalAlign: 'top',
       width: '100%',
       display: 'flex',
+      background: colors.bg,
       [theme.breakpoints.down('sm')]: {
         marginBottom: '40px',
       },
     },
     headerV2: {
-      background: colors.white,
-      border: '1px solid ' + colors.borderBlue,
-      borderTop: 'none',
+      maxWidth: '1340px',
+      margin: '0 auto',
       width: '100%',
-      borderRadius: '0px 0px 50px 50px',
       display: 'flex',
-      padding: '24px 32px',
+      padding: '16px 10px',
       alignItems: 'center',
       justifyContent: 'center',
       [theme.breakpoints.down('sm')]: {
         justifyContent: 'space-between',
-        padding: '16px 24px',
+        padding: '16px 10px',
       },
     },
     icon: {
@@ -45,25 +44,103 @@ const styles = (theme) => {
     },
     links: {
       display: 'flex',
+      '& .vaults': {
+        '&:hover': {
+          background: '#DB6162',
+          '& .vaultsTitle': {
+            color: '#fff',
+          },
+        },
+      },
+      '& .earn': {
+        '&:hover': {
+          background: '#C770EB',
+          '& .earnTitle': {
+            color: '#fff',
+          },
+        },
+      },
+      '& .zap': {
+        '&:hover': {
+          background: '#3C74EC',
+          '& .zapTitle': {
+            color: '#fff',
+          },
+        },
+      },
+      '& .apr': {
+        '&:hover': {
+          background: '#878787',
+          '& .aprTitle': {
+            color: '#fff',
+          },
+        },
+      },
+      '& .cover': {
+        '&:hover': {
+          background: '#46B96E',
+          '& .coverTitle': {
+            color: '#fff',
+          },
+        },
+      },
+      '& .vaultsActive': {
+        background: '#DB6162',
+        '& .vaultsTitle': {
+          color: '#fff',
+        },
+      },
+      '& .earnActive': {
+        background: '#C770EB',
+        '& .earnTitle': {
+          color: '#fff',
+        },
+      },
+      '& .zapActive': {
+        background: '#3C74EC',
+        '& .zapTitle': {
+          color: '#fff',
+        },
+      },
+      '& .aprActive': {
+        background: '#878787',
+        '& .aprTitle': {
+          color: '#fff',
+        },
+      },
+      '& .coverActive': {
+        background: '#46B96E',
+        '& .coverTitle': {
+          color: '#fff',
+        },
+      },
     },
     link: {
-      padding: '12px 0px',
-      margin: '0px 12px',
+      padding: '3px 14px',
+      margin: '0px 15px',
       cursor: 'pointer',
-      '&:hover': {
-        paddingBottom: '9px',
-        borderBottom: '3px solid ' + colors.borderBlue,
+      borderRadius: '20px',
+      '& .vaultsTitle': {
+        color: '#DB6162',
+      },
+      '& .earnTitle': {
+        color: '#C770EB',
+      },
+      '& .zapTitle': {
+        color: '#3C74EC',
+      },
+      '& .aprTitle': {
+        color: '#878787',
+      },
+      '& .coverTitle': {
+        color: '#46B96E',
       },
     },
     title: {
-      textTransform: 'capitalize',
-    },
-    linkActive: {
-      padding: '12px 0px',
-      margin: '0px 12px',
-      cursor: 'pointer',
-      paddingBottom: '9px',
-      borderBottom: '3px solid ' + colors.borderBlue,
+      fontWeight: 'bold;',
+      fontSize: '18px;',
+      lineHeight: '28px',
+      textAlign: 'center',
     },
     account: {
       display: 'flex',
@@ -74,43 +151,58 @@ const styles = (theme) => {
         flex: '0',
       },
     },
-    walletAddress: {
-      padding: '12px',
-      border: '2px solid rgb(174, 174, 174)',
-      borderRadius: '50px',
+    walletTitle: {
+      fontSize: '14px',
+      lineHeight: '22px',
+      letterSpacing: '0.02em',
+      color: colors.header.text,
+    },
+    connectButton: {
+      padding: '6px 13px',
+      borderRadius: '4px',
+      border: colors.header.connect.border,
+    },
+    connectedButton: {
+      padding: '7px 13px',
+      background: colors.header.connect.bg,
+      boxShadow: colors.header.connect.shadow,
+      borderRadius: '20px',
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
       '&:hover': {
-        border: '2px solid ' + colors.borderBlue,
-        background: 'rgba(47, 128, 237, 0.1)',
+        background: colors.header.connect.hover,
       },
       [theme.breakpoints.down('sm')]: {
         display: 'flex',
         position: 'absolute',
         top: '90px',
-        border: '1px solid ' + colors.borderBlue,
-        background: colors.white,
       },
-    },
-    walletTitle: {
-      flex: 1,
-      color: colors.darkGray,
     },
     connectedDot: {
       background: colors.compoundGreen,
+      boxShadow: colors.connectedShadow,
       opacity: '1',
       borderRadius: '10px',
-      width: '10px',
-      height: '10px',
-      marginRight: '3px',
-      marginLeft: '6px',
+      width: '12px',
+      height: '12px',
+      marginRight: '10px',
     },
     name: {
       paddingLeft: '24px',
+      color: colors.header.text,
       [theme.breakpoints.down('sm')]: {
         display: 'none',
       },
+    },
+    connectedArrow: {
+      width: '0',
+      height: '0',
+      borderLeft: '6px solid transparent',
+      borderRight: '6px solid transparent',
+      borderTop: colors.header.connect.arrow,
+      borderRadius: '2px',
+      marginLeft: '12px',
     },
   }
 }
@@ -161,7 +253,7 @@ class Header extends Component {
         <div className={classes.headerV2}>
           <div className={classes.icon}>
             <img
-              alt=""
+              alt=''
               src={require('../../assets/YFI-logo.png')}
               height={'40px'}
               onClick={() => {
@@ -187,15 +279,20 @@ class Header extends Component {
           </div>
           <div className={classes.account}>
             {address && (
-              <Typography variant={'h4'} className={classes.walletAddress} noWrap onClick={this.addressClicked}>
-                {address}
+              <Button variant='text' color='primary' className={classes.connectedButton} onClick={this.addressClicked}>
                 <div className={classes.connectedDot}></div>
-              </Typography>
+                <Typography variant={'h4'} className={classes.walletTitle} noWrap>
+                  {address}
+                </Typography>
+                <div className={classes.connectedArrow}></div>
+              </Button>
             )}
             {!address && (
-              <Typography variant={'h4'} className={classes.walletAddress} noWrap onClick={this.addressClicked}>
-                Connect your wallet
-              </Typography>
+              <Button variant='text' color='primary' className={classes.connectButton} onClick={this.addressClicked}>
+                <Typography variant={'h4'} className={classes.walletTitle} noWrap>
+                  CONNECT WALLET
+                </Typography>
+              </Button>
             )}
           </div>
         </div>
@@ -209,10 +306,14 @@ class Header extends Component {
 
     return (
       <div
-        className={window.location.pathname === '/' + screen ? classes.linkActive : classes.link}
+        className={
+          window.location.pathname === '/' + screen
+            ? `${screen + 'Active'} ${classes.link}`
+            : `${screen} ${classes.link}`
+        }
         onClick={() => this.nav(screen)}
       >
-        <Typography variant={'h4'} className={`title`}>
+        <Typography variant={'h4'} className={`${classes.title} ${screen + 'Title'}`}>
           {screen}
         </Typography>
       </div>

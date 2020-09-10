@@ -40,8 +40,19 @@ export const colors = {
       hover: '#293140',
     },
   },
+  header: {
+    text: '#fff',
+    connect: {
+      border: '1px solid #3a9dfe',
+      bg: '#293140',
+      shadow: '0px 0px 1px rgba(0, 0, 0, 0.25)',
+      hover: 'rgba(47, 128, 237, 0.1)',
+      arrow: '6px solid #818FA6',
+    },
+  },
   glowShadow: 'radial-gradient(52.66% 50.98% at 50% 0%, rgba(64, 169, 255, 0.15) 0%, rgba(64, 169, 255, 0) 89.58%);',
   textShadow: '0px 0px 10px #40A9FF',
+  connectedShadow: '0px 0px 10px #73D13D',
   bg: '#111a21',
   white: '#654321',
   black: '#000',
@@ -55,7 +66,7 @@ export const colors = {
   red: '#ed4337',
   orange: 'orange',
   pink: '#DC6BE5',
-  compoundGreen: '#00d395',
+  compoundGreen: '#95DE64',
   tomato: '#e56b73',
   purple: '#935dff',
 
