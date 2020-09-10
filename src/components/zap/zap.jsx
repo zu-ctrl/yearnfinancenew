@@ -330,7 +330,7 @@ class Zap extends Component {
   }
 
   render() {
-    const { classes, t } = this.props
+    const { classes, t, currentTheme } = this.props
     const {
       assets,
       curveContracts,
@@ -345,7 +345,7 @@ class Zap extends Component {
     } = this.state
 
     if (!account || !account.address) {
-      return <ConnectWallet />
+      return <ConnectWallet currentTheme={currentTheme} />
     }
 
     return (
@@ -396,13 +396,13 @@ class Zap extends Component {
               !(sendAsset && sendAsset.symbol === 'ETH') && (
                 <Button
                   className={classes.actionButton}
-                  variant="outlined"
-                  color="primary"
+                  variant='outlined'
+                  color='primary'
                   disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
                   onClick={this.onZap}
                   fullWidth
                 >
-                  <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                  <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                     {t('Zap.Zap')}
                   </Typography>
                 </Button>
@@ -413,13 +413,13 @@ class Zap extends Component {
               ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id) && (
                 <Button
                   className={classes.actionButton}
-                  variant="outlined"
-                  color="primary"
+                  variant='outlined'
+                  color='primary'
                   disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
                   onClick={this.onSwap}
                   fullWidth
                 >
-                  <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                  <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                     {t('Zap.Swap')}
                   </Typography>
                 </Button>
@@ -427,13 +427,13 @@ class Zap extends Component {
             {sendAsset && sendAsset.symbol === 'ETH' && (
               <Button
                 className={classes.actionButton}
-                variant="outlined"
-                color="primary"
+                variant='outlined'
+                color='primary'
                 disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
                 onClick={this.onTrade}
                 fullWidth
               >
-                <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                   {t('Zap.Trade')}
                 </Typography>
               </Button>

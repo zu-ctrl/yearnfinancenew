@@ -24,6 +24,36 @@ export const colors = {
     bg: '#111A21',
     hover: '#fff',
   },
+  button: {
+    bg: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
+    color: '#fff',
+    hover: '#fff',
+    border: '1px solid #096DD9',
+    shadow: '0px 0px 14px rgba(64, 169, 255, 0.4), inset 0px 1px 1px rgba(255, 255, 255, 0.4)',
+  },
+  wallet: {
+    dot: '#394861',
+    dotSelected: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
+    button: {
+      bg: '#293140',
+      shadow: '0px 1px 4px rgba(0, 0, 0, 0.15)',
+      hover: '#293140',
+    },
+  },
+  header: {
+    text: '#fff',
+    connect: {
+      border: '1px solid #3a9dfe',
+      bg: '#293140',
+      shadow: '0px 0px 1px rgba(0, 0, 0, 0.25)',
+      hover: 'rgba(47, 128, 237, 0.1)',
+      arrow: '6px solid #818FA6',
+    },
+  },
+  glowShadow: 'radial-gradient(52.66% 50.98% at 50% 0%, rgba(64, 169, 255, 0.15) 0%, rgba(64, 169, 255, 0) 89.58%);',
+  textShadow: '0px 0px 10px #40A9FF',
+  connectedShadow: '0px 0px 10px #73D13D',
+  bg: '#111a21',
   white: '#654321',
   black: '#000',
   darkBlue: '#2c3b57',
@@ -36,11 +66,11 @@ export const colors = {
   red: '#ed4337',
   orange: 'orange',
   pink: '#DC6BE5',
-  compoundGreen: '#00d395',
+  compoundGreen: '#95DE64',
   tomato: '#e56b73',
   purple: '#935dff',
 
-  text: '#212529',
+  text: '#fff',
   lightBlue: '#2F80ED',
   topaz: '#0b8f92',
   darkGray: 'rgba(43,57,84,.5)',
@@ -139,12 +169,15 @@ const iswapTheme = {
     },
     MuiButton: {
       root: {
-        borderRadius: '50px',
-        padding: '10px 24px',
+        borderRadius: '20px',
+        padding: '9px 10px',
+        color: colors.button.color,
       },
       outlined: {
-        padding: '10px 24px',
-        borderWidth: '2px !important',
+        color: colors.button.color,
+      },
+      outlinedPrimary: {
+        color: colors.button.color,
       },
       text: {
         padding: '10px 24px',

@@ -424,18 +424,18 @@ class Vault extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, currentTheme } = this.props
     const { loading, account, snackbarMessage } = this.state
 
     if (!account || !account.address) {
-      return <ConnectWallet />
+      return <ConnectWallet currentTheme={currentTheme} />
     }
 
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
           <h2>
-            How does <VaultIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Vault</span> work?
+            How does <VaultIcon color='red' glowColor='blue' /> <span style={{ color: 'red' }}>Vault</span> work?
           </h2>
           <p>
             Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
@@ -503,12 +503,12 @@ class Vault extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=""
+                      alt=''
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
@@ -593,8 +593,8 @@ class Vault extends Component {
         <div className={classes.filters}>
           <FormControlLabel
             className={classes.checkbox}
-            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color="primary" />}
-            label="Hide zero balances"
+            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color='primary' />}
+            label='Hide zero balances'
           />
           <div className={classes.between}>
             <Tooltip
@@ -621,11 +621,11 @@ class Vault extends Component {
             value={search}
             error={searchError}
             onChange={this.onSearchChanged}
-            placeholder="ETH, CRV, ..."
-            variant="outlined"
+            placeholder='ETH, CRV, ...'
+            variant='outlined'
             InputProps={{
               startAdornment: (
-                <InputAdornment position="end" className={classes.inputAdornment}>
+                <InputAdornment position='end' className={classes.inputAdornment}>
                   <SearchIcon />
                 </InputAdornment>
               ),
@@ -635,8 +635,8 @@ class Vault extends Component {
         <div>
           <label>Sort by </label>
           <select value={sortBy} onChange={(e) => this.setState({ sortBy: e.target.value })}>
-            <option value="balance">Balance</option>
-            <option value="apy">APY</option>
+            <option value='balance'>Balance</option>
+            <option value='apy'>APY</option>
           </select>
         </div>
       </>
