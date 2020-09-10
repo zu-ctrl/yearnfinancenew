@@ -199,14 +199,14 @@ class Asset extends Component {
             max={100}
             valueLabelDisplay="on"
             disabled={loading || asset.disabled}
-            onChange={(_, value) => this.handleChangeLeftSLider(value)}
+            onChange={(_, value) => this.handleChangeLeftSlider(value)}
           />
           <div>
-            <div onClick={() => this.handleChangeLeftSLider(0)}>0%</div>
-            <div onClick={() => this.handleChangeLeftSLider(25)}>25%</div>
-            <div onClick={() => this.handleChangeLeftSLider(50)}>50%</div>
-            <div onClick={() => this.handleChangeLeftSLider(75)}>75%</div>
-            <div onClick={() => this.handleChangeLeftSLider(100)}>100%</div>
+            <div onClick={() => this.handleChangeLeftSlider(0)}>0%</div>
+            <div onClick={() => this.handleChangeLeftSlider(25)}>25%</div>
+            <div onClick={() => this.handleChangeLeftSlider(50)}>50%</div>
+            <div onClick={() => this.handleChangeLeftSlider(75)}>75%</div>
+            <div onClick={() => this.handleChangeLeftSlider(100)}>100%</div>
           </div>
           <div className={classes.buttons}>
             {asset.deposit === true && (
