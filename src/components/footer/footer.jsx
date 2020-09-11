@@ -106,9 +106,8 @@ class Footer extends Component {
   }
 
   render() {
-    const { classes, location, theme, setTheme } = this.props
+    const { classes, location, themeName, theme, setTheme } = this.props
     const { modalBuiltWithOpen } = this.state
-
     if (location.pathname === '' || location.pathname === '/') {
       return null
     }
@@ -129,7 +128,7 @@ class Footer extends Component {
             <BuiltWithIcon color="red" />
             <Typography variant={'h4'}>built with...</Typography>
           </div>
-          <ThemeChooser theme={theme} setTheme={setTheme} />
+          <ThemeChooser theme={themeName} setTheme={setTheme} />
         </div>
         <div className={classes.products}>
           <Typography className={classes.heading} variant={'h6'}>

@@ -88,42 +88,42 @@ class App extends Component {
           >
             <BetaBanner isBeta={isBeta} setIsBeta={setIsBeta} currentTheme={currentTheme} />
             <Switch>
-              <Route path='/apr'>
+              <Route path="/apr">
                 <Header />
                 <APR />
               </Route>
-              <Route path='/earn'>
+              <Route path="/earn">
                 <Header />
                 <InvestSimple currentTheme={currentTheme} />
               </Route>
-              <Route path='/zap'>
+              <Route path="/zap">
                 <Header />
                 <Zap currentTheme={currentTheme} />
               </Route>
-              <Route path='/idai'>
+              <Route path="/idai">
                 <IDai />
               </Route>
-              <Route path='/performance'>
+              <Route path="/performance">
                 <Header />
                 <Performance />
               </Route>
-              <Route path='/manage'>
+              <Route path="/manage">
                 <Header />
                 <Manage />
               </Route>
-              <Route path='/vaults'>
+              <Route path="/vaults">
                 <Header />
                 <Vaults currentTheme={currentTheme} />
               </Route>
-              <Route path='/dashboard'>
+              <Route path="/dashboard">
                 <Header />
                 <Dashboard />
               </Route>
-              <Route path='/'>
+              <Route path="/">
                 <Home isBeta={isBeta} currentTheme={currentTheme} />
               </Route>
             </Switch>
-            <Footer theme={currentTheme} setTheme={setCurrentTheme} />
+            <Footer themeName={currentTheme} setTheme={setCurrentTheme} />
           </div>
         </IpfsRouter>
       </MuiThemeProvider>
