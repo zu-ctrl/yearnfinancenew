@@ -92,7 +92,6 @@ class App extends Component {
               background: '#f9fafb',
             }}
           >
-            {currentLang}
             <BetaBanner isBeta={isBeta} setIsBeta={setIsBeta} currentTheme={currentTheme} />
             <Switch>
               <Route path="/apr">
