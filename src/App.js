@@ -32,6 +32,7 @@ const emitter = Store.emitter
 const store = Store.store
 
 const THEMES_LIST = ['dark', 'waifu', 'light']
+const LANGS_LIST = ['EN', 'DE', 'FR', 'IT', 'JA', 'ES', 'NL', 'PL', 'PT', 'RU', 'ZH']
 
 class App extends Component {
   constructor(props) {
@@ -39,12 +40,17 @@ class App extends Component {
 
     this.state = {
       currentTheme: localStorage.getItem('yearnfinewTheme') || THEMES_LIST[0],
+      currentLang: localStorage.getItem('yearnfinewLang') || LANGS_LIST[0],
       isBeta: localStorage.getItem('yearnfinewBeta') !== 'false',
     }
   }
 
   setCurrentTheme = (newTheme) => {
     if (THEMES_LIST.includes(newTheme)) this.setState({ currentTheme: newTheme })
+  }
+
+  setCurrentLang = (newLang) => {
+    if (LANGS_LIST.includes(newLang)) this.setState({ currentLang: newLang })
   }
 
   setIsBeta = (beta) => {
@@ -71,8 +77,8 @@ class App extends Component {
 
   render() {
     const themes = { lightTheme, waifuTheme, darkTheme }
-    const { setCurrentTheme, setIsBeta } = this
-    const { currentTheme, isBeta } = this.state
+    const { setCurrentTheme, setIsBeta, setCurrentLang } = this
+    const { currentTheme, isBeta, currentLang } = this.state
     return (
       <MuiThemeProvider theme={createMuiTheme(themes[`${currentTheme}Theme`])}>
         <CssBaseline />
@@ -86,6 +92,7 @@ class App extends Component {
               background: '#f9fafb',
             }}
           >
+            {currentLang}
             <BetaBanner isBeta={isBeta} setIsBeta={setIsBeta} currentTheme={currentTheme} />
             <Switch>
               <Route path="/apr">
@@ -123,7 +130,13 @@ class App extends Component {
                 <Home isBeta={isBeta} currentTheme={currentTheme} />
               </Route>
             </Switch>
-            <Footer themeName={currentTheme} setTheme={setCurrentTheme} />
+            <Footer
+              themeName={currentTheme}
+              setTheme={setCurrentTheme}
+              currentLang={currentLang}
+              setCurrentLang={setCurrentLang}
+              langList={LANGS_LIST}
+            />
           </div>
         </IpfsRouter>
       </MuiThemeProvider>

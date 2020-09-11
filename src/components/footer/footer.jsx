@@ -16,6 +16,7 @@ import BuildIcon from '@material-ui/icons/Build'
 
 import BuiltWithModal from '../builtwith/builtwithModal.jsx'
 import ThemeChooser from '../themeChooser'
+import LangChooser from '../langChooser'
 import BuiltWithIcon from '../icons/builtWithIcon'
 
 const styles = (theme) => {
@@ -106,7 +107,7 @@ class Footer extends Component {
   }
 
   render() {
-    const { classes, location, themeName, theme, setTheme } = this.props
+    const { classes, location, themeName, theme, setTheme, currentLang, setCurrentLang, langList } = this.props
     const { modalBuiltWithOpen } = this.state
     if (location.pathname === '' || location.pathname === '/') {
       return null
@@ -129,6 +130,7 @@ class Footer extends Component {
             <Typography variant={'h4'}>built with...</Typography>
           </div>
           <ThemeChooser theme={themeName} setTheme={setTheme} />
+          <LangChooser currentLang={currentLang} setCurrentLang={setCurrentLang} langList={langList} />
         </div>
         <div className={classes.products}>
           <Typography className={classes.heading} variant={'h6'}>
