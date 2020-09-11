@@ -247,7 +247,7 @@ class Home extends Component {
   }
 
   render() {
-    const { classes, t, location, isBeta, currentTheme } = this.props
+    const { classes, t, location, isBeta, currentTheme, closeMobileMenu } = this.props
 
     return (
       <div className={classes.root}>
@@ -268,7 +268,7 @@ class Home extends Component {
         <Card
           className={`${classes.card} ${isBeta ? classes.cardHeight : classes.fullHeight} ${classes.vault}`}
           onClick={() => {
-            this.nav(location.pathname + 'vaults')
+            this.nav('/vaults')
           }}
         >
           <div className={classes.content}>
@@ -295,7 +295,7 @@ class Home extends Component {
         <Card
           className={`${classes.card} ${isBeta ? classes.cardHeight : classes.fullHeight} ${classes.earn}`}
           onClick={() => {
-            this.nav(location.pathname + 'earn')
+            this.nav('/earn')
           }}
         >
           <div className={classes.content}>
@@ -322,7 +322,7 @@ class Home extends Component {
         <Card
           className={`${classes.card} ${isBeta ? classes.cardHeight : classes.fullHeight} ${classes.zap}`}
           onClick={() => {
-            this.nav(location.pathname + 'zap')
+            this.nav('/zap')
           }}
         >
           <div className={classes.content}>
@@ -347,7 +347,7 @@ class Home extends Component {
         <Card
           className={`${classes.card} ${isBeta ? classes.cardHeight : classes.fullHeight} ${classes.apr}`}
           onClick={() => {
-            this.nav(location.pathname + 'apr')
+            this.nav('/apr')
           }}
         >
           <div className={classes.content}>
@@ -399,6 +399,8 @@ class Home extends Component {
   }
 
   nav = (screen) => {
+    const { closeMobileMenu } = this.props
+    if (closeMobileMenu) closeMobileMenu()
     this.props.history.push(screen)
   }
 }

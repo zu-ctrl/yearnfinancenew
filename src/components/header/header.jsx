@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from '../../constants'
 
 import UnlockModal from '../unlock/unlockModal.jsx'
+import Home from '../home/home'
 
 import Store from '../../stores'
 const emitter = Store.emitter
@@ -214,10 +215,17 @@ class Header extends Component {
     this.state = {
       account: store.getStore('account'),
       modalOpen: false,
+      isMobile: window.innerWidth > 0 && window.innerWidth < 768,
+      showMobileMenu: false,
     }
   }
 
+  handleWindowResize = () => {
+    this.setState({ isMobile: window.innerWidth > 0 && window.innerWidth < 768 })
+  }
+
   componentWillMount() {
+    window.addEventListener('resize', this.handleWindowResize)
     emitter.on(CONNECTION_CONNECTED, this.connectionConnected)
     emitter.on(CONNECTION_DISCONNECTED, this.connectionDisconnected)
   }
@@ -235,10 +243,18 @@ class Header extends Component {
     this.setState({ account: store.getStore('account') })
   }
 
+  openMobileMenu = () => {
+    this.setState({ showMobileMenu: true })
+  }
+
+  closeMobileMenu = () => {
+    this.setState({ showMobileMenu: false })
+  }
+
   render() {
     const { classes, theme } = this.props
 
-    const { account, modalOpen } = this.state
+    const { account, modalOpen, isMobile, showMobileMenu } = this.state
 
     var address = null
     if (account.address) {
@@ -253,7 +269,7 @@ class Header extends Component {
         <div className={classes.headerV2}>
           <div className={classes.icon}>
             <img
-              alt=''
+              alt=""
               src={require('../../assets/YFI-logo.png')}
               height={'40px'}
               onClick={() => {
@@ -270,16 +286,18 @@ class Header extends Component {
               yearn.finance
             </Typography>
           </div>
-          <div className={classes.links}>
-            {this.renderLink('vaults')}
-            {this.renderLink('earn')}
-            {this.renderLink('zap')}
-            {this.renderLink('apr')}
-            {this.renderLink('cover')}
-          </div>
+          {!isMobile && (
+            <div className={classes.links}>
+              {this.renderLink('vaults')}
+              {this.renderLink('earn')}
+              {this.renderLink('zap')}
+              {this.renderLink('apr')}
+              {this.renderLink('cover')}
+            </div>
+          )}
           <div className={classes.account}>
             {address && (
-              <Button variant='text' color='primary' className={classes.connectedButton} onClick={this.addressClicked}>
+              <Button variant="text" color="primary" className={classes.connectedButton} onClick={this.addressClicked}>
                 <div className={classes.connectedDot}></div>
                 <Typography variant={'h4'} className={classes.walletTitle} noWrap>
                   {address}
@@ -288,14 +306,34 @@ class Header extends Component {
               </Button>
             )}
             {!address && (
-              <Button variant='text' color='primary' className={classes.connectButton} onClick={this.addressClicked}>
+              <Button variant="text" color="primary" className={classes.connectButton} onClick={this.addressClicked}>
                 <Typography variant={'h4'} className={classes.walletTitle} noWrap>
                   CONNECT WALLET
                 </Typography>
               </Button>
             )}
           </div>
+          {isMobile && <div onClick={this.openMobileMenu}>🍔</div>}
         </div>
+        {showMobileMenu && (
+          <div style={{ position: 'absolute', zIndex: 9999, width: '100%' }}>
+            <div
+              style={{
+                position: 'absolute',
+                zIndex: 99999,
+                top: '0',
+                right: '0',
+                width: '50px',
+                height: '50px',
+                background: 'blue',
+              }}
+              onClick={this.closeMobileMenu}
+            >
+              ⤫
+            </div>
+            <Home closeMobileMenu={this.closeMobileMenu} />
+          </div>
+        )}
         {modalOpen && this.renderModal()}
       </div>
     )
