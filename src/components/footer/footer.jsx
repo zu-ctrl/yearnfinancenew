@@ -28,7 +28,6 @@ import YearnIcon from '../icons/yearnIcon'
 import YgovIcon from '../icons/ygovIcon'
 import YinsureIcon from '../icons/yinsureIcon'
 import YborrowIcon from '../icons/yborrowIcon'
-import { colors } from '../../darkTheme/darkTheme.jsx'
 
 const styles = (theme) => {
   const colors = theme.themeColors
@@ -93,7 +92,8 @@ const styles = (theme) => {
       },
     },
     builtWithLink: {
-      paddingTop: '12px',
+      marginTop: '16px',
+      paddingBottom: '0',
     },
     builtHeading: {
       width: 'fit-content',
@@ -156,8 +156,9 @@ class Footer extends Component {
   }
 
   render() {
-    const { classes, location, theme, setTheme } = this.props
+    const { classes, location, themeName, setTheme, theme } = this.props
     const { modalBuiltWithOpen } = this.state
+    const colors = theme.themeColors
 
     if (location.pathname === '' || location.pathname === '/') {
       return null
@@ -166,7 +167,7 @@ class Footer extends Component {
     return (
       <>
         <div className={classes.linearContainer}>
-          <img alt='footer linear' src={require(`../../assets/theme/footer-linear-${theme}.svg`)} />
+          <img alt='footer linear' src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
         </div>
         <div className={classes.footer}>
           <div className={classes.gradient} />
@@ -181,21 +182,21 @@ class Footer extends Component {
                 this.builtWithOverlayClicked()
               }}
             >
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <BuiltWithIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
                 built with...
               </Typography>
             </div>
-            <ThemeChooser theme={theme} setTheme={setTheme} />
+            <ThemeChooser themeName={themeName} setTheme={setTheme} />
           </div>
           <div className={classes.products}>
             <Typography className={classes.heading} variant={'h6'}>
               Products
             </Typography>
             <div className={classes.link} onClick={() => window.open('https://yearn.finance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <YearnIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -203,7 +204,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://ygov.finance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <YgovIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -211,7 +212,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://yinsure.finance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <YinsureIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -219,7 +220,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://yborrow.finance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <YborrowIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -227,7 +228,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://docs.yearn.finance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <DocsIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -240,7 +241,7 @@ class Footer extends Component {
               Community
             </Typography>
             <div className={classes.link} onClick={() => window.open('https://ycosystem.info', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <DocsIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -248,7 +249,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://www.learnyearn.finance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <DocsIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -256,7 +257,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://stats.finance/yearn', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <StatsIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -264,7 +265,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://yieldfarming.info', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <StatsIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -272,7 +273,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://feel-the-yearn.app', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <StatsIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -280,7 +281,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://yearn.snapshot.page', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <SnapshotIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -293,7 +294,7 @@ class Footer extends Component {
               Socials
             </Typography>
             <div className={classes.link} onClick={() => window.open('https://twitter.com/iearnfinance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <TwitterIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -301,7 +302,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://medium.com/iearn', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <MediumIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -309,7 +310,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://discord.gg/GcjxhWR', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <DiscordIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -317,7 +318,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://t.me/yearnfinance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <TelegramIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>
@@ -325,7 +326,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <div className={classes.link} onClick={() => window.open('https://github.com/iearn-finance', '_blank')}>
-              <div className={`${theme === 'dark' ? classes.glow : classes.icon}`}>
+              <div className={`${themeName === 'dark' ? classes.glow : classes.icon}`}>
                 <GithubIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={'h4'}>

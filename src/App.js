@@ -123,7 +123,7 @@ class App extends Component {
                 <Home isBeta={isBeta} currentTheme={currentTheme} />
               </Route>
             </Switch>
-            <Footer theme={currentTheme} setTheme={setCurrentTheme} />
+            <Footer themeName={currentTheme} setTheme={setCurrentTheme} />
           </div>
         </IpfsRouter>
       </MuiThemeProvider>
