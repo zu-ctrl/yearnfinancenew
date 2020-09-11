@@ -65,6 +65,28 @@ const styles = (theme) => {
       width: '30px',
       height: '30px',
     },
+    close: {
+      position: 'fixed',
+      top: '20px',
+      right: '20px',
+      cursor: 'pointer',
+      width: '18px',
+      height: '18px',
+      '&::before, &::after': {
+        position: 'absolute',
+        left: '8px',
+        content: '""',
+        height: '19px',
+        width: '2px',
+        backgroundColor: colors.beta.close,
+      },
+      '&::before': {
+        transform: 'rotate(40deg)',
+      },
+      '&::after': {
+        transform: 'rotate(-40deg)',
+      },
+    },
   }
 }
 
@@ -85,7 +107,7 @@ class BuildWith extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.closeIcon} onClick={closeModal}>
-          <CloseIcon />
+          <div className={classes.close} />
         </div>
         <div className={classes.contentContainer}>
           <MyComponent classes={classes} />
