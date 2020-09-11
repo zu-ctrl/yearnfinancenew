@@ -70,6 +70,11 @@ export const colors = {
     iconWaifuBg: '#9551BA',
   },
   bg: '#f7f9fc',
+  popup: {
+    bg: '#FFF',
+    text: '#080809',
+    border: '1px solid #9551BA',
+  },
   white: '#ffede7',
   black: '#000',
   darkBlue: '#2c3b57',
@@ -317,6 +322,9 @@ const iswapTheme = {
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: colors.popup.bg,
+      },
       elevation1: {
         boxShadow: 'none',
       },
