@@ -12,6 +12,7 @@ import Asset from './asset'
 import Loader from '../loader'
 import ConnectWallet from '../connectWallet'
 import WalletIcon from '../icons/walletIcon'
+import YvaultRoi from '../yvaultRoi'
 
 import {
   ERROR,
@@ -355,6 +356,7 @@ class InvestSimple extends Component {
 
     return (
       <div className={classes.root}>
+        {account.address && <YvaultRoi address={account.address} />}
         <div className={classes.investedContainer}>
           <h2>
             How does <WalletIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Earn</span> work?
@@ -368,17 +370,17 @@ class InvestSimple extends Component {
             <ToggleButtonGroup
               value={value}
               onChange={this.handleTabChange}
-              aria-label='version'
+              aria-label="version"
               exclusive
               size={'small'}
             >
-              <ToggleButton value={0} aria-label='v1'>
+              <ToggleButton value={0} aria-label="v1">
                 <Typography variant={'h4'}>v1</Typography>
               </ToggleButton>
-              <ToggleButton value={1} aria-label='v2'>
+              <ToggleButton value={1} aria-label="v2">
                 <Typography variant={'h4'}>y.curve.fi</Typography>
               </ToggleButton>
-              <ToggleButton value={2} aria-label='v3'>
+              <ToggleButton value={2} aria-label="v3">
                 <Typography variant={'h4'}>busd.curve.fi</Typography>
               </ToggleButton>
             </ToggleButtonGroup>
@@ -429,12 +431,12 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=''
+                      alt=""
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
@@ -497,12 +499,12 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=''
+                      alt=""
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
@@ -566,12 +568,12 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=''
+                      alt=""
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
