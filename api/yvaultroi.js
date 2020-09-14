@@ -47,12 +47,23 @@ const normalizeData = (_data) => {
       return obj
     }, {})
 
+  const _irr = data['IRR'].split('/ Annualized')
+  const _simpleReturn = data['Simple Return'].split('/ Annualized')
+  const getValues = (arr) => {
+    if (arr[0] && arr[0] !== 'N/A' && arr[1]) {
+      return [arr[0].trim(), arr[1].trim()]
+    } else {
+      return ['N/A', 'N/A']
+    }
+  }
+
   return {
     earnings: data['Earnings'],
-    irr: data['IRR'].split('/ Annualized')[0].trim(),
-    irrAnnualized: data['IRR'].split('/ Annualized')[1].trim(),
     netDeposits: data['Net Deposits'],
-    simpleReturn: data['Simple Return'],
+    irr: getValues(_irr)[0],
+    irrAnnualized: getValues(_irr)[1],
+    simpleReturn: getValues(_simpleReturn)[0],
+    simpleReturnAnnualized: getValues(_simpleReturn)[1],
   }
 }
 

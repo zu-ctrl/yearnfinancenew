@@ -8,7 +8,7 @@ const styles = (theme) => {
   return {}
 }
 
-const YvaultRoi = ({ theme, address = '0x04e67b3cd04a422106b419494f6e0ed585c83758' }) => {
+const YvaultRoi = ({ theme, address }) => {
   const [yvaultRoiData, setYvaultRoiData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -42,10 +42,11 @@ const YvaultRoi = ({ theme, address = '0x04e67b3cd04a422106b419494f6e0ed585c8375
       <h3>yVault ROI</h3>
       <ul>
         <li>Earnings: {getDataProp('earnings')}</li>
+        <li>Net Deposits: {getDataProp('netDeposits')}</li>
         <li>IRR: {getDataProp('irr')}</li>
         <li>IRR Annualized: {getDataProp('irrAnnualized')}</li>
-        <li>Net Deposits: {getDataProp('netDeposits')}</li>
         <li>Simple Return: {getDataProp('simpleReturn')}</li>
+        <li>Simple Return Annualized: {getDataProp('simpleReturnAnnualized')}</li>
       </ul>
     </div>
   )
