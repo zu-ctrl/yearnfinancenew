@@ -53,7 +53,28 @@ export const colors = {
   glowShadow: 'none',
   textShadow: 'none',
   connectedShadow: 'none',
+  footer: {
+    gradient: 'none',
+    bg: '#F7F9FC',
+    link: '#080809',
+    title: '#888A8C',
+    icon: '#9551BA',
+  },
+  chooser: {
+    bg: '#E3E5E8',
+    activeBg: '#DCDDE0',
+    activeShadow: 'inset 0px 0px 2px rgba(0, 0, 0, 0.25)',
+    iconDark: '#354154',
+    iconLight: '#9551BA',
+    iconWaifu: '#F3DEFF',
+    iconWaifuBg: '#9551BA',
+  },
   bg: '#f7f9fc',
+  popup: {
+    bg: '#FFF',
+    text: '#080809',
+    border: '1px solid #9551BA',
+  },
   white: '#ffede7',
   black: '#000',
   darkBlue: '#2c3b57',
@@ -301,6 +322,9 @@ const iswapTheme = {
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: colors.popup.bg,
+      },
       elevation1: {
         boxShadow: 'none',
       },

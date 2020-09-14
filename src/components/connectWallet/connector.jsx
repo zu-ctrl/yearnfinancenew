@@ -75,6 +75,9 @@ const styles = (theme) => {
       justifyContent: 'space-between',
       display: 'flex',
       flexWrap: 'wrap',
+      [theme.breakpoints.down('sm')]: {
+        justifyContent: 'center',
+      },
     },
   }
 }
@@ -220,15 +223,9 @@ function MyComponent(props) {
 
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   // useInactiveListener(!triedEager || !!activatingConnector);
-  const width = window.innerWidth
 
   return (
-    <div
-      className={classes.wrapper}
-      style={{
-        justifyContent: width > 650 ? 'space-between' : 'center',
-      }}
-    >
+    <div className={classes.wrapper}>
       {Object.keys(connectorsByName).map((name) => {
         const currentConnector = connectorsByName[name]
         const activating = currentConnector === activatingConnector
