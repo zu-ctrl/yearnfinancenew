@@ -75,6 +75,10 @@ export const colors = {
     text: '#080809',
     border: '1px solid #9551BA',
   },
+  icon: {
+    color: '#BAE7FF',
+    glow: 'drop-shadow(0px 0px 10px #40A9FF)',
+  },
   white: '#ffede7',
   black: '#000',
   darkBlue: '#2c3b57',
@@ -87,10 +91,10 @@ export const colors = {
   red: '#ed4337',
   orange: 'orange',
   pink: '#DC6BE5',
-  compoundGreen: '#52C41A',
+  compoundGreen: '#46B96E',
+  connectGreen: '#52C41A',
   tomato: '#e56b73',
   purple: '#935dff',
-
   text: '#212529',
   lightBlue: '#2F80ED',
   topaz: '#0b8f92',

@@ -23,19 +23,24 @@ const store = Store.store
 const styles = (theme) => ({
   value: {
     cursor: 'pointer',
+    fontSize: '12px',
+    lineHeight: '20px',
+    color: '#FFF',
+    fontWeight: 'normal',
   },
-  actionInput: {
-    padding: '0px 0px 12px 0px',
-    fontSize: '0.5rem',
-  },
+  actionInput: {},
   balances: {
     width: '100%',
-    textAlign: 'right',
-    paddingRight: '20px',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    marginTop: '5px',
     cursor: 'pointer',
   },
   actionsContainer: {
     paddingBottom: '12px',
+    maxWidth: '750px',
+    width: '100%',
+    margin: '24px auto 0',
     display: 'flex',
     flex: '1',
     [theme.breakpoints.down('sm')]: {
@@ -53,6 +58,43 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    '& input': {
+      background: '#1D2430',
+      border: '1px solid #40A9FF',
+      boxSizing: 'border-box',
+      boxShadow: '0px 0px 14px rgba(64, 169, 255, 0.6)',
+      borderRadius: '20px',
+      padding: '9px',
+      fontWeight: 'bold',
+      fontSize: '14px',
+      lineHeight: '22px',
+      letterSpacing: '0.02em',
+      color: '#FFF',
+      height: '40px',
+      '&::-webkit-input-placeholder': {
+        color: '#FFF',
+        opacity: '1',
+      },
+      '&:-ms-input-placeholder': {
+        color: '#FFF',
+        opacity: 1,
+      },
+      '&::placeholder': {
+        color: '#FFF',
+        opacity: 1,
+      },
+    },
+    '& fieldset': {
+      '&:hover': {
+        borderWidth: '0',
+      },
+    },
+    '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+      borderWidth: '0',
+    },
+    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderWidth: '0',
+    },
   },
   sepperator: {
     borderBottom: '1px solid #E1E1E1',
@@ -102,6 +144,96 @@ const styles = (theme) => ({
     width: '100%',
     paddingTop: '12px',
     textAlign: 'center',
+  },
+  sliderContainer: {
+    width: '98%',
+    marginTop: '36px',
+    '& .MuiSlider-rail': {
+      height: '8px',
+      borderRadius: '12px',
+      background: '#394861',
+    },
+    '& .MuiSlider-track': {
+      height: '8px',
+      borderRadius: '12px',
+      background: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
+    },
+    '& .MuiSlider-thumb': {
+      color: 'transparent',
+      width: '20px',
+      height: '20px',
+      borderRadius: '50%',
+      filter: 'drop-shadow(0px 0px 10px #40A9FF)',
+      background: '#BAE7FF',
+      border: '2px solid #1890FF',
+      boxSizing: 'border-box',
+      top: '50%',
+      marginTop: '2px',
+      transform: 'translateY(-50%)',
+      marginLeft: '-6px',
+    },
+    '& .MuiSlider-root': {
+      color: '#818FA6',
+    },
+    '& .MuiSlider-markActive': {
+      backgroundColor: '#BAE7FF',
+      opacity: '1',
+    },
+    '& .MuiSlider-mark': {
+      visibility: 'hidden',
+      height: '8px',
+      width: '8px',
+      borderRadius: '50%',
+      '&:nth-child(25n + 4)': {
+        visibility: 'visible',
+      },
+    },
+    '& .MuiSlider-valueLabel': {
+      fontWeight: 'bold',
+      fontSize: '14px',
+      lineHeight: '22px',
+      textAlign: 'center',
+      letterSpacing: '0.02em',
+      color: '#FFFFFF',
+      textShadow: '0px 0px 10px #40A9FF',
+      marginLeft: '9px',
+      top: '-23px',
+      display: 'flex',
+      alignItems: 'center',
+      '& span': {
+        backgroundColor: 'transparent',
+        width: 'max-content',
+      },
+      '&::after': {
+        content: '"%"',
+      },
+    },
+  },
+  percentContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: '-2px',
+    '& h5:nth-child(2n)': {
+      marginRight: '-4px',
+    },
+    '& h5:nth-child(3n)': {
+      marginRight: '-6px',
+    },
+    '& h5:nth-child(4n)': {
+      marginRight: '-18px',
+    },
+    '& h5:last-of-type': {
+      marginRight: '-6px',
+    },
+  },
+  percent: {
+    fontWeight: 'normal',
+    fontSize: '12px',
+    lineHeight: '20px',
+    color: '#40A9FF',
+    cursor: 'pointer',
   },
 })
 
@@ -167,18 +299,18 @@ class Asset extends Component {
           <TextField
             fullWidth
             className={classes.actionInput}
-            id="amount"
+            id='amount'
             value={amount}
             error={amountError}
             onChange={this.onChange}
             disabled={loading}
-            placeholder="0.00"
-            variant="outlined"
+            placeholder='0.00'
+            variant='outlined'
             onKeyDown={this.inputKeyDown}
           />
           <div className={classes.balances}>
             <Typography
-              variant="h4"
+              variant='h4'
               onClick={() => {
                 this.setAmount(100)
               }}
@@ -190,30 +322,42 @@ class Asset extends Component {
               }`}
             </Typography>
           </div>
-          <Slider
-            value={leftSlider}
-            aria-labelledby="discrete-slider"
-            step={1}
-            marks
-            min={0}
-            max={100}
-            valueLabelDisplay="on"
-            disabled={loading || asset.disabled}
-            onChange={(_, value) => this.handleChangeLeftSlider(value)}
-          />
-          <div>
-            <div onClick={() => this.handleChangeLeftSlider(0)}>0%</div>
-            <div onClick={() => this.handleChangeLeftSlider(25)}>25%</div>
-            <div onClick={() => this.handleChangeLeftSlider(50)}>50%</div>
-            <div onClick={() => this.handleChangeLeftSlider(75)}>75%</div>
-            <div onClick={() => this.handleChangeLeftSlider(100)}>100%</div>
+          <div className={classes.sliderContainer}>
+            <Slider
+              value={leftSlider}
+              aria-labelledby='discrete-slider'
+              step={1}
+              marks
+              min={0}
+              max={100}
+              valueLabelDisplay='on'
+              disabled={loading || asset.disabled}
+              onChange={(_, value) => this.handleChangeLeftSlider(value)}
+            />
+          </div>
+          <div className={classes.percentContainer}>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeLeftSlider(0)}>
+              0%
+            </Typography>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeLeftSlider(25)}>
+              25%
+            </Typography>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeLeftSlider(50)}>
+              50%
+            </Typography>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeLeftSlider(75)}>
+              75%
+            </Typography>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeLeftSlider(100)}>
+              100%
+            </Typography>
           </div>
           <div className={classes.buttons}>
             {asset.deposit === true && (
               <Button
                 className={classes.actionButton}
-                variant="outlined"
-                color="primary"
+                variant='outlined'
+                color='primary'
                 disabled={loading || asset.balance <= 0 || asset.depositDisabled === true}
                 onClick={this.onDeposit}
                 fullWidth
@@ -226,8 +370,8 @@ class Asset extends Component {
             {asset.depositAll === true && (
               <Button
                 className={classes.actionButton}
-                variant="outlined"
-                color="primary"
+                variant='outlined'
+                color='primary'
                 disabled={loading || asset.balance <= 0 || asset.depositDisabled === true}
                 onClick={this.onDepositAll}
                 fullWidth
@@ -240,7 +384,7 @@ class Asset extends Component {
           </div>
           {asset.depositDisabled === true && (
             <div className={classes.disabledContainer}>
-              <Typography variant="h4">Deposits are currently disabled for this vault</Typography>
+              <Typography variant='h4'>Deposits are currently disabled for this vault</Typography>
             </div>
           )}
         </div>
@@ -249,18 +393,18 @@ class Asset extends Component {
           <TextField
             fullWidth
             className={classes.actionInput}
-            id="redeemAmount"
+            id='redeemAmount'
             value={redeemAmount}
             error={redeemAmountError}
             onChange={this.onChange}
             disabled={loading}
-            placeholder="0.00"
-            variant="outlined"
+            placeholder='0.00'
+            variant='outlined'
             onKeyDown={this.inputRedeemKeyDown}
           />
           <div className={classes.balances}>
             <Typography
-              variant="h4"
+              variant='h4'
               onClick={() => {
                 this.setRedeemAmount(100)
               }}
@@ -275,35 +419,47 @@ class Asset extends Component {
               {asset.symbol}){' '}
             </Typography>
           </div>
-          <Slider
-            value={rightSlider}
-            aria-labelledby="discrete-slider"
-            step={1}
-            marks
-            min={0}
-            max={100}
-            valueLabelDisplay="on"
-            disabled={loading || asset.disabled}
-            onChange={(_, value) => this.handleChangeRightSlider(value)}
-          />
-          <div>
-            <div onClick={() => this.handleChangeRightSlider(0)}>0%</div>
-            <div onClick={() => this.handleChangeRightSlider(25)}>25%</div>
-            <div onClick={() => this.handleChangeRightSlider(50)}>50%</div>
-            <div onClick={() => this.handleChangeRightSlider(75)}>75%</div>
-            <div onClick={() => this.handleChangeRightSlider(100)}>100%</div>
+          <div className={classes.sliderContainer}>
+            <Slider
+              value={rightSlider}
+              aria-labelledby='discrete-slider'
+              step={1}
+              marks
+              min={0}
+              max={100}
+              valueLabelDisplay='on'
+              disabled={loading || asset.disabled}
+              onChange={(_, value) => this.handleChangeRightSlider(value)}
+            />
+          </div>
+          <div className={classes.percentContainer}>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeRightSlider(0)}>
+              0%
+            </Typography>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeRightSlider(25)}>
+              25%
+            </Typography>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeRightSlider(50)}>
+              50%
+            </Typography>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeRightSlider(75)}>
+              75%
+            </Typography>
+            <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeRightSlider(100)}>
+              100%
+            </Typography>
           </div>
           <div className={classes.buttons}>
             {asset.withdraw === true && (
               <Button
                 className={classes.actionButton}
-                variant="outlined"
-                color="primary"
+                variant='outlined'
+                color='primary'
                 disabled={loading || asset.vaultBalance <= 0}
                 onClick={this.onWithdraw}
                 fullWidth
               >
-                <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                   Withdraw
                 </Typography>
               </Button>
@@ -311,13 +467,13 @@ class Asset extends Component {
             {asset.withdrawAll === true && (
               <Button
                 className={classes.actionButton}
-                variant="outlined"
-                color="primary"
+                variant='outlined'
+                color='primary'
                 disabled={loading || asset.vaultBalance <= 0}
                 onClick={this.onWithdrawAll}
                 fullWidth
               >
-                <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                   Withdraw All
                 </Typography>
               </Button>
