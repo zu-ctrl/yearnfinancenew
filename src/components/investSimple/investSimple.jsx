@@ -12,7 +12,6 @@ import Asset from './asset'
 import Loader from '../loader'
 import ConnectWallet from '../connectWallet'
 import WalletIcon from '../icons/walletIcon'
-import YvaultRoi from '../yvaultRoi'
 
 import {
   ERROR,
@@ -356,7 +355,6 @@ class InvestSimple extends Component {
 
     return (
       <div className={classes.root}>
-        {account.address && <YvaultRoi address={account.address} />}
         <div className={classes.investedContainer}>
           <h2>
             How does <WalletIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Earn</span> work?
