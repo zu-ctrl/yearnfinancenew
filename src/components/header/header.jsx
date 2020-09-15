@@ -178,7 +178,7 @@ const styles = (theme) => {
       },
     },
     connectedDot: {
-      background: colors.compoundGreen,
+      background: colors.connectGreen,
       boxShadow: colors.connectedShadow,
       opacity: '1',
       borderRadius: '10px',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, withTheme } from '@material-ui/core/styles'
 import Skeleton from '@material-ui/lab/Skeleton'
 import {
   Typography,
@@ -15,8 +15,9 @@ import {
   Tooltip,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import SearchIcon from '@material-ui/icons/Search'
-import InfoIcon from '@material-ui/icons/Info'
+import SearchIcon from '../icons/searchIcon'
+import FilterIcon from '../icons/filterIcon'
+
 import { withNamespaces } from 'react-i18next'
 
 import Snackbar from '../snackbar'
@@ -26,6 +27,8 @@ import ApyTable from '../apyTable'
 import ConnectWallet from '../connectWallet'
 import VaultIcon from '../icons/vaultIcon'
 import YvaultRoi from '../yvaultRoi'
+import InfoIcon from '../icons/infoIcon'
+import LinearLine from '../icons/linearLine'
 
 import {
   ERROR,
@@ -38,6 +41,7 @@ import {
 } from '../../constants'
 
 import Store from '../../stores'
+import { colors } from '../../darkTheme/darkTheme'
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
@@ -46,25 +50,9 @@ const styles = (theme) => {
   const colors = theme.themeColors
   return {
     root: {
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      maxWidth: '1200px',
+      backgroundColor: colors.bg,
+      paddingBottom: '90px',
       width: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    investedContainerLoggedOut: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minWidth: '100%',
-      marginTop: '40px',
-      [theme.breakpoints.up('md')]: {
-        minWidth: '900px',
-      },
     },
     investedContainer: {
       display: 'flex',
@@ -72,11 +60,9 @@ const styles = (theme) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      minWidth: '100%',
-      marginTop: '40px',
-      [theme.breakpoints.up('md')]: {
-        minWidth: '900px',
-      },
+      maxWidth: '870px',
+      width: '100%',
+      margin: '40px auto 0',
     },
     balancesContainer: {
       display: 'flex',
@@ -119,18 +105,6 @@ const styles = (theme) => {
     introText: {
       paddingLeft: '20px',
     },
-    actionButton: {
-      '&:hover': {
-        backgroundColor: '#2F80ED',
-      },
-      padding: '12px',
-      backgroundColor: '#2F80ED',
-      border: '1px solid #E1E1E1',
-      fontWeight: 500,
-      [theme.breakpoints.up('md')]: {
-        padding: '15px',
-      },
-    },
     heading: {
       display: 'none',
       flex: 1,
@@ -153,10 +127,6 @@ const styles = (theme) => {
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
-    },
-    buttonText: {
-      fontWeight: '700',
-      color: 'white',
     },
     assetSummary: {
       display: 'flex',
@@ -183,30 +153,29 @@ const styles = (theme) => {
         marginRight: '24px',
       },
     },
-    addressContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      overflow: 'hidden',
-      flex: 1,
-      whiteSpace: 'nowrap',
-      fontSize: '0.83rem',
-      textOverflow: 'ellipsis',
-      cursor: 'pointer',
-      padding: '28px 30px',
-      borderRadius: '50px',
-      border: '1px solid ' + colors.borderBlue,
-      alignItems: 'center',
-      maxWidth: '450px',
-      [theme.breakpoints.up('md')]: {
-        width: '100%',
-      },
-    },
     between: {
       width: '40px',
     },
     expansionPanel: {
       maxWidth: 'calc(100vw - 24px)',
       width: '100%',
+      border: 'none',
+      margin: '16px 0 0',
+      borderRadius: '20px',
+      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+      '& .MuiIconButton-label': {
+        position: 'relative',
+        '&:after': {
+          content: '""',
+          width: '0',
+          height: '0',
+          position: 'absolute',
+          borderLeft: '7px solid transparent',
+          borderRight: '7px solid transparent',
+          borderTop: colors.page.asset.arrow,
+          borderRadius: '2px',
+        },
+      },
     },
     versionToggle: {
       display: 'flex',
@@ -225,14 +194,6 @@ const styles = (theme) => {
       justifyContent: 'flex-end',
       width: '100%',
     },
-    disaclaimer: {
-      padding: '12px',
-      border: '1px solid rgb(174, 174, 174)',
-      borderRadius: '0.75rem',
-      marginBottom: '24px',
-      lineHeight: '1.2',
-      background: colors.white,
-    },
     fees: {
       paddingRight: '75px',
       padding: '12px',
@@ -241,41 +202,193 @@ const styles = (theme) => {
     walletAddress: {
       padding: '0px 12px',
     },
-    walletTitle: {
-      flex: 1,
-      color: colors.darkGray,
-    },
-    grey: {
-      color: colors.darkGray,
-    },
     filters: {
       width: '100%',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
+      marginTop: '44px',
       [theme.breakpoints.down('sm')]: {
         padding: '0px 12px',
       },
     },
     searchField: {
       flex: 1,
-      background: colors.white,
-      borderRadius: '50px',
+      background: colors.page.filter.input.bg,
+      borderRadius: '20px',
+      border: colors.page.filter.input.border,
+      boxShadow: colors.page.filter.input.boxShadow,
+      minWidth: '300px',
+      maxWidth: '300px',
+      width: '100%',
+      height: '40px',
+      position: 'relative',
+      '& input': {
+        padding: '0 45px 0 12px',
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        height: '40px',
+        fontWeight: 'normal',
+        fontSize: '14px',
+        lineHeight: '22px',
+        color: colors.page.filter.input.color,
+        '&::placeholder': {
+          color: colors.page.filter.input.placeholder,
+        },
+      },
+      '& .MuiInputBase-root': {
+        paddingLeft: '10px',
+      },
+      '& fieldset': {
+        border: '0',
+        '&:hover': {
+          borderColor: colors.page.filter.input.borderColor,
+        },
+      },
+      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+        borderWidth: '0',
+        borderColor: colors.page.filter.input.borderColor,
+        boxShadow: colors.page.filter.input.hoverShadow,
+      },
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderWidth: '0',
+        borderColor: colors.page.filter.input.borderColor,
+        boxShadow: colors.page.filter.input.hoverShadow,
+      },
     },
     checkbox: {
       flex: 1,
       margin: '0px !important',
+      '&  .MuiSvgIcon-root': {
+        fill: 'transparent',
+      },
+      '& .Mui-checked': {
+        '&  .MuiSvgIcon-root': {
+          fill: 'currentColor',
+        },
+      },
+      '& span': {
+        fontWeight: 'normal',
+        fontSize: '14px',
+        lineHeight: '22px',
+        color: colors.page.header.text,
+      },
+      '& input': {
+        background: colors.page.filter.checkbox.bg,
+        color: colors.page.filter.checkbox.bg,
+      },
+      '& .MuiIconButton-label': {
+        color: colors.page.filter.checkbox.label,
+        height: '16px',
+        width: '16px',
+        background: colors.page.filter.checkbox.bg,
+        borderRadius: '2px',
+        border: colors.page.filter.checkbox.border,
+      },
+      '& .MuiButtonBase-root': {
+        padding: '11px 11px',
+      },
     },
     flexy: {
       display: 'flex',
       alignItems: 'center',
     },
-    on: {
-      color: colors.darkGray,
-      padding: '0px 6px',
+    titleContainer: {
+      display: 'flex',
+      alignItems: 'center',
     },
-    positive: {
-      color: colors.compoundGreen,
+    title: {
+      fontWeight: 'bold',
+      fontSize: '24px',
+      lineHeight: '36px',
+      color: colors.page.header.text,
+      margin: '0 5px',
+    },
+    titleSpan: {
+      color: colors.page.header.title,
+      marginRight: '5px ',
+    },
+    linearContainer: {
+      maxWidth: '379px',
+      width: '100%',
+      minHeight: '69px',
+      display: 'flex',
+      alignItems: 'flex-start',
+      margin: '13px auto -68px',
+      background: colors.page.header.bgGlow,
+    },
+    line: {
+      width: '100%',
+    },
+    description: {
+      fontWeight: 'normal',
+      fontSize: '16px',
+      lineHeight: '24px',
+      textAlign: 'center',
+      color: colors.page.header.text,
+      maxWidth: '600px',
+      width: '100%',
+      margin: '19px auto 0',
+    },
+    sortContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      marginTop: '16px',
+      width: '100%',
+      padding: '0 10px',
+    },
+    select: {
+      background: 'transparent',
+      border: 'none',
+      cursor: 'pointer',
+      fontWeight: 'bold',
+      fontSize: '14px',
+      lineHeight: '22px',
+      color: colors.page.filter.sort.select,
+      appearance: 'none',
+      marginRight: '3px',
+      width: '70px',
+      position: 'relative',
+      zIndex: '2',
+    },
+    option: {
+      color: colors.page.filter.sort.option,
+    },
+    label: {
+      fontWeight: 'normal',
+      fontSize: '14px',
+      lineHeight: '22px',
+      color: colors.page.filter.sort.label,
+      marginRight: '5px',
+    },
+    connectedArrow: {
+      width: '0',
+      height: '0',
+      borderLeft: '6px solid transparent',
+      borderRight: '6px solid transparent',
+      borderTop: colors.page.filter.sort.arrow,
+      borderRadius: '2px',
+      marginLeft: '-17px',
+    },
+    assetTitle: {
+      fontWeight: 'bold',
+      fontSize: '18px',
+      lineHeight: '28px',
+      color: colors.page.asset.color,
+    },
+    assetDescription: {
+      fontWeight: 'normal',
+      fontSize: '14px',
+      lineHeight: '22px',
+      color: colors.page.asset.description,
+    },
+    inputFilter: {
+      position: 'absolute',
+      right: '10px',
+      top: '50%',
+      transform: 'translateY(-50%)',
     },
   }
 }
@@ -425,8 +538,9 @@ class Vault extends Component {
   }
 
   render() {
-    const { classes, currentTheme } = this.props
+    const { classes, currentTheme, theme } = this.props
     const { loading, account, snackbarMessage } = this.state
+    const colors = theme.themeColors
 
     if (!account || !account.address) {
       return <ConnectWallet currentTheme={currentTheme} />
@@ -435,15 +549,26 @@ class Vault extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
-          <h2>
-            How does <VaultIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Vault</span> work?
-          </h2>
-          <p>
+          <div className={classes.titleContainer}>
+            <Typography className={classes.title} variant="h2">
+              How does
+            </Typography>
+            <VaultIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
+            <Typography className={classes.title} variant="h2">
+              <span className={classes.titleSpan}>Vault</span> work?
+            </Typography>
+          </div>
+          {currentTheme === 'dark' && (
+            <div className={classes.linearContainer}>
+              <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
+            </div>
+          )}
+          <Typography className={classes.description} variant="h6">
             Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
             is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in
-            the list below to get started!{' '}
-          </p>
-          {this.renderFilters()}
+            the list below to get started!
+          </Typography>
+          {this.renderFilters({ colors })}
           {this.renderAssetBlocks()}
         </div>
         {loading && <Loader />}
@@ -516,28 +641,28 @@ class Vault extends Component {
                     />
                   </div>
                   <div>
-                    <Typography variant={'h3'} noWrap>
+                    <Typography className={classes.assetTitle} variant={'h3'} noWrap>
                       {asset.name}
                     </Typography>
-                    <Typography variant={'h5'} className={classes.grey}>
+                    <Typography className={classes.assetDescription} variant={'h5'}>
                       {asset.description}
                     </Typography>
                   </div>
                 </div>
                 {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
                   <div className={classes.headingEarning}>
-                    <Typography variant={'h5'} className={classes.grey}>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
                       You are earning:
                     </Typography>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
                         {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
                       </Typography>
-                      <Typography variant={'h5'} className={classes.on}>
+                      <Typography variant={'h5'} className={classes.assetDescription}>
                         {' '}
                         on{' '}
                       </Typography>
-                      <Typography variant={'h3'} noWrap>
+                      <Typography className={classes.assetDescription} variant={'h3'} noWrap>
                         {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : <Skeleton style={{ width: '50px' }} />}{' '}
                         {asset.vaultSymbol}
                       </Typography>
@@ -547,30 +672,30 @@ class Vault extends Component {
                 {!['LINK'].includes(asset.id) && asset.vaultBalance === 0 && (
                   <div className={classes.headingEarning}>
                     <div className={classes.flexy}>
-                      <Typography variant={'h3'} noWrap>
+                      <Typography className={classes.assetTitle} variant={'h3'} noWrap>
                         {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
                       </Typography>
                     </div>
-                    <Typography variant={'h5'} className={classes.grey}>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
                       This vault is earning
                     </Typography>
                   </div>
                 )}
                 {['LINK'].includes(asset.id) && (
                   <div className={classes.headingEarning}>
-                    <Typography variant={'h3'} noWrap>
+                    <Typography className={classes.assetTitle} variant={'h3'} noWrap>
                       N/A
                     </Typography>
-                    <Typography variant={'h5'} className={classes.grey}>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
                       This vault is earning
                     </Typography>
                   </div>
                 )}
                 <div className={classes.heading}>
-                  <Typography variant={'h3'} noWrap>
+                  <Typography className={classes.assetTitle} variant={'h3'} noWrap>
                     {(asset.balance ? asset.balance.toFixed(2) : '0.00') + ' ' + asset.symbol}
                   </Typography>
-                  <Typography variant={'h5'} className={classes.grey}>
+                  <Typography variant={'h5'} className={classes.assetDescription}>
                     Available to deposit
                   </Typography>
                 </div>
@@ -586,7 +711,7 @@ class Vault extends Component {
       })
   }
 
-  renderFilters = () => {
+  renderFilters = ({ colors }) => {
     const { loading, search, searchError, hideZero, sortBy } = this.state
     const { classes } = this.props
 
@@ -612,7 +737,9 @@ class Vault extends Component {
               }
               arrow
             >
-              <InfoIcon />
+              <div>
+                <InfoIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
+              </div>
             </Tooltip>
           </div>
           <TextField
@@ -627,19 +754,31 @@ class Vault extends Component {
             variant="outlined"
             InputProps={{
               startAdornment: (
-                <InputAdornment position="end" className={classes.inputAdornment}>
-                  <SearchIcon />
-                </InputAdornment>
+                <>
+                  <InputAdornment position="end" className={classes.inputSearch}>
+                    <SearchIcon color="#BBBDBF" />
+                  </InputAdornment>
+                  <InputAdornment position="start" className={classes.inputFilter}>
+                    <FilterIcon color="#BBBDBF" />
+                  </InputAdornment>
+                </>
               ),
             }}
           />
         </div>
-        <div>
-          <label>Sort by </label>
-          <select value={sortBy} onChange={(e) => this.setState({ sortBy: e.target.value })}>
-            <option value="balance">Balance</option>
-            <option value="apy">APY</option>
+        <div className={classes.sortContainer}>
+          <Typography variant={'h6'} className={classes.label}>
+            Sort by
+          </Typography>
+          <select className={classes.select} value={sortBy} onChange={(e) => this.setState({ sortBy: e.target.value })}>
+            <option className={classes.option} value="balance">
+              Balance
+            </option>
+            <option className={classes.option} value="apy">
+              APY
+            </option>
           </select>
+          <div className={classes.connectedArrow}></div>
         </div>
       </>
     )
@@ -664,4 +803,4 @@ class Vault extends Component {
   }
 }
 
-export default withNamespaces()(withRouter(withStyles(styles)(Vault)))
+export default withNamespaces()(withRouter(withStyles(styles)(withTheme(Vault))))
