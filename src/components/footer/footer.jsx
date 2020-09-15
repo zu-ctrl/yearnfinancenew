@@ -1,17 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, withTheme } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-import { withTheme } from '@material-ui/core/styles'
-
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
-import HowToVoteIcon from '@material-ui/icons/HowToVote'
-import SecurityIcon from '@material-ui/icons/Security'
-import DescriptionIcon from '@material-ui/icons/Description'
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
-
-import ForumIcon from '@material-ui/icons/Forum'
-import BarChartIcon from '@material-ui/icons/BarChart'
 
 import BuiltWithModal from '../builtwith/builtwithModal.jsx'
 import ThemeChooser from '../themeChooser'

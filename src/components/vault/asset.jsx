@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, TextField, Button, Slider } from '@material-ui/core'
+import ActionButton from '../icons/actionButton'
+import ActionButtonRotate from '../icons/actionButtonRotate'
 
 import {
   ERROR,
@@ -20,222 +22,257 @@ const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
 
-const styles = (theme) => ({
-  value: {
-    cursor: 'pointer',
-    fontSize: '12px',
-    lineHeight: '20px',
-    color: '#FFF',
-    fontWeight: 'normal',
-  },
-  actionInput: {},
-  balances: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    marginTop: '5px',
-    cursor: 'pointer',
-  },
-  actionsContainer: {
-    paddingBottom: '12px',
-    maxWidth: '750px',
-    width: '100%',
-    margin: '24px auto 0',
-    display: 'flex',
-    flex: '1',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
+const styles = (theme) => {
+  const colors = theme.themeColors
+  return {
+    value: {
+      cursor: 'pointer',
+      fontSize: '12px',
+      lineHeight: '20px',
+      color: colors.page.asset.color,
+      fontWeight: 'normal',
     },
-  },
-  title: {
-    paddingRight: '24px',
-  },
-  actionButton: {
-    height: '47px',
-  },
-  tradeContainer: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    '& input': {
-      background: '#1D2430',
-      border: '1px solid #40A9FF',
-      boxSizing: 'border-box',
-      boxShadow: '0px 0px 14px rgba(64, 169, 255, 0.6)',
+    balances: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      marginTop: '5px',
+      cursor: 'pointer',
+    },
+    actionsContainer: {
+      maxWidth: '750px',
+      width: '100%',
+      margin: '24px auto 0',
+      display: 'flex',
+      justifyContent: 'space-between',
+      flex: '1',
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+      },
+    },
+    title: {
+      paddingRight: '24px',
+    },
+    actionButton: {
+      background: colors.page.asset.button.bg,
+      boxShadow: colors.page.asset.button.shadow,
       borderRadius: '20px',
-      padding: '9px',
-      fontWeight: 'bold',
-      fontSize: '14px',
-      lineHeight: '22px',
-      letterSpacing: '0.02em',
-      color: '#FFF',
-      height: '40px',
-      '&::-webkit-input-placeholder': {
-        color: '#FFF',
-        opacity: '1',
+      display: 'flex',
+      alignItems: 'center',
+      cursor: 'pointer',
+      padding: '6px 3px',
+      justifyContent: 'center',
+      margin: '20px 5px 0',
+      width: '100%',
+      '&:last-of-type': {
+        marginRight: '0',
       },
-      '&:-ms-input-placeholder': {
-        color: '#FFF',
-        opacity: 1,
-      },
-      '&::placeholder': {
-        color: '#FFF',
-        opacity: 1,
+      '&:first-of-type': {
+        marginLeft: '0',
       },
     },
-    '& fieldset': {
-      '&:hover': {
+    tradeContainer: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      maxWidth: '350px',
+      width: '100%',
+      '& input': {
+        background: colors.page.asset.input.bg,
+        border: colors.page.asset.input.border,
+        boxSizing: 'border-box',
+        boxShadow: colors.page.asset.input.shadow,
+        borderRadius: '20px',
+        padding: '9px 9px 9px 15px',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '22px',
+        letterSpacing: '0.02em',
+        color: colors.page.asset.input.color,
+        height: '40px',
+        '&::-webkit-input-placeholder': {
+          color: colors.page.asset.input.color,
+          opacity: '1',
+        },
+        '&:-ms-input-placeholder': {
+          color: colors.page.asset.input.color,
+          opacity: 1,
+        },
+        '&::placeholder': {
+          color: colors.page.asset.input.color,
+          opacity: 1,
+        },
+      },
+      '& fieldset': {
+        border: '0',
+        '&:hover': {
+          borderWidth: '0',
+        },
+      },
+      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+        borderWidth: '0',
+      },
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
         borderWidth: '0',
       },
     },
-    '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-      borderWidth: '0',
+    scaleContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: '0px 0px 12px 0px',
+      alignItems: 'center',
+      flexWrap: 'wrap',
     },
-    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderWidth: '0',
+    scale: {
+      minWidth: '10px',
     },
-  },
-  sepperator: {
-    borderBottom: '1px solid #E1E1E1',
-    margin: '24px',
-    [theme.breakpoints.up('sm')]: {
-      width: '40px',
-      borderBottom: 'none',
-      margin: '0px',
-    },
-  },
-  scaleContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0px 0px 12px 0px',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  scale: {
-    minWidth: '10px',
-  },
-  buttonText: {
-    fontWeight: '700',
-  },
-  headingContainer: {
-    width: '100%',
-    display: 'flex',
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  heading: {
-    paddingBottom: '12px',
-    flex: 1,
-    flexShrink: 0,
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  right: {
-    textAlign: 'right',
-  },
-  buttons: {
-    display: 'flex',
-    width: '100%',
-  },
-  disabledContainer: {
-    width: '100%',
-    paddingTop: '12px',
-    textAlign: 'center',
-  },
-  sliderContainer: {
-    width: '98%',
-    marginTop: '36px',
-    '& .MuiSlider-rail': {
-      height: '8px',
-      borderRadius: '12px',
-      background: '#394861',
-    },
-    '& .MuiSlider-track': {
-      height: '8px',
-      borderRadius: '12px',
-      background: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
-    },
-    '& .MuiSlider-thumb': {
-      color: 'transparent',
-      width: '20px',
-      height: '20px',
-      borderRadius: '50%',
-      filter: 'drop-shadow(0px 0px 10px #40A9FF)',
-      background: '#BAE7FF',
-      border: '2px solid #1890FF',
-      boxSizing: 'border-box',
-      top: '50%',
-      marginTop: '2px',
-      transform: 'translateY(-50%)',
-      marginLeft: '-6px',
-    },
-    '& .MuiSlider-root': {
-      color: '#818FA6',
-    },
-    '& .MuiSlider-markActive': {
-      backgroundColor: '#BAE7FF',
-      opacity: '1',
-    },
-    '& .MuiSlider-mark': {
-      visibility: 'hidden',
-      height: '8px',
-      width: '8px',
-      borderRadius: '50%',
-      '&:nth-child(25n + 4)': {
-        visibility: 'visible',
-      },
-    },
-    '& .MuiSlider-valueLabel': {
+    buttonText: {
       fontWeight: 'bold',
       fontSize: '14px',
       lineHeight: '22px',
-      textAlign: 'center',
       letterSpacing: '0.02em',
-      color: '#FFFFFF',
-      textShadow: '0px 0px 10px #40A9FF',
-      marginLeft: '9px',
-      top: '-23px',
+      textTransform: 'uppercase',
+      color: colors.page.asset.input.color,
+      marginLeft: '11px',
+    },
+    headingContainer: {
+      width: '100%',
+      display: 'flex',
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
+    },
+    heading: {
+      paddingBottom: '12px',
+      flex: 1,
+      flexShrink: 0,
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
+    },
+    right: {
+      textAlign: 'right',
+    },
+    buttons: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'space-between',
+      '& .disabled': {
+        background: colors.page.asset.button.disabled.bg,
+        border: 'none',
+        boxShadow: 'none',
+        '& h5': {
+          color: colors.page.asset.button.disabled.color,
+        },
+      },
+    },
+    disabledContainer: {
+      width: '100%',
+      paddingTop: '16px',
+      textAlign: 'center',
+    },
+    disabledText: {
+      fontWeight: 'normal',
+      fontSize: '12px',
+      lineHeight: '20px',
+      textAlign: 'center',
+      color: colors.page.asset.color,
+    },
+    sliderContainer: {
+      width: '98%',
+      marginTop: '36px',
+      '& .MuiSlider-rail': {
+        height: '8px',
+        borderRadius: '12px',
+        background: colors.page.asset.slider.rail,
+        width: '102%',
+      },
+      '& .MuiSlider-track': {
+        height: '8px',
+        borderRadius: '12px',
+        background: colors.page.asset.slider.track,
+      },
+      '& .MuiSlider-thumb': {
+        color: 'transparent',
+        width: '20px',
+        height: '20px',
+        borderRadius: '50%',
+        filter: colors.page.asset.slider.thumb.filter,
+        background: colors.page.asset.slider.thumb.bg,
+        border: colors.page.asset.slider.thumb.border,
+        boxSizing: 'border-box',
+        top: '50%',
+        marginTop: '2px',
+        transform: 'translateY(-50%)',
+        marginLeft: '-6px',
+      },
+      '& .MuiSlider-root': {
+        color: colors.page.asset.slider.mark,
+      },
+      '& .MuiSlider-markActive': {
+        backgroundColor: colors.page.asset.slider.activeMark,
+        opacity: '1',
+      },
+      '& .MuiSlider-mark': {
+        visibility: 'hidden',
+        height: '8px',
+        width: '8px',
+        borderRadius: '50%',
+        '&:nth-child(25n + 4)': {
+          visibility: 'visible',
+        },
+      },
+      '& .MuiSlider-valueLabel': {
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '22px',
+        textAlign: 'center',
+        letterSpacing: '0.02em',
+        color: colors.page.asset.slider.value.color,
+        textShadow: colors.page.asset.slider.value.glow,
+        marginLeft: '11px',
+        top: '-23px',
+        display: 'flex',
+        alignItems: 'center',
+        '& span': {
+          backgroundColor: 'transparent',
+          width: 'max-content',
+          color: colors.page.asset.slider.value.color,
+        },
+        '&::after': {
+          content: '"%"',
+        },
+      },
+    },
+    percentContainer: {
       display: 'flex',
       alignItems: 'center',
-      '& span': {
-        backgroundColor: 'transparent',
-        width: 'max-content',
+      justifyContent: 'space-between',
+      width: '100%',
+      marginTop: '-2px',
+      '& h5:nth-child(2n)': {
+        marginRight: '-3px',
       },
-      '&::after': {
-        content: '"%"',
+      '& h5:nth-child(3n)': {
+        marginRight: '-5px',
+      },
+      '& h5:nth-child(4n)': {
+        marginRight: '-16px',
+      },
+      '& h5:last-of-type': {
+        marginRight: '-10px',
       },
     },
-  },
-  percentContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginTop: '-2px',
-    '& h5:nth-child(2n)': {
-      marginRight: '-4px',
+    percent: {
+      fontWeight: colors.page.asset.slider.percentWeight,
+      fontSize: '12px',
+      lineHeight: '20px',
+      color: colors.page.asset.slider.percent,
+      cursor: 'pointer',
     },
-    '& h5:nth-child(3n)': {
-      marginRight: '-6px',
-    },
-    '& h5:nth-child(4n)': {
-      marginRight: '-18px',
-    },
-    '& h5:last-of-type': {
-      marginRight: '-6px',
-    },
-  },
-  percent: {
-    fontWeight: 'normal',
-    fontSize: '12px',
-    lineHeight: '20px',
-    color: '#40A9FF',
-    cursor: 'pointer',
-  },
-})
+  }
+}
 
 class Asset extends Component {
   constructor() {
@@ -298,7 +335,6 @@ class Asset extends Component {
         <div className={classes.tradeContainer}>
           <TextField
             fullWidth
-            className={classes.actionInput}
             id='amount'
             value={amount}
             error={amountError}
@@ -355,13 +391,18 @@ class Asset extends Component {
           <div className={classes.buttons}>
             {asset.deposit === true && (
               <Button
-                className={classes.actionButton}
+                className={
+                  loading || asset.balance <= 0 || asset.depositDisabled === true
+                    ? `${classes.actionButton} disabled`
+                    : classes.actionButton
+                }
                 variant='outlined'
                 color='primary'
                 disabled={loading || asset.balance <= 0 || asset.depositDisabled === true}
                 onClick={this.onDeposit}
                 fullWidth
               >
+                <ActionButton />
                 <Typography className={classes.buttonText} variant={'h5'} color={asset.disabled ? '' : 'secondary'}>
                   Deposit
                 </Typography>
@@ -369,13 +410,18 @@ class Asset extends Component {
             )}
             {asset.depositAll === true && (
               <Button
-                className={classes.actionButton}
+                className={
+                  loading || asset.balance <= 0 || asset.depositDisabled === true
+                    ? `${classes.actionButton} disabled`
+                    : classes.actionButton
+                }
                 variant='outlined'
                 color='primary'
                 disabled={loading || asset.balance <= 0 || asset.depositDisabled === true}
                 onClick={this.onDepositAll}
                 fullWidth
               >
+                <ActionButton />
                 <Typography className={classes.buttonText} variant={'h5'} color={asset.disabled ? '' : 'secondary'}>
                   Deposit All
                 </Typography>
@@ -384,15 +430,16 @@ class Asset extends Component {
           </div>
           {asset.depositDisabled === true && (
             <div className={classes.disabledContainer}>
-              <Typography variant='h4'>Deposits are currently disabled for this vault</Typography>
+              <Typography className={classes.disabledText} variant='h4'>
+                Deposits are currently disabled for this vault
+              </Typography>
             </div>
           )}
         </div>
-        <div className={classes.sepperator}></div>
+
         <div className={classes.tradeContainer}>
           <TextField
             fullWidth
-            className={classes.actionInput}
             id='redeemAmount'
             value={redeemAmount}
             error={redeemAmountError}
@@ -452,13 +499,18 @@ class Asset extends Component {
           <div className={classes.buttons}>
             {asset.withdraw === true && (
               <Button
-                className={classes.actionButton}
+                className={
+                  loading || asset.balance <= 0 || asset.depositDisabled === true
+                    ? `${classes.actionButton} disabled`
+                    : classes.actionButton
+                }
                 variant='outlined'
                 color='primary'
                 disabled={loading || asset.vaultBalance <= 0}
                 onClick={this.onWithdraw}
                 fullWidth
               >
+                <ActionButtonRotate />
                 <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                   Withdraw
                 </Typography>
@@ -466,13 +518,18 @@ class Asset extends Component {
             )}
             {asset.withdrawAll === true && (
               <Button
-                className={classes.actionButton}
+                className={
+                  loading || asset.balance <= 0 || asset.depositDisabled === true
+                    ? `${classes.actionButton} disabled`
+                    : classes.actionButton
+                }
                 variant='outlined'
                 color='primary'
                 disabled={loading || asset.vaultBalance <= 0}
                 onClick={this.onWithdrawAll}
                 fullWidth
               >
+                <ActionButtonRotate />
                 <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                   Withdraw All
                 </Typography>

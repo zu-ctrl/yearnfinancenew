@@ -15,7 +15,8 @@ import {
   Tooltip,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import SearchIcon from '@material-ui/icons/Search'
+import SearchIcon from '../icons/searchIcon'
+import FilterIcon from '../icons/filterIcon'
 
 import { withNamespaces } from 'react-i18next'
 
@@ -26,6 +27,7 @@ import ApyTable from '../apyTable'
 import ConnectWallet from '../connectWallet'
 import VaultIcon from '../icons/vaultIcon'
 import InfoIcon from '../icons/infoIcon'
+import LinearLine from '../icons/linearLine'
 
 import {
   ERROR,
@@ -38,6 +40,7 @@ import {
 } from '../../constants'
 
 import Store from '../../stores'
+import { colors } from '../../darkTheme/darkTheme'
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
@@ -101,18 +104,6 @@ const styles = (theme) => {
     introText: {
       paddingLeft: '20px',
     },
-    actionButton: {
-      '&:hover': {
-        backgroundColor: '#2F80ED',
-      },
-      padding: '12px',
-      backgroundColor: '#2F80ED',
-      border: '1px solid #E1E1E1',
-      fontWeight: 500,
-      [theme.breakpoints.up('md')]: {
-        padding: '15px',
-      },
-    },
     heading: {
       display: 'none',
       flex: 1,
@@ -135,10 +126,6 @@ const styles = (theme) => {
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
-    },
-    buttonText: {
-      fontWeight: '700',
-      color: 'white',
     },
     assetSummary: {
       display: 'flex',
@@ -165,31 +152,16 @@ const styles = (theme) => {
         marginRight: '24px',
       },
     },
-    addressContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      overflow: 'hidden',
-      flex: 1,
-      whiteSpace: 'nowrap',
-      fontSize: '0.83rem',
-      textOverflow: 'ellipsis',
-      cursor: 'pointer',
-      padding: '28px 30px',
-      borderRadius: '50px',
-      border: '1px solid ' + colors.borderBlue,
-      alignItems: 'center',
-      maxWidth: '450px',
-      [theme.breakpoints.up('md')]: {
-        width: '100%',
-      },
-    },
     between: {
       width: '40px',
     },
     expansionPanel: {
       maxWidth: 'calc(100vw - 24px)',
       width: '100%',
+      border: 'none',
       margin: '16px 0 0',
+      borderRadius: '20px',
+      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
       '& .MuiIconButton-label': {
         position: 'relative',
         '&:after': {
@@ -197,9 +169,9 @@ const styles = (theme) => {
           width: '0',
           height: '0',
           position: 'absolute',
-          borderLeft: '6px solid transparent',
-          borderRight: '6px solid transparent',
-          borderTop: colors.header.connect.arrow,
+          borderLeft: '7px solid transparent',
+          borderRight: '7px solid transparent',
+          borderTop: colors.page.asset.arrow,
           borderRadius: '2px',
         },
       },
@@ -221,14 +193,6 @@ const styles = (theme) => {
       justifyContent: 'flex-end',
       width: '100%',
     },
-    disaclaimer: {
-      padding: '12px',
-      border: '1px solid rgb(174, 174, 174)',
-      borderRadius: '0.75rem',
-      marginBottom: '24px',
-      lineHeight: '1.2',
-      background: colors.white,
-    },
     fees: {
       paddingRight: '75px',
       padding: '12px',
@@ -236,10 +200,6 @@ const styles = (theme) => {
     },
     walletAddress: {
       padding: '0px 12px',
-    },
-    walletTitle: {
-      flex: 1,
-      color: colors.darkGray,
     },
     filters: {
       width: '100%',
@@ -253,34 +213,47 @@ const styles = (theme) => {
     },
     searchField: {
       flex: 1,
-      background: '#1D2430',
+      background: colors.page.filter.input.bg,
       borderRadius: '20px',
-      border: '1px solid #40A9FF',
-      boxShadow: '0px 0px 1px rgba(0, 0, 0, 0.25)',
+      border: colors.page.filter.input.border,
+      boxShadow: colors.page.filter.input.boxShadow,
+      minWidth: '300px',
       maxWidth: '300px',
       width: '100%',
       height: '40px',
+      position: 'relative',
       '& input': {
-        padding: '0 10px 0 14px',
+        padding: '0 45px 0 12px',
         display: 'flex',
         alignItems: 'center',
         width: '100%',
         height: '40px',
+        fontWeight: 'normal',
+        fontSize: '14px',
+        lineHeight: '22px',
+        color: colors.page.filter.input.color,
+        '&::placeholder': {
+          color: colors.page.filter.input.placeholder,
+        },
+      },
+      '& .MuiInputBase-root': {
+        paddingLeft: '10px',
       },
       '& fieldset': {
+        border: '0',
         '&:hover': {
-          borderColor: '#40A9FF',
+          borderColor: colors.page.filter.input.borderColor,
         },
       },
       '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
         borderWidth: '0',
-        borderColor: '#40A9FF',
-        boxShadow: 'inset 0px -1px 0px #40A9FF',
+        borderColor: colors.page.filter.input.borderColor,
+        boxShadow: colors.page.filter.input.hoverShadow,
       },
       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
         borderWidth: '0',
-        borderColor: '#40A9FF',
-        boxShadow: 'inset 0px -1px 0px #40A9FF',
+        borderColor: colors.page.filter.input.borderColor,
+        boxShadow: colors.page.filter.input.hoverShadow,
       },
     },
     checkbox: {
@@ -298,19 +271,19 @@ const styles = (theme) => {
         fontWeight: 'normal',
         fontSize: '14px',
         lineHeight: '22px',
-        color: '#fff',
+        color: colors.page.header.text,
       },
       '& input': {
-        background: '#394861',
-        color: '#394861',
+        background: colors.page.filter.checkbox.bg,
+        color: colors.page.filter.checkbox.bg,
       },
       '& .MuiIconButton-label': {
-        color: '#40A9FF',
+        color: colors.page.filter.checkbox.label,
         height: '16px',
         width: '16px',
-        background: '#394861',
+        background: colors.page.filter.checkbox.bg,
         borderRadius: '2px',
-        border: '1px solid #40A9FF',
+        border: colors.page.filter.checkbox.border,
       },
       '& .MuiButtonBase-root': {
         padding: '11px 11px',
@@ -320,13 +293,6 @@ const styles = (theme) => {
       display: 'flex',
       alignItems: 'center',
     },
-    on: {
-      color: colors.darkGray,
-      padding: '0px 6px',
-    },
-    positive: {
-      color: colors.compoundGreen,
-    },
     titleContainer: {
       display: 'flex',
       alignItems: 'center',
@@ -335,11 +301,11 @@ const styles = (theme) => {
       fontWeight: 'bold',
       fontSize: '24px',
       lineHeight: '36px',
-      color: '#FFF',
+      color: colors.page.header.text,
       margin: '0 5px',
     },
     titleSpan: {
-      color: '#69C0FF',
+      color: colors.page.header.title,
       marginRight: '5px ',
     },
     linearContainer: {
@@ -349,7 +315,7 @@ const styles = (theme) => {
       display: 'flex',
       alignItems: 'flex-start',
       margin: '13px auto -68px',
-      background: colors.glowShadow,
+      background: colors.page.header.bgGlow,
     },
     line: {
       width: '100%',
@@ -359,7 +325,7 @@ const styles = (theme) => {
       fontSize: '16px',
       lineHeight: '24px',
       textAlign: 'center',
-      color: '#FFFFFF',
+      color: colors.page.header.text,
       maxWidth: '600px',
       width: '100%',
       margin: '19px auto 0',
@@ -370,7 +336,7 @@ const styles = (theme) => {
       justifyContent: 'flex-end',
       marginTop: '16px',
       width: '100%',
-      padding: '0 15px',
+      padding: '0 10px',
     },
     select: {
       background: 'transparent',
@@ -379,7 +345,7 @@ const styles = (theme) => {
       fontWeight: 'bold',
       fontSize: '14px',
       lineHeight: '22px',
-      color: '#fff',
+      color: colors.page.filter.sort.select,
       appearance: 'none',
       marginRight: '3px',
       width: '70px',
@@ -387,13 +353,13 @@ const styles = (theme) => {
       zIndex: '2',
     },
     option: {
-      color: '#000',
+      color: colors.page.filter.sort.option,
     },
     label: {
       fontWeight: 'normal',
       fontSize: '14px',
       lineHeight: '22px',
-      color: '#AEB7C6',
+      color: colors.page.filter.sort.label,
       marginRight: '5px',
     },
     connectedArrow: {
@@ -401,7 +367,7 @@ const styles = (theme) => {
       height: '0',
       borderLeft: '6px solid transparent',
       borderRight: '6px solid transparent',
-      borderTop: colors.header.connect.arrow,
+      borderTop: colors.page.filter.sort.arrow,
       borderRadius: '2px',
       marginLeft: '-17px',
     },
@@ -409,13 +375,19 @@ const styles = (theme) => {
       fontWeight: 'bold',
       fontSize: '18px',
       lineHeight: '28px',
-      color: '#FFFFFF',
+      color: colors.page.asset.color,
     },
     assetDescription: {
       fontWeight: 'normal',
       fontSize: '14px',
       lineHeight: '22px',
-      color: '#F3F4F5',
+      color: colors.page.asset.description,
+    },
+    inputFilter: {
+      position: 'absolute',
+      right: '10px',
+      top: '50%',
+      transform: 'translateY(-50%)',
     },
   }
 }
@@ -580,24 +552,22 @@ class Vault extends Component {
             <Typography className={classes.title} variant='h2'>
               How does
             </Typography>
-            <VaultIcon color={colors.icon.color} glowColor={colors.icon.glow} />
+            <VaultIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
             <Typography className={classes.title} variant='h2'>
               <span className={classes.titleSpan}>Vault</span> work?
             </Typography>
           </div>
-          <div className={classes.linearContainer}>
-            <img
-              className={classes.line}
-              alt='linear icon'
-              src={require(`../../assets/theme/connect-linear-middle-dark.svg`)}
-            />
-          </div>
+          {currentTheme === 'dark' && (
+            <div className={classes.linearContainer}>
+              <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
+            </div>
+          )}
           <Typography className={classes.description} variant='h6'>
             Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
             is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in
             the list below to get started!
           </Typography>
-          {this.renderFilters()}
+          {this.renderFilters({ colors })}
           {this.renderAssetBlocks()}
         </div>
         {loading && <Loader />}
@@ -739,7 +709,7 @@ class Vault extends Component {
       })
   }
 
-  renderFilters = () => {
+  renderFilters = ({ colors }) => {
     const { loading, search, searchError, hideZero, sortBy } = this.state
     const { classes } = this.props
 
@@ -766,7 +736,7 @@ class Vault extends Component {
               arrow
             >
               <div>
-                <InfoIcon color='#BAE7FF' glowColor='drop-shadow(0px 0px 10px #40A9FF)' />
+                <InfoIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
               </div>
             </Tooltip>
           </div>
@@ -782,9 +752,14 @@ class Vault extends Component {
             variant='outlined'
             InputProps={{
               startAdornment: (
-                <InputAdornment position='end' className={classes.inputAdornment}>
-                  <SearchIcon />
-                </InputAdornment>
+                <>
+                  <InputAdornment position='end' className={classes.inputSearch}>
+                    <SearchIcon color='#BBBDBF' />
+                  </InputAdornment>
+                  <InputAdornment position='start' className={classes.inputFilter}>
+                    <FilterIcon color='#BBBDBF' />
+                  </InputAdornment>
+                </>
               ),
             }}
           />

@@ -3,8 +3,8 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { withNamespaces } from 'react-i18next'
 import LinkIcon from '../icons/linkIcon'
 import AssetLinear from '../icons/assetLinear'
-import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
+import { withStyles, withTheme } from '@material-ui/core/styles'
 
 const styles = (theme) => {
   const colors = theme.themeColors
@@ -14,7 +14,7 @@ const styles = (theme) => {
       display: 'flex',
       justifyContent: 'space-between',
       padding: '18px 16px',
-      background: '#1D2430',
+      background: colors.page.asset.apy.bg,
       alignItems: 'center',
     },
     lineContainer: {
@@ -26,13 +26,13 @@ const styles = (theme) => {
       fontSize: '14px',
       lineHeight: '22px',
       letterSpacing: '0.02em',
-      color: '#91D5FF',
+      color: colors.page.asset.apy.title,
     },
     title: {
       fontWeight: 'normal',
       fontSize: '14px',
       lineHeight: '22px',
-      color: '#F3F4F5',
+      color: colors.page.asset.apy.cellTitle,
       display: 'flex',
     },
     description: {
@@ -40,21 +40,34 @@ const styles = (theme) => {
       fontSize: '14px',
       lineHeight: '22px',
       letterSpacing: '0.02em',
-      color: '#FFF',
+      color: colors.page.asset.apy.description,
       marginLeft: '12px',
     },
     linkContainer: {
       display: 'flex',
       alignItems: 'center',
+      cursor: 'pointer',
+    },
+    link: {
+      fontWeight: 'bold',
+      fontSize: '16px',
+      lineHeight: '25px',
+      color: colors.page.asset.apy.link,
+      marginRight: '10px',
     },
   }
 }
 
-const ApyTable = ({ pyEarnData, classes }) => {
+const ApyTable = ({ pyEarnData, classes, theme }) => {
+  const colors = theme.themeColors
   return (
     <div>
       <div className={classes.lineContainer}>
-        <AssetLinear color='#69C0FF' middle='#40A9FF' />
+        <AssetLinear
+          id={colors.page.asset.linear.id}
+          color={colors.page.asset.linear.color}
+          middle={colors.page.asset.linear.middle}
+        />
       </div>
       <div className={classes.root}>
         <Typography className={classes.apy} variant='h5'>
@@ -109,17 +122,27 @@ const ApyTable = ({ pyEarnData, classes }) => {
           </span>
         </Typography>
         <div className={classes.linkContainer} onClick={() => window.open('/', '_blank')}>
-          tutorial <LinkIcon color='red' />
+          <Typography className={classes.link} variant='h6'>
+            tutorial
+          </Typography>
+          <LinkIcon color={colors.page.asset.linear.middle} />
         </div>
         <div className={classes.linkContainer} onClick={() => window.open('/', '_blank')}>
-          strategy <LinkIcon color='red' />
+          <Typography className={classes.link} variant='h6'>
+            strategy
+          </Typography>
+          <LinkIcon color={colors.page.asset.linear.middle} />
         </div>
       </div>
       <div className={classes.lineContainer}>
-        <AssetLinear color='#69C0FF' middle='#40A9FF' />
+        <AssetLinear
+          id={colors.page.asset.linear.id}
+          color={colors.page.asset.linear.color}
+          middle={colors.page.asset.linear.middle}
+        />
       </div>
     </div>
   )
 }
 
-export default withNamespaces()(withStyles(styles)(ApyTable))
+export default withNamespaces()(withStyles(styles)(withTheme(ApyTable)))
