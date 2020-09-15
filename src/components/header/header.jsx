@@ -19,7 +19,7 @@ const styles = (theme) => {
       verticalAlign: 'top',
       width: '100%',
       display: 'flex',
-      background: colors.bg,
+      background: colors.headerBg,
     },
     headerV2: {
       maxWidth: '1340px',

@@ -70,6 +70,8 @@ export const colors = {
     iconWaifuBg: '#9551BA',
   },
   bg: '#f7f9fc',
+  bgImage: 'none',
+  headerBg: '#f7f9fc',
   popup: {
     bg: '#FFF',
     text: '#080809',

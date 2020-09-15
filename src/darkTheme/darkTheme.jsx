@@ -54,6 +54,8 @@ export const colors = {
   textShadow: '0px 0px 10px #40A9FF',
   connectedShadow: '0px 0px 10px #73D13D',
   bg: '#111a21',
+  bgImage: 'none',
+  headerBg: '#111a21',
   popup: {
     bg: '#293140',
     text: '#fff',
