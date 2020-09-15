@@ -1792,7 +1792,11 @@ class Store {
     }
     const web3 = new Web3(new Web3.providers.HttpProvider(config.infuraProvider));
 
-    async.map(store.getStore('aprs'), (apr, callback) => {
+    /**
+     * Hi, i'm johnnykramer. I've changed .map to .mapLimit method, coz locally every time got 429 error from alchemyapi.io
+     * TODO: replace it back if needed
+     */
+    async.mapLimit(store.getStore('aprs'), 2, (apr, callback) => {
       apr.value = value.toString();
       this._getAPR(web3, apr, callback)
     }, (err, yields) => {

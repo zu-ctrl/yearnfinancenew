@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, TextField, Card } from '@material-ui/core'
 import { withNamespaces } from 'react-i18next'
+import AprIcon from '../icons/aprIcon'
 
 import { GET_AGGREGATED_YIELD, GET_AGGREGATED_YIELD_RETURNED } from '../../constants'
 
@@ -208,9 +209,18 @@ class APR extends Component {
 
     return (
       <div className={classes.root}>
+        <h2>
+          How does <AprIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Apr</span> work?
+        </h2>
+        <p>
+          Need some text here! n is a yield aggregator for lending platforms that rebalances for highest yield during
+          contract interaction. Below is a diagram of how things might work in practice. Go ahead and choose the asset
+          you want to deposit...
+        </p>
         <div className={classes.tablesContainer}>
           <div className={classes.investedContainer}>
             <Card className={classes.pairs}>
+              <h3>How much do you want to invest?</h3>
               <TextField
                 fullWidth
                 className={classes.actionInput}
@@ -221,7 +231,6 @@ class APR extends Component {
                 disabled={loading}
                 label=""
                 size="small"
-                helperText={t('APR.HowMuch')}
                 placeholder="0.00"
                 variant="outlined"
               />

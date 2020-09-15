@@ -39,15 +39,20 @@ const YvaultRoi = ({ theme, address }) => {
   }, [])
   return (
     <div style={{ color: 'black' }}>
-      <h3>yVault ROI</h3>
-      <ul>
-        <li>Earnings: {getDataProp('earnings')}</li>
-        <li>Net Deposits: {getDataProp('netDeposits')}</li>
-        <li>IRR: {getDataProp('irr')}</li>
-        <li>IRR Annualized: {getDataProp('irrAnnualized')}</li>
-        <li>Simple Return: {getDataProp('simpleReturn')}</li>
-        <li>Simple Return Annualized: {getDataProp('simpleReturnAnnualized')}</li>
-      </ul>
+      <div style={{ display: 'inline-block' }}>yVault ROI</div>
+      <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+        <div style={{ display: 'block' }}>Earnings: {getDataProp('earnings')}</div>
+        <div style={{ display: 'block' }}>Net Deposits: {getDataProp('netDeposits')}</div>
+      </div>
+      <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+        <div style={{ display: 'block' }}>IRR: {getDataProp('irr')}</div>
+        <div style={{ display: 'block' }}>IRR Annualized: {getDataProp('irrAnnualized')}</div>
+      </div>
+
+      <div style={{ paddingLeft: '10px', display: 'inline-block' }}>
+        <div style={{ display: 'block' }}>Simple Return: {getDataProp('simpleReturn')}</div>
+        <div style={{ display: 'block' }}>Simple Return Annualized: {getDataProp('simpleReturnAnnualized')}</div>
+      </div>
     </div>
   )
 }
