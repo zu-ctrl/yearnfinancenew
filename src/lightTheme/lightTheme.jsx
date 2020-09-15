@@ -127,6 +127,8 @@ export const colors = {
         cellTitle: '#575859',
         description: '#080809',
         link: '#1890FF',
+        middleLinear: '#E3E5E8',
+        middleId: 'light',
       },
       linear: {
         color: '#69C0FF',

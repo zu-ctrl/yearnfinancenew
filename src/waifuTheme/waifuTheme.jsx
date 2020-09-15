@@ -127,6 +127,8 @@ export const colors = {
         cellTitle: '#575859',
         description: '#080809',
         link: '#9551BA',
+        middleLinear: '#E3E5E8',
+        middleId: 'waifu',
       },
       linear: {
         color: '#F3DEFF',
