@@ -1,7 +1,24 @@
+/**
+ * READ ME!
+ * HOW TO ENABLE CACHING?
+ * Just fill Redis credentials and set CACHING_ENABLED=true in touy .env file (see .env.example).
+ */
+
+require('dotenv').config()
 const chrome = require('chrome-aws-lambda')
-// const puppeteer = require('puppeteer')
+const { init, set, get } = require('node-cache-redis')
+
+const { CACHING_ENABLED = false, CACHE_EXPIRE = '600', REDIS_PORT, REDIS_HOST, REDIS_DB, REDIS_PASSWORD } = process.env
+const CACHE_PREFIX = 'pyearn_cache'
 
 module.exports = async (req, res) => {
+  if (CACHING_ENABLED) {
+    init({
+      redisOptions: { port: REDIS_PORT, host: REDIS_HOST, db: +REDIS_DB, password: REDIS_PASSWORD },
+    })
+    const cached = await get(CACHE_PREFIX)
+    if (cached) return res.json(cached)
+  }
   const browser = await chrome.puppeteer.launch({
     args: chrome.args,
     executablePath: await chrome.executablePath,
@@ -47,9 +64,13 @@ module.exports = async (req, res) => {
       })
     })
     await browser.close()
-    return res.json({
+    const result = {
       body: { success: true, data: values.filter((v) => !!v.symbol) },
-    })
+    }
+    if (CACHING_ENABLED) {
+      await set(CACHE_PREFIX, result, +CACHE_EXPIRE)
+    }
+    return res.json(result)
   } catch (e) {
     console.error('ERROR', e.toString())
     await browser.close()

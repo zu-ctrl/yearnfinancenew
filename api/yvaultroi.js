@@ -1,5 +1,16 @@
+/**
+ * READ ME!
+ * HOW TO ENABLE CACHING?
+ * Just fill Redis credentials and set CACHING_ENABLED=true in touy .env file (see .env.example).
+ */
+
+require('dotenv').config()
 const chrome = require('chrome-aws-lambda')
 const walletValidator = require('wallet-address-validator')
+const { init, set, get } = require('node-cache-redis')
+
+const { CACHING_ENABLED = false, CACHE_EXPIRE = '600', REDIS_PORT, REDIS_HOST, REDIS_DB, REDIS_PASSWORD } = process.env
+const CACHE_PREFIX = 'yvaultroi'
 
 /**
  * Constants
@@ -70,12 +81,21 @@ const normalizeData = (_data) => {
 /**
  * Runtime
  */
-module.exports = async (req, res) => {
+const handler = async (req, res) => {
   if (req.method !== 'POST') return res.json(errorResponse())
   if (!req.body || !req.body.address || !walletValidator.validate(req.body.address, 'ETH'))
     return res.json(errorResponse('Wrong address'))
 
   const { address } = req.body
+
+  if (CACHING_ENABLED) {
+    init({
+      redisOptions: { port: REDIS_PORT, host: REDIS_HOST, db: +REDIS_DB, password: REDIS_PASSWORD },
+    })
+    const cached = await get(`${CACHE_PREFIX}_${address}`)
+    if (cached) return res.json(cached)
+  }
+
   const browser = await chrome.puppeteer.launch({
     args: chrome.args,
     executablePath: await chrome.executablePath,
@@ -92,11 +112,17 @@ module.exports = async (req, res) => {
     })
     const rawData = await scrapeData(page, address)
     const data = normalizeData(rawData)
+    await browser.close()
+    if (CACHING_ENABLED) {
+      await set(`${CACHE_PREFIX}_${address}`, successResponse(data), +CACHE_EXPIRE)
+    }
     return await res.json(successResponse(data))
   } catch (e) {
     console.error('ERROR:::', e.toString())
-    if (!res.headersSent) return res.json(noDataResponse())
-  } finally {
     await browser.close()
+    if (!res.headersSent) return res.json(noDataResponse())
+    return
   }
 }
+
+module.exports = handler
