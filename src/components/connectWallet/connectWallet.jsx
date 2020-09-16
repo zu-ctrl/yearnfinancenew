@@ -174,18 +174,18 @@ const ConnectWallet = ({ t, history, classes, currentTheme }) => {
         <Carousel
           plugins={['clickToChange', 'infinite', 'arrows', 'autoplay']}
           infinite
-          autoPlay={3000}
+          autoPlay={10000}
           animationSpeed={1000}
           value={selectedSlide}
           onChange={(val) => setSelectedSlide(val)}
           addArrowClickHandler
           arrowLeft={
-            <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonLeft}`}>
+            <Button variant="outlined" color="primary" className={`${classes.button} ${classes.buttonLeft}`}>
               {t('PREVIOUS')}
             </Button>
           }
           arrowRight={
-            <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonRight}`}>
+            <Button variant="outlined" color="primary" className={`${classes.button} ${classes.buttonRight}`}>
               {t('NEXT')}
             </Button>
           }
@@ -211,14 +211,14 @@ const ConnectWallet = ({ t, history, classes, currentTheme }) => {
       <div className={classes.linearContainerSm}>
         <img
           className={classes.line}
-          alt='connect linear'
+          alt="connect linear"
           src={require(`../../assets/theme/connect-linear-middle-${currentTheme}.svg`)}
         />
       </div>
       <div className={classes.linear}>
         <img
           className={classes.line}
-          alt='connect linear'
+          alt="connect linear"
           src={require(`../../assets/theme/connect-linear-lg-${currentTheme}.svg`)}
         />
       </div>
