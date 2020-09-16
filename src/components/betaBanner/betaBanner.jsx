@@ -16,6 +16,10 @@ const styles = (theme) => {
       boxShadow: colors.beta.shadow,
       padding: '9px 15px',
       zIndex: '2',
+      [theme.breakpoints.down('xs')]: {
+        padding: '9px 10px',
+        justifyContent: 'flex-start',
+      },
     },
     close: {
       position: 'absolute',
@@ -39,6 +43,9 @@ const styles = (theme) => {
       '&::after': {
         transform: 'rotate(-40deg)',
       },
+      [theme.breakpoints.down('xs')]: {
+        right: '10px',
+      },
     },
     title: {
       color: colors.beta.color,
@@ -52,6 +59,9 @@ const styles = (theme) => {
       bottom: '0',
       left: '50%',
       transform: 'translateX(-50%)',
+      [theme.breakpoints.down('xs')]: {
+        width: '100%',
+      },
     },
   }
 }
@@ -64,14 +74,14 @@ const BetaBanner = ({ classes, isBeta, setIsBeta, currentTheme }) => {
   if (!isBeta) return null
   return (
     <div className={classes.root}>
-      <img alt="info icon" src={require(`../../assets/theme/info-banner-${currentTheme}.svg`)} />
+      <img alt='info icon' src={require(`../../assets/theme/info-banner-${currentTheme}.svg`)} />
       <Typography className={classes.title} variant={'h6'}>
         This project is in beta. Use at your own risk.
       </Typography>
       {currentTheme === 'dark' && (
         <img
           className={classes.bottomLine}
-          alt="info icon"
+          alt='info icon'
           src={require('../../assets/theme/beta-linear-line-dark.svg')}
         />
       )}
