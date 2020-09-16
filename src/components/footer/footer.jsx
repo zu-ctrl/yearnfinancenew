@@ -181,6 +181,7 @@ class Footer extends Component {
               </Typography>
             </div>
             <ThemeChooser themeName={themeName} setTheme={setTheme} />
+            <LangChooser currentLang={currentLang} setCurrentLang={setCurrentLang} langList={langList} />
           </div>
           <div className={classes.products}>
             <Typography className={classes.heading} variant={'h6'}>

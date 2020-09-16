@@ -104,7 +104,7 @@ const YvaultRoi = ({ theme, address, classes }) => {
       </div>
       <div className={classes.valueContainer}>
         <Typography className={classes.cellTitle} variant="h5">
-          Simple Returndddddd:<span className={classes.description}>{getDataProp('simpleReturn')}</span>
+          Simple Return:<span className={classes.description}>{getDataProp('simpleReturn')}</span>
         </Typography>
         <Typography className={classes.cellTitle} variant="h5">
           Simple Return Annualized:

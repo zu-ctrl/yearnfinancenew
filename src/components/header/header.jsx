@@ -266,7 +266,7 @@ class Header extends Component {
         <div className={classes.headerV2}>
           <div className={classes.icon}>
             <img
-              alt=''
+              alt=""
               src={require('../../assets/YFI-logo.png')}
               height={'40px'}
               onClick={() => {
@@ -294,7 +294,7 @@ class Header extends Component {
           )}
           <div className={classes.account}>
             {address && (
-              <Button variant='text' color='primary' className={classes.connectedButton} onClick={this.addressClicked}>
+              <Button variant="text" color="primary" className={classes.connectedButton} onClick={this.addressClicked}>
                 <div className={classes.connectedDot}></div>
                 <Typography variant={'h4'} className={classes.walletTitle} noWrap>
                   {address}
@@ -303,14 +303,18 @@ class Header extends Component {
               </Button>
             )}
             {!address && (
-              <Button variant='text' color='primary' className={classes.connectButton} onClick={this.addressClicked}>
+              <Button variant="text" color="primary" className={classes.connectButton} onClick={this.addressClicked}>
                 <Typography variant={'h4'} className={classes.walletTitle} noWrap>
                   CONNECT WALLET
                 </Typography>
               </Button>
             )}
           </div>
-          {isMobile && <div onClick={this.openMobileMenu}>🍔</div>}
+          {isMobile && (
+            <div onClick={this.openMobileMenu} style={{ fontSize: '36px' }}>
+              🍔
+            </div>
+          )}
         </div>
         {showMobileMenu && (
           <div style={{ position: 'absolute', zIndex: 9999, width: '100%' }}>
