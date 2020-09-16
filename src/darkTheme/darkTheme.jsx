@@ -82,6 +82,9 @@ export const colors = {
     glow: 'drop-shadow(0px 0px 10px #40A9FF)',
   },
   page: {
+    zap: {
+      inputLabel: '#818FA6',
+    },
     header: {
       title: '#69C0FF',
       text: '#FFF',

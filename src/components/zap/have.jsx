@@ -60,12 +60,21 @@ const styles = (theme) => {
     },
     balances: {
       width: '100%',
-      textAlign: 'right',
+      textAlign: 'left',
       paddingRight: '20px',
       cursor: 'pointer',
+      marginTop: '10px',
+      marginBottom: '10px',
+      '& h4': {
+        fontWeight: 'lighter',
+      },
     },
     title: {
-      paddingRight: '24px',
+      fontWeight: 'bold',
+      fontSize: '24px',
+      lineHeight: '36px',
+      color: colors.page.header.text,
+      margin: '0 5px',
     },
   }
 }
@@ -114,20 +123,19 @@ class Have extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.inputCard}>
-          <Typography variant="h3" className={classes.inputCardHeading}>
+          <Typography variant="h3" className={classes.title}>
             {t('Zap.IHave')}
           </Typography>
           <div className={classes.tradeContainer}>
             {this.renderAssetSelect('asset', asset, assetOptions, assetError)}
             {sendAsset && (
               <div className={classes.balances}>
-                <Typography variant="h3" className={classes.title}></Typography>
                 <Typography
                   variant="h4"
                   onClick={() => {
                     this.props.setSendAmountPercent(100)
                   }}
-                  className={classes.value}
+                  // className={classes.value}
                   noWrap
                 >
                   {'Balance: ' + (sendAsset.balance ? sendAsset.balance.toFixed(4) : '0.0000')}{' '}

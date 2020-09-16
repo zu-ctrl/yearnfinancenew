@@ -11,6 +11,7 @@ import Loader from '../loader'
 import Snackbar from '../snackbar'
 import ConnectWallet from '../connectWallet'
 import ZapIcon from '../icons/zapIcon'
+import LinearLine from '../icons/linearLine'
 
 import {
   ERROR,
@@ -40,13 +41,12 @@ const styles = (theme) => {
   const colors = theme.themeColors
   return {
     root: {
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      maxWidth: '1200px',
+      backgroundImage: colors.bgImage,
+      backgroundColor: colors.bg,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom right',
+      paddingBottom: '90px',
       width: '100%',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
     },
     investedContainerLoggedOut: {
       display: 'flex',
@@ -61,20 +61,15 @@ const styles = (theme) => {
       },
     },
     iHaveContainer: {
-      flex: 1,
       display: 'flex',
-      flexWrap: 'wrap',
-      padding: '42px 30px',
-      borderRadius: '50px',
-      maxWidth: '500px',
-      justifyContent: 'center',
-      border: '1px solid ' + colors.borderBlue,
-    },
-    iWantContainer: {
       flex: 1,
-      display: 'flex',
-      flexWrap: 'wrap',
-      padding: '24px',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      maxWidth: '450px',
+      width: '100%',
+      padding: '10px 30px 30px',
+      borderRadius: '20px',
     },
     conversionRatioContainer: {
       width: '100%',
@@ -124,12 +119,10 @@ const styles = (theme) => {
       flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      padding: '12px',
-      minWidth: '100%',
-      [theme.breakpoints.up('md')]: {
-        minWidth: '800px',
-      },
+      justifyContent: 'flex-start',
+      maxWidth: '870px',
+      width: '100%',
+      margin: '40px auto 0',
     },
     connectContainer: {
       padding: '12px',
@@ -142,16 +135,21 @@ const styles = (theme) => {
       },
     },
     actionButton: {
-      '&:hover': {
-        backgroundColor: '#2F80ED',
+      background: colors.page.asset.button.bg,
+      boxShadow: colors.page.asset.button.shadow,
+      borderRadius: '20px',
+      display: 'flex',
+      alignItems: 'center',
+      cursor: 'pointer',
+      padding: '10px 3px',
+      justifyContent: 'center',
+      margin: '20px 5px 0',
+      width: '100%',
+      '&:last-of-type': {
+        marginRight: '0',
       },
-      padding: '12px',
-      backgroundColor: '#2F80ED',
-      borderRadius: '1rem',
-      border: '1px solid #E1E1E1',
-      fontWeight: 500,
-      [theme.breakpoints.up('md')]: {
-        padding: '15px',
+      '&:first-of-type': {
+        marginLeft: '0',
       },
     },
     buttonText: {
@@ -197,6 +195,56 @@ const styles = (theme) => {
     },
     grey: {
       color: colors.darkGray,
+    },
+    titleContainer: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '24px',
+      lineHeight: '36px',
+      color: colors.page.header.text,
+      margin: '0 5px',
+    },
+    linearContainer: {
+      maxWidth: '379px',
+      width: '100%',
+      minHeight: '69px',
+      display: 'flex',
+      alignItems: 'flex-start',
+      margin: '13px auto -68px',
+      background: colors.page.header.bgGlow,
+    },
+    lineaFormrContainer: {
+      maxWidth: '379px',
+      width: '100%',
+      minHeight: '100px',
+      display: 'flex',
+      alignItems: 'flex-start',
+      margin: '36px auto -68px',
+      background: colors.page.header.bgGlow,
+    },
+    description: {
+      fontWeight: 'normal',
+      fontSize: '16px',
+      lineHeight: '24px',
+      textAlign: 'center',
+      color: colors.page.header.text,
+      maxWidth: '600px',
+      width: '100%',
+      margin: '19px auto 0',
+    },
+    titleSpan: {
+      color: colors.page.header.title,
+      marginRight: '5px ',
+    },
+    expansionPanel: {
+      maxWidth: 'calc(100vw - 24px)',
+      width: '100%',
+      border: 'none',
+      margin: '16px 0 0',
+      borderRadius: '20px',
     },
   }
 }
@@ -330,7 +378,7 @@ class Zap extends Component {
   }
 
   render() {
-    const { classes, t, currentTheme } = this.props
+    const { classes, t, currentTheme, theme } = this.props
     const {
       assets,
       curveContracts,
@@ -343,6 +391,7 @@ class Zap extends Component {
       snackbarMessage,
       bestPrice,
     } = this.state
+    const colors = theme.themeColors
 
     if (!account || !account.address) {
       return <ConnectWallet currentTheme={currentTheme} />
@@ -350,94 +399,113 @@ class Zap extends Component {
 
     return (
       <div className={classes.root}>
-        <h2>
-          How does <ZapIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Zap</span> work?
-        </h2>
-        <p>
-          Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
-          is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in the
-          list below to get started!{' '}
-        </p>
+        <div className={classes.investedContainer}>
+          <div className={classes.titleContainer}>
+            <Typography className={classes.title} variant="h2">
+              How does
+            </Typography>
+            <ZapIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
+            <Typography className={classes.title} variant="h2">
+              <span className={classes.titleSpan}>Zap</span> work?
+            </Typography>
+          </div>
+          {currentTheme === 'dark' && (
+            <div className={classes.linearContainer}>
+              <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
+            </div>
+          )}
+          <Typography className={classes.description} variant="h6">
+            Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
+            is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in
+            the list below to get started!
+          </Typography>
+        </div>
         <div className={classes.card}>
           <Card className={classes.iHaveContainer}>
-            <Have
-              assets={assets}
-              curveContracts={curveContracts}
-              setSendAsset={this.setSendAsset}
-              sendAsset={sendAsset}
-              setSendAmountPercent={this.setSendAmountPercent}
-              loading={loading}
-            />
-            <Sending
-              sendAsset={sendAsset}
-              sendAmount={sendAmount}
-              setSendAmount={this.setSendAmount}
-              setSendAmountPercent={this.setSendAmountPercent}
-              loading={loading}
-            />
-            <div className={classes.sepperator}></div>
-            {sendAsset && sendAsset.symbol === 'ETH' && (
-              <ConversionRatios bestPrice={bestPrice} sendAsset={sendAsset} receiveAsset={receiveAsset} />
-            )}
-            <Want
-              assets={assets}
-              curveContracts={curveContracts}
-              receiveAsset={receiveAsset}
-              setReceiveAsset={this.setReceiveAsset}
-              sendAsset={sendAsset}
-              loading={loading}
-              bestPrice={bestPrice}
-              sendAmount={sendAmount}
-            />
-            <div className={classes.sepperator}></div>
-            {sendAsset &&
-              receiveAsset &&
-              !(['crvV3', 'crvV4'].includes(receiveAsset.id) && ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id)) &&
-              !(sendAsset && sendAsset.symbol === 'ETH') && (
+            <div className={classes.expansionPanel}>
+              <Have
+                assets={assets}
+                curveContracts={curveContracts}
+                setSendAsset={this.setSendAsset}
+                sendAsset={sendAsset}
+                setSendAmountPercent={this.setSendAmountPercent}
+                loading={loading}
+              />
+              <Sending
+                sendAsset={sendAsset}
+                sendAmount={sendAmount}
+                setSendAmount={this.setSendAmount}
+                setSendAmountPercent={this.setSendAmountPercent}
+                loading={loading}
+              />
+              {currentTheme === 'dark' && (
+                <div className={classes.lineaFormrContainer}>
+                  <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
+                </div>
+              )}
+              {sendAsset && sendAsset.symbol === 'ETH' && (
+                <ConversionRatios bestPrice={bestPrice} sendAsset={sendAsset} receiveAsset={receiveAsset} />
+              )}
+              <Want
+                assets={assets}
+                curveContracts={curveContracts}
+                receiveAsset={receiveAsset}
+                setReceiveAsset={this.setReceiveAsset}
+                sendAsset={sendAsset}
+                loading={loading}
+                bestPrice={bestPrice}
+                sendAmount={sendAmount}
+              />
+
+              {sendAsset &&
+                receiveAsset &&
+                !(['crvV3', 'crvV4'].includes(receiveAsset.id) && ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id)) &&
+                !(sendAsset && sendAsset.symbol === 'ETH') && (
+                  <Button
+                    className={classes.actionButton}
+                    variant="outlined"
+                    color="primary"
+                    disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
+                    onClick={this.onZap}
+                    fullWidth
+                  >
+                    <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                      {t('Zap.Zap')}
+                    </Typography>
+                  </Button>
+                )}
+              {sendAsset &&
+                receiveAsset &&
+                ['crvV3', 'crvV4'].includes(receiveAsset.id) &&
+                ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id) && (
+                  <Button
+                    className={classes.actionButton}
+                    variant="outlined"
+                    color="primary"
+                    disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
+                    onClick={this.onSwap}
+                    fullWidth
+                  >
+                    <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                      {t('Zap.Swap')}
+                    </Typography>
+                  </Button>
+                )}
+              {sendAsset && sendAsset.symbol === 'ETH' && (
                 <Button
                   className={classes.actionButton}
-                  variant='outlined'
-                  color='primary'
+                  variant="outlined"
+                  color="primary"
                   disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
-                  onClick={this.onZap}
+                  onClick={this.onTrade}
                   fullWidth
                 >
-                  <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
-                    {t('Zap.Zap')}
+                  <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                    {t('Zap.Trade')}
                   </Typography>
                 </Button>
               )}
-            {sendAsset &&
-              receiveAsset &&
-              ['crvV3', 'crvV4'].includes(receiveAsset.id) &&
-              ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id) && (
-                <Button
-                  className={classes.actionButton}
-                  variant='outlined'
-                  color='primary'
-                  disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
-                  onClick={this.onSwap}
-                  fullWidth
-                >
-                  <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
-                    {t('Zap.Swap')}
-                  </Typography>
-                </Button>
-              )}
-            {sendAsset && sendAsset.symbol === 'ETH' && (
-              <Button
-                className={classes.actionButton}
-                variant='outlined'
-                color='primary'
-                disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
-                onClick={this.onTrade}
-                fullWidth
-              >
-                <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
-                  {t('Zap.Trade')}
-                </Typography>
-              </Button>
-            )}
+            </div>
           </Card>
           <div className={classes.introCenter}></div>
         </div>
@@ -559,4 +627,4 @@ class Zap extends Component {
   }
 }
 
-export default withNamespaces()(withRouter(withStyles(styles)(Zap)))
+export default withNamespaces()(withRouter(withStyles(styles, { withTheme: true })(Zap)))

@@ -620,6 +620,11 @@ class Vault extends Component {
           return true
         }
       })
+      .map((asset, i) => {
+        // TODO: REMOVE THIS
+        asset.balance = 123
+        return asset
+      })
       .map((asset) => {
         return (
           <Accordion

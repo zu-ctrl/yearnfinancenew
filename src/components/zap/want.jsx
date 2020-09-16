@@ -60,6 +60,13 @@ const styles = (theme) => {
       display: 'inline-block',
       verticalAlign: 'middle',
     },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '24px',
+      lineHeight: '36px',
+      color: colors.page.header.text,
+      margin: '0 5px',
+    },
   }
 }
 
@@ -125,7 +132,7 @@ class Want extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.inputCard}>
-          <Typography variant="h3" className={classes.inputCardHeading}>
+          <Typography variant="h3" className={classes.title}>
             {t('Zap.IWillReceive')}
           </Typography>
           {sendAsset && sendAsset.symbol === 'ETH' && this.renderAsset('DAI', amount)}
