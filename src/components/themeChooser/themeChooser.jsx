@@ -17,6 +17,9 @@ const styles = (theme) => {
       borderRadius: '30px',
       marginTop: '29px',
       height: '40px',
+      minWidth: '134px',
+      maxWidth: '134px',
+      width: '100%',
       cursor: 'pointer',
       '&:hover': {
         background: colors.chooser.bg,
