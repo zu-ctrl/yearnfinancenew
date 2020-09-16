@@ -30,7 +30,35 @@ const styles = (theme) => {
       color: colors.darkGray,
     },
     assetSelectRoot: {
-      borderRadius: '1.25rem',
+      '& .MuiInputBase-root': {
+        background: colors.page.asset.input.bg,
+        border: colors.page.asset.input.border,
+        boxSizing: 'border-box',
+        boxShadow: colors.page.asset.input.shadow,
+        borderRadius: '20px',
+        padding: '4px',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '22px',
+        letterSpacing: '0.02em',
+        color: colors.page.asset.input.color,
+        height: '40px',
+      },
+      '& .MuiOutlinedInput-input': {
+        padding: '0',
+      },
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        border: 'none',
+      },
+      '& .MuiSelect-icon': {
+        color: '#818FA6',
+      },
+      '& .MuiOutlinedInput-notchedOutline': {
+        border: 'none',
+      },
+      '& .MuiSelect-select:focus': {
+        background: 'transparent',
+      },
     },
     assetSelectMenu: {
       padding: '15px 15px 15px 20px',
@@ -123,7 +151,7 @@ class Have extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.inputCard}>
-          <Typography variant="h3" className={classes.title}>
+          <Typography variant='h3' className={classes.title}>
             {t('Zap.IHave')}
           </Typography>
           <div className={classes.tradeContainer}>
@@ -131,7 +159,7 @@ class Have extends Component {
             {sendAsset && (
               <div className={classes.balances}>
                 <Typography
-                  variant="h4"
+                  variant='h4'
                   onClick={() => {
                     this.props.setSendAmountPercent(100)
                   }}
@@ -196,7 +224,7 @@ class Have extends Component {
         SelectProps={{
           native: false,
         }}
-        variant="outlined"
+        variant='outlined'
         fullWidth
         disabled={loading}
         className={classes.assetSelectRoot}
@@ -215,15 +243,15 @@ class Have extends Component {
         <React.Fragment>
           <div className={classes.assetSelectIcon}>
             <img
-              alt=""
+              alt=''
               src={require('../../assets/' +
                 (['crvV1', 'crvV2', 'crvV3', 'crvV4'].includes(option.id) ? 'CRV' : option.symbol) +
                 '-logo.png')}
-              height="30px"
+              height='30px'
             />
           </div>
           <div className={classes.assetSelectIconName}>
-            <Typography variant="h4">{option.symbol}</Typography>
+            <Typography variant='h4'>{option.symbol}</Typography>
           </div>
         </React.Fragment>
       </MenuItem>

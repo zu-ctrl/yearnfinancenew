@@ -165,7 +165,6 @@ export const colors = {
         bg: 'linear-gradient(100.35deg, #369EFF 0%, #096DD9 100%)',
         shadow: '0px 0px 14px rgba(64, 169, 255, 0.4), inset 0px 1px 1px rgba(255, 255, 255, 0.4)',
         color: '#FFF',
-
         disabled: {
           bg: 'rgb(26, 32, 43)',
           color: '#fff',

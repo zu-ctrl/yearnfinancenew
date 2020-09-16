@@ -141,6 +141,7 @@ const styles = (theme) => {
     actionButton: {
       background: colors.page.asset.button.bg,
       boxShadow: colors.page.asset.button.shadow,
+      border: colors.button.border,
       borderRadius: '20px',
       display: 'flex',
       alignItems: 'center',
@@ -154,6 +155,10 @@ const styles = (theme) => {
       },
       '&:first-of-type': {
         marginLeft: '0',
+      },
+      '&:hover': {
+        background: colors.page.asset.button.bg,
+        border: colors.button.border,
       },
     },
     buttonText: {
@@ -405,11 +410,11 @@ class Zap extends Component {
       <div className={classes.root}>
         <div className={classes.investedContainer}>
           <div className={classes.titleContainer}>
-            <Typography className={classes.title} variant="h2">
+            <Typography className={classes.title} variant='h2'>
               How does
             </Typography>
             <ZapIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
-            <Typography className={classes.title} variant="h2">
+            <Typography className={classes.title} variant='h2'>
               <span className={classes.titleSpan}>Zap</span> work?
             </Typography>
           </div>
@@ -418,7 +423,7 @@ class Zap extends Component {
               <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
             </div>
           )}
-          <Typography className={classes.description} variant="h6">
+          <Typography className={classes.description} variant='h6'>
             Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
             is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in
             the list below to get started!
@@ -467,13 +472,13 @@ class Zap extends Component {
                 !(sendAsset && sendAsset.symbol === 'ETH') && (
                   <Button
                     className={classes.actionButton}
-                    variant="outlined"
-                    color="primary"
+                    variant='outlined'
+                    color='primary'
                     disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
                     onClick={this.onZap}
                     fullWidth
                   >
-                    <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                    <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                       {t('Zap.Zap')}
                     </Typography>
                   </Button>
@@ -484,13 +489,13 @@ class Zap extends Component {
                 ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id) && (
                   <Button
                     className={classes.actionButton}
-                    variant="outlined"
-                    color="primary"
+                    variant='outlined'
+                    color='primary'
                     disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
                     onClick={this.onSwap}
                     fullWidth
                   >
-                    <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                    <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                       {t('Zap.Swap')}
                     </Typography>
                   </Button>
@@ -498,13 +503,13 @@ class Zap extends Component {
               {sendAsset && sendAsset.symbol === 'ETH' && (
                 <Button
                   className={classes.actionButton}
-                  variant="outlined"
-                  color="primary"
+                  variant='outlined'
+                  color='primary'
                   disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
                   onClick={this.onTrade}
                   fullWidth
                 >
-                  <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                  <Typography className={classes.buttonText} variant={'h5'} color='secondary'>
                     {t('Zap.Trade')}
                   </Typography>
                 </Button>

@@ -33,7 +33,35 @@ const styles = (theme) => {
       color: colors.darkGray,
     },
     assetSelectRoot: {
-      borderRadius: '1.25rem',
+      '& .MuiInputBase-root': {
+        background: colors.page.asset.input.bg,
+        border: colors.page.asset.input.border,
+        boxSizing: 'border-box',
+        boxShadow: colors.page.asset.input.shadow,
+        borderRadius: '20px',
+        padding: '4px',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '22px',
+        letterSpacing: '0.02em',
+        color: colors.page.asset.input.color,
+        height: '40px',
+      },
+      '& .MuiOutlinedInput-input': {
+        padding: '0',
+      },
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        border: 'none',
+      },
+      '& .MuiSelect-icon': {
+        color: '#818FA6',
+      },
+      '& .MuiOutlinedInput-notchedOutline': {
+        border: 'none',
+      },
+      '& .MuiSelect-select:focus': {
+        background: 'transparent',
+      },
     },
     assetSelectMenu: {
       padding: '15px 15px 15px 20px',
@@ -132,7 +160,7 @@ class Want extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.inputCard}>
-          <Typography variant="h3" className={classes.title}>
+          <Typography variant='h3' className={classes.title}>
             {t('Zap.IWillReceive')}
           </Typography>
           {sendAsset && sendAsset.symbol === 'ETH' && this.renderAsset('DAI', amount)}
@@ -180,18 +208,18 @@ class Want extends Component {
         id={id}
         name={id}
         value={amount ? amount + ' ' + id : id}
-        variant="outlined"
+        variant='outlined'
         disabled
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start" className={classes.inputAdornment}>
+            <InputAdornment position='start' className={classes.inputAdornment}>
               <div className={classes.assetSelectIcon}>
                 <img
-                  alt=""
+                  alt=''
                   src={require('../../assets/' +
                     (['crvV1', 'crvV2', 'crvV3', 'crvV3', 'crv'].includes(id) ? 'CRV' : id) +
                     '-logo.png')}
-                  height="30px"
+                  height='30px'
                 />
               </div>
             </InputAdornment>
@@ -202,7 +230,7 @@ class Want extends Component {
   }
 
   renderAssetSelect = (id, value, options, error, sendAsset) => {
-    const { loading } = this.props
+    const { loading, classes } = this.props
 
     return (
       <TextField
@@ -214,8 +242,9 @@ class Want extends Component {
         SelectProps={{
           native: false,
         }}
-        variant="outlined"
+        variant='outlined'
         disabled={loading}
+        className={classes.assetSelectRoot}
       >
         {options
           ? options
@@ -251,26 +280,26 @@ class Want extends Component {
         <React.Fragment>
           <div className={classes.assetSelectIcon}>
             <img
-              alt=""
+              alt=''
               src={require('../../assets/' +
                 (['crvV1', 'crvV2', 'crvV3', 'crvV4'].includes(option.id) ? 'CRV' : option.symbol) +
                 '-logo.png')}
-              height="30px"
+              height='30px'
             />
           </div>
           <div className={classes.assetSelectIconName}>
-            <Typography variant="h4">{option.symbol}</Typography>
+            <Typography variant='h4'>{option.symbol}</Typography>
           </div>
           {sendAsset && sendAsset.id === 'crvV3' && option.id === 'crvV4' && (
             <React.Fragment>
               <div className={classes.assetSelectPlus}>
-                <Typography variant="h4">{'+'}</Typography>
+                <Typography variant='h4'>{'+'}</Typography>
               </div>
               <div className={classes.assetSelectIcon}>
-                <img alt="" src={require('../../assets/TUSD-logo.png')} height="30px" />
+                <img alt='' src={require('../../assets/TUSD-logo.png')} height='30px' />
               </div>
               <div className={classes.assetSelectIconName}>
-                <Typography variant="h4">{'TUSD'}</Typography>
+                <Typography variant='h4'>{'TUSD'}</Typography>
               </div>
             </React.Fragment>
           )}
