@@ -600,125 +600,127 @@ class Vault extends Component {
     const { classes } = this.props
     const width = window.innerWidth
     const _assets = [...assets]
-    return this.sortedAssets(_assets, sortBy)
-      .filter((asset) => {
-        if (hideZero && asset.balance === 0 && asset.vaultBalance === 0) {
-          return false
-        }
+    return (
+      this.sortedAssets(_assets, sortBy)
+        .filter((asset) => {
+          if (hideZero && asset.balance === 0 && asset.vaultBalance === 0) {
+            return false
+          }
 
-        if (search && search !== '') {
+          if (search && search !== '') {
+            return (
+              asset.id.toLowerCase().includes(search.toLowerCase()) ||
+              asset.name.toLowerCase().includes(search.toLowerCase()) ||
+              asset.symbol.toLowerCase().includes(search.toLowerCase()) ||
+              asset.description.toLowerCase().includes(search.toLowerCase()) ||
+              asset.vaultSymbol.toLowerCase().includes(search.toLowerCase())
+            )
+            // asset.erc20address.toLowerCase().includes(search.toLowerCase()) ||
+            // asset.vaultContractAddress.toLowerCase().includes(search.toLowerCase())
+          } else {
+            return true
+          }
+        })
+        // .map((asset, i) => {
+        //   // TODO: for testing
+        //   asset.balance = 123
+        //   return asset
+        // })
+        .map((asset) => {
           return (
-            asset.id.toLowerCase().includes(search.toLowerCase()) ||
-            asset.name.toLowerCase().includes(search.toLowerCase()) ||
-            asset.symbol.toLowerCase().includes(search.toLowerCase()) ||
-            asset.description.toLowerCase().includes(search.toLowerCase()) ||
-            asset.vaultSymbol.toLowerCase().includes(search.toLowerCase())
-          )
-          // asset.erc20address.toLowerCase().includes(search.toLowerCase()) ||
-          // asset.vaultContractAddress.toLowerCase().includes(search.toLowerCase())
-        } else {
-          return true
-        }
-      })
-      .map((asset, i) => {
-        // TODO: REMOVE THIS
-        asset.balance = 123
-        return asset
-      })
-      .map((asset) => {
-        return (
-          <Accordion
-            className={classes.expansionPanel}
-            square
-            key={asset.id + '_expand'}
-            expanded={expanded === asset.id}
-            onChange={() => {
-              this.handleChange(asset.id)
-            }}
-          >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
-              <div className={classes.assetSummary}>
-                <div className={classes.headingName}>
-                  <div className={classes.assetIcon}>
-                    <img
-                      alt=""
-                      src={require('../../assets/' + asset.symbol + '-logo.png')}
-                      height={width > 600 ? '40px' : '30px'}
-                      style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
-                    />
+            <Accordion
+              className={classes.expansionPanel}
+              square
+              key={asset.id + '_expand'}
+              expanded={expanded === asset.id}
+              onChange={() => {
+                this.handleChange(asset.id)
+              }}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+                <div className={classes.assetSummary}>
+                  <div className={classes.headingName}>
+                    <div className={classes.assetIcon}>
+                      <img
+                        alt=""
+                        src={require('../../assets/' + asset.symbol + '-logo.png')}
+                        height={width > 600 ? '40px' : '30px'}
+                        style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
+                      />
+                    </div>
+                    <div>
+                      <Typography className={classes.assetTitle} variant={'h3'} noWrap>
+                        {asset.name}
+                      </Typography>
+                      <Typography className={classes.assetDescription} variant={'h5'}>
+                        {asset.description}
+                      </Typography>
+                    </div>
                   </div>
-                  <div>
-                    <Typography className={classes.assetTitle} variant={'h3'} noWrap>
-                      {asset.name}
-                    </Typography>
-                    <Typography className={classes.assetDescription} variant={'h5'}>
-                      {asset.description}
-                    </Typography>
-                  </div>
-                </div>
-                {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
-                  <div className={classes.headingEarning}>
-                    <Typography variant={'h5'} className={classes.assetDescription}>
-                      You are earning:
-                    </Typography>
-                    <div className={classes.flexy}>
-                      <Typography variant={'h3'} noWrap>
-                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
+                  {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
+                    <div className={classes.headingEarning}>
+                      <Typography variant={'h5'} className={classes.assetDescription}>
+                        You are earning:
+                      </Typography>
+                      <div className={classes.flexy}>
+                        <Typography variant={'h3'} noWrap>
+                          {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
+                        </Typography>
+                        <Typography variant={'h5'} className={classes.assetDescription}>
+                          {' '}
+                          on{' '}
+                        </Typography>
+                        <Typography className={classes.assetDescription} variant={'h3'} noWrap>
+                          {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : <Skeleton style={{ width: '50px' }} />}{' '}
+                          {asset.vaultSymbol}
+                        </Typography>
+                      </div>
+                    </div>
+                  )}
+                  {!['LINK'].includes(asset.id) && asset.vaultBalance === 0 && (
+                    <div className={classes.headingEarning}>
+                      <div className={classes.flexy}>
+                        <Typography className={classes.assetTitle} variant={'h3'} noWrap>
+                          {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
+                        </Typography>
+                      </div>
+                      <Typography variant={'h5'} className={classes.assetDescription}>
+                        This vault is earning
+                      </Typography>
+                    </div>
+                  )}
+                  {['LINK'].includes(asset.id) && (
+                    <div className={classes.headingEarning}>
+                      <Typography className={classes.assetTitle} variant={'h3'} noWrap>
+                        N/A
                       </Typography>
                       <Typography variant={'h5'} className={classes.assetDescription}>
-                        {' '}
-                        on{' '}
-                      </Typography>
-                      <Typography className={classes.assetDescription} variant={'h3'} noWrap>
-                        {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : <Skeleton style={{ width: '50px' }} />}{' '}
-                        {asset.vaultSymbol}
+                        This vault is earning
                       </Typography>
                     </div>
-                  </div>
-                )}
-                {!['LINK'].includes(asset.id) && asset.vaultBalance === 0 && (
-                  <div className={classes.headingEarning}>
-                    <div className={classes.flexy}>
-                      <Typography className={classes.assetTitle} variant={'h3'} noWrap>
-                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
-                      </Typography>
-                    </div>
-                    <Typography variant={'h5'} className={classes.assetDescription}>
-                      This vault is earning
-                    </Typography>
-                  </div>
-                )}
-                {['LINK'].includes(asset.id) && (
-                  <div className={classes.headingEarning}>
+                  )}
+                  <div className={classes.heading}>
                     <Typography className={classes.assetTitle} variant={'h3'} noWrap>
-                      N/A
+                      {(asset.balance ? asset.balance.toFixed(2) : '0.00') + ' ' + asset.symbol}
                     </Typography>
                     <Typography variant={'h5'} className={classes.assetDescription}>
-                      This vault is earning
+                      Available to deposit
                     </Typography>
                   </div>
-                )}
-                <div className={classes.heading}>
-                  <Typography className={classes.assetTitle} variant={'h3'} noWrap>
-                    {(asset.balance ? asset.balance.toFixed(2) : '0.00') + ' ' + asset.symbol}
-                  </Typography>
-                  <Typography variant={'h5'} className={classes.assetDescription}>
-                    Available to deposit
-                  </Typography>
                 </div>
-              </div>
-            </AccordionSummary>
-            <ApyTable
-              pyEarnData={asset.pyEarnData}
-              address={account.address}
-              showYvaultRoi={account.address && asset.description === 'renBTC/wBTC/sBTC'}
-            />
-            <AccordionDetails>
-              <Asset asset={asset} startLoading={this.startLoading} />
-            </AccordionDetails>
-          </Accordion>
-        )
-      })
+              </AccordionSummary>
+              <ApyTable
+                pyEarnData={asset.pyEarnData}
+                address={account.address}
+                showYvaultRoi={account.address && asset.description === 'renBTC/wBTC/sBTC'}
+              />
+              <AccordionDetails>
+                <Asset asset={asset} startLoading={this.startLoading} />
+              </AccordionDetails>
+            </Accordion>
+          )
+        })
+    )
   }
 
   renderFilters = ({ colors }) => {

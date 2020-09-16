@@ -85,6 +85,9 @@ export const colors = {
     zap: {
       inputLabel: '#818FA6',
     },
+    apr: {
+      tableTh: '#9551BA',
+    },
     header: {
       title: '#9551BA',
       text: '#080809',

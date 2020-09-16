@@ -96,7 +96,7 @@ class App extends Component {
             <Switch>
               <Route path="/apr">
                 <Header />
-                <APR />
+                <APR currentTheme={currentTheme} />
               </Route>
               <Route path="/earn">
                 <Header />

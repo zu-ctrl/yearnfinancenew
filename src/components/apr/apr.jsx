@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles'
 import { Typography, TextField, Card } from '@material-ui/core'
 import { withNamespaces } from 'react-i18next'
 import AprIcon from '../icons/aprIcon'
+import LinearLine from '../icons/linearLine'
+import LoadingSpinner from '../loadingSpinner'
 
 import { GET_AGGREGATED_YIELD, GET_AGGREGATED_YIELD_RETURNED } from '../../constants'
 
@@ -16,18 +18,12 @@ const styles = (theme) => {
   const colors = theme.themeColors
   return {
     root: {
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      maxWidth: '1000px',
+      backgroundImage: colors.bgImage,
+      backgroundColor: colors.bg,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom right',
+      paddingBottom: '90px',
       width: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: '60px',
-      [theme.breakpoints.up('md')]: {
-        alignItems: 'center',
-        marginTop: '0px',
-      },
     },
     actionInput: {
       padding: '0px 0px 12px 0px',
@@ -35,8 +31,13 @@ const styles = (theme) => {
     },
     investedContainer: {
       display: 'flex',
-      flexWrap: 'wrap',
+      flex: 1,
       flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      maxWidth: '1100px',
+      width: '100%',
+      margin: '40px auto 0',
     },
     intro: {
       padding: '36px',
@@ -52,6 +53,7 @@ const styles = (theme) => {
     pair: {
       display: 'flex',
       justifyContent: 'space-between',
+      padding: '5px 0',
     },
     name: {
       width: '60px',
@@ -60,7 +62,7 @@ const styles = (theme) => {
       padding: '6px',
       position: 'absolute',
       top: 'auto',
-      background: '#fff',
+      // background: '#fff',
       [theme.breakpoints.up('md')]: {
         width: '100px',
       },
@@ -68,10 +70,10 @@ const styles = (theme) => {
     apr: {
       flex: '1',
       padding: '6px 25px',
-      width: '133px',
+      width: '135px',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       height: '42px',
       '&:nth-child(2)': {
         marginLeft: '60px',
@@ -85,7 +87,7 @@ const styles = (theme) => {
     headerName: {
       flex: '1',
       fontWeight: 'bold',
-      padding: '6px 12px',
+      padding: '6px 25px',
       width: '60px',
       paddingBottom: '6px',
       [theme.breakpoints.up('md')]: {
@@ -95,7 +97,7 @@ const styles = (theme) => {
     headerApr: {
       fontWeight: 'bold',
       flex: '1',
-      padding: '6px 12px',
+      padding: '6px 25px',
       width: '100px',
       paddingBottom: '6px',
     },
@@ -103,7 +105,7 @@ const styles = (theme) => {
       fontWeight: 'bold',
       flex: '1',
       width: '135px',
-      padding: '6px 12px',
+      padding: '6px 25px',
       paddingBottom: '12px',
       '&:nth-child(2)': {
         marginLeft: '60px',
@@ -117,18 +119,19 @@ const styles = (theme) => {
     headerValueName: {
       fontWeight: 'bold',
       width: '60px',
-      padding: '6px 12px',
+      padding: '6px 25px',
       paddingBottom: '12px',
       position: 'absolute',
       top: 'auto',
-      background: '#fff',
+      // background: '#fff',
       height: '42px',
       [theme.breakpoints.up('md')]: {
         width: '100px',
       },
     },
     aggregatedHeader: {
-      textAlign: 'center',
+      textAlign: 'left',
+      color: colors.page.apr.tableTh,
     },
     aggregatedHeaderVal: {
       textAlign: 'center',
@@ -155,6 +158,154 @@ const styles = (theme) => {
       textAlign: 'center',
       cursor: 'pointer',
       marginRight: '12px',
+    },
+    titleContainer: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '24px',
+      lineHeight: '36px',
+      color: colors.page.header.text,
+      margin: '0 5px',
+    },
+    subtitle: {
+      fontWeight: 'bold',
+      fontSize: '18px',
+      lineHeight: '24px',
+      color: colors.page.header.text,
+      margin: '0 0 10px',
+    },
+    description: {
+      fontWeight: 'normal',
+      fontSize: '16px',
+      lineHeight: '24px',
+      textAlign: 'center',
+      color: colors.page.header.text,
+      maxWidth: '600px',
+      width: '100%',
+      margin: '19px auto 0',
+    },
+    titleSpan: {
+      color: colors.page.header.title,
+      marginRight: '5px ',
+    },
+    searchField: {
+      flex: 1,
+      background: colors.page.filter.input.bg,
+      borderRadius: '20px',
+      border: colors.page.filter.input.border,
+      boxShadow: colors.page.filter.input.boxShadow,
+      minWidth: '300px',
+      maxWidth: '300px',
+      width: '100%',
+      height: '40px',
+      position: 'relative',
+      '& input': {
+        padding: '0 45px 0 12px',
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        height: '40px',
+        fontWeight: 'normal',
+        fontSize: '14px',
+        lineHeight: '22px',
+        color: colors.page.filter.input.color,
+        '&::placeholder': {
+          color: colors.page.filter.input.placeholder,
+        },
+      },
+      '& .MuiInputBase-root': {
+        paddingLeft: '10px',
+      },
+      '& fieldset': {
+        border: '0',
+        '&:hover': {
+          borderColor: colors.page.filter.input.borderColor,
+        },
+      },
+      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+        borderWidth: '0',
+        borderColor: colors.page.filter.input.borderColor,
+        boxShadow: colors.page.filter.input.hoverShadow,
+      },
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderWidth: '0',
+        borderColor: colors.page.filter.input.borderColor,
+        boxShadow: colors.page.filter.input.hoverShadow,
+      },
+    },
+    filters: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: '44px',
+      [theme.breakpoints.down('sm')]: {
+        padding: '0px 12px',
+      },
+    },
+    tradeContainer: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '100%',
+      marginBottom: '30px',
+      '& input': {
+        background: colors.page.asset.input.bg,
+        border: colors.page.asset.input.border,
+        boxSizing: 'border-box',
+        boxShadow: colors.page.asset.input.shadow,
+        borderRadius: '20px',
+        padding: '9px 9px 9px 15px',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '22px',
+        letterSpacing: '0.02em',
+        color: colors.page.asset.input.color,
+        height: '40px',
+        '&::-webkit-input-placeholder': {
+          color: colors.page.asset.input.color,
+          opacity: '1',
+        },
+        '&:-ms-input-placeholder': {
+          color: colors.page.asset.input.color,
+          opacity: 1,
+        },
+        '&::placeholder': {
+          color: colors.page.asset.input.color,
+          opacity: 1,
+        },
+      },
+      '& fieldset': {
+        border: '0',
+        '&:hover': {
+          borderWidth: '0',
+        },
+      },
+      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+        borderWidth: '0',
+      },
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderWidth: '0',
+      },
+    },
+    loadingSpinnerWrapper: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: '20px',
+    },
+    expansionPanel: {
+      maxWidth: 'calc(100vw - 24px)',
+      width: '100%',
+      border: 'none',
+      margin: '16px 0 0',
+      borderRadius: '20px',
+      padding: '30px',
     },
   }
 }
@@ -204,40 +355,65 @@ class APR extends Component {
   }
 
   render() {
-    const { classes, t } = this.props
-    const { amountError, amount, loading } = this.state
-
+    const { classes, t, theme, currentTheme } = this.props
+    const { amountError, amount, loading, aggregatedHeaders, aggregatedYields } = this.state
+    const colors = theme.themeColors
     return (
       <div className={classes.root}>
-        <h2>
-          How does <AprIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Apr</span> work?
-        </h2>
-        <p>
-          Need some text here! n is a yield aggregator for lending platforms that rebalances for highest yield during
-          contract interaction. Below is a diagram of how things might work in practice. Go ahead and choose the asset
-          you want to deposit...
-        </p>
+        <div className={classes.investedContainer}>
+          <div className={classes.titleContainer}>
+            <Typography className={classes.title} variant="h2">
+              How does
+            </Typography>
+            <AprIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
+            <Typography className={classes.title} variant="h2">
+              <span className={classes.titleSpan}>Apr</span> work?
+            </Typography>
+          </div>
+          {currentTheme === 'dark' && (
+            <div className={classes.linearContainer}>
+              <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
+            </div>
+          )}
+          <Typography className={classes.description} variant="h6">
+            Need some text here! n is a yield aggregator for lending platforms that rebalances for highest yield during
+            contract interaction. Below is a diagram of how things might work in practice. Go ahead and choose the asset
+            you want to deposit...
+          </Typography>
+        </div>
         <div className={classes.tablesContainer}>
           <div className={classes.investedContainer}>
-            <Card className={classes.pairs}>
-              <h3>How much do you want to invest?</h3>
-              <TextField
-                fullWidth
-                className={classes.actionInput}
-                id="amount"
-                value={amount}
-                error={amountError}
-                onChange={this.onChange}
-                disabled={loading}
-                label=""
-                size="small"
-                placeholder="0.00"
-                variant="outlined"
-              />
-              <table className={classes.tableContainer}>
-                <thead>{this.renderAggregatedHeader()}</thead>
-                <tbody>{this.renderAggregatedYields()}</tbody>
-              </table>
+            <Card className={classes.expansionPanel}>
+              <Typography className={classes.subtitle} variant="h3">
+                How much do you want to invest?
+              </Typography>
+              <div className={classes.tradeContainer}>
+                <TextField
+                  fullWidth
+                  id="amount"
+                  value={amount}
+                  error={amountError}
+                  onChange={this.onChange}
+                  disabled={loading}
+                  label=""
+                  size="small"
+                  placeholder="0.00"
+                  variant="outlined"
+                />
+              </div>
+              {!aggregatedHeaders ||
+              aggregatedHeaders.length === 0 ||
+              !aggregatedYields ||
+              aggregatedYields.length === 0 ? (
+                <div className={classes.loadingSpinnerWrapper}>
+                  <LoadingSpinner />
+                </div>
+              ) : (
+                <table className={classes.tableContainer}>
+                  <thead>{this.renderAggregatedHeader()}</thead>
+                  <tbody>{this.renderAggregatedYields()}</tbody>
+                </table>
+              )}
             </Card>
           </div>
         </div>
@@ -246,9 +422,9 @@ class APR extends Component {
   }
 
   renderAggregatedHeader = () => {
-    const { classes } = this.props
+    const { classes, theme } = this.props
     const { aggregatedHeaders } = this.state
-
+    const colors = theme.themeColors
     return (
       <tr className={classes.pair}>
         <th key={'token'} className={classes.headerValueName}>
@@ -268,7 +444,8 @@ class APR extends Component {
   }
 
   renderAggregatedYields = () => {
-    const { classes } = this.props
+    const { classes, theme } = this.props
+    const colors = theme.themeColors
     const { aggregatedYields } = this.state
 
     return aggregatedYields.map((y) => {
@@ -297,7 +474,7 @@ class APR extends Component {
 
             return (
               <td key={key} className={classes.apr}>
-                <Typography align="right" color="secondary">
+                <Typography align="right" className={colors.header.text}>
                   {val === 0 ? '' : val.toFixed(4) + ' %'}
                 </Typography>
               </td>
@@ -336,4 +513,4 @@ class APR extends Component {
   }
 }
 
-export default withNamespaces()(withRouter(withStyles(styles)(APR)))
+export default withNamespaces()(withRouter(withStyles(styles, { withTheme: true })(APR)))

@@ -9,7 +9,7 @@ const AprIcon = ({ color, glowColor }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{
-        filter: `drop-shadow(0px 0px 10px ${glowColor})`,
+        filter: glowColor,
       }}
     >
       <path

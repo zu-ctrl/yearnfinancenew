@@ -4,7 +4,7 @@ const ZapIcon = ({ color, glowColor }) => {
   return (
     <svg
       style={{
-        filter: `drop-shadow(0px 0px 10px ${glowColor})`,
+        filter: glowColor,
       }}
       width="32"
       height="32"
