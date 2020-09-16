@@ -79,34 +79,34 @@ const YvaultRoi = ({ theme, address, classes }) => {
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
-        <Typography className={classes.title} variant='h5'>
+        <Typography className={classes.title} variant="h5">
           yVault
         </Typography>
-        <Typography className={classes.title} variant='h5'>
+        <Typography className={classes.title} variant="h5">
           ROI
         </Typography>
       </div>
       <div className={classes.valueContainer}>
-        <Typography className={classes.cellTitle} variant='h5'>
+        <Typography className={classes.cellTitle} variant="h5">
           Earnings:<span className={classes.description}>{getDataProp('earnings')}</span>
         </Typography>
-        <Typography className={classes.cellTitle} variant='h5'>
+        <Typography className={classes.cellTitle} variant="h5">
           Net Deposits:<span className={classes.description}>{getDataProp('netDeposits')}</span>
         </Typography>
       </div>
       <div className={classes.valueContainer}>
-        <Typography className={classes.cellTitle} variant='h5'>
+        <Typography className={classes.cellTitle} variant="h5">
           IRR:<span className={classes.description}>{getDataProp('irr')}</span>
         </Typography>
-        <Typography className={classes.cellTitle} variant='h5'>
+        <Typography className={classes.cellTitle} variant="h5">
           IRR Annualized:<span className={classes.description}>{getDataProp('irrAnnualized')}</span>
         </Typography>
       </div>
       <div className={classes.valueContainer}>
-        <Typography className={classes.cellTitle} variant='h5'>
-          Simple Return:<span className={classes.description}>{getDataProp('simpleReturn')}</span>
+        <Typography className={classes.cellTitle} variant="h5">
+          Simple Returndddddd:<span className={classes.description}>{getDataProp('simpleReturn')}</span>
         </Typography>
-        <Typography className={classes.cellTitle} variant='h5'>
+        <Typography className={classes.cellTitle} variant="h5">
           Simple Return Annualized:
           <span className={classes.description}>{getDataProp('simpleReturnAnnualized')}</span>
         </Typography>

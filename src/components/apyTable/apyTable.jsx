@@ -73,7 +73,7 @@ const styles = (theme) => {
   }
 }
 
-const ApyTable = ({ pyEarnData, classes, theme }) => {
+const ApyTable = ({ pyEarnData, classes, theme, address, showYvaultRoi }) => {
   const colors = theme.themeColors
   return (
     <>
@@ -86,11 +86,11 @@ const ApyTable = ({ pyEarnData, classes, theme }) => {
       </div>
       <div className={classes.root}>
         <div className={classes.container}>
-          <Typography className={classes.apy} variant='h5'>
+          <Typography className={classes.apy} variant="h5">
             APY
           </Typography>
           <div className={classes.row}>
-            <Typography className={classes.title} variant='h6'>
+            <Typography className={classes.title} variant="h6">
               Dayly{' '}
               <span className={classes.description}>
                 {!pyEarnData ? (
@@ -102,7 +102,7 @@ const ApyTable = ({ pyEarnData, classes, theme }) => {
                 )}{' '}
               </span>
             </Typography>
-            <Typography className={classes.title} variant='h6'>
+            <Typography className={classes.title} variant="h6">
               Weekly{' '}
               <span className={classes.description}>
                 {!pyEarnData ? (
@@ -114,7 +114,7 @@ const ApyTable = ({ pyEarnData, classes, theme }) => {
                 )}
               </span>
             </Typography>
-            <Typography className={classes.title} variant='h6'>
+            <Typography className={classes.title} variant="h6">
               Monthly{' '}
               <span className={classes.description}>
                 {!pyEarnData ? (
@@ -126,7 +126,7 @@ const ApyTable = ({ pyEarnData, classes, theme }) => {
                 )}
               </span>
             </Typography>
-            <Typography className={classes.title} variant='h6'>
+            <Typography className={classes.title} variant="h6">
               Yearly{' '}
               <span className={classes.description}>
                 {!pyEarnData ? (
@@ -139,23 +139,27 @@ const ApyTable = ({ pyEarnData, classes, theme }) => {
               </span>
             </Typography>
             <div className={classes.linkContainer} onClick={() => window.open('/', '_blank')}>
-              <Typography className={classes.link} variant='h6'>
+              <Typography className={classes.link} variant="h6">
                 tutorial
               </Typography>
               <LinkIcon color={colors.page.asset.linear.middle} />
             </div>
             <div className={classes.linkContainer} onClick={() => window.open('/', '_blank')}>
-              <Typography className={classes.link} variant='h6'>
+              <Typography className={classes.link} variant="h6">
                 strategy
               </Typography>
               <LinkIcon color={colors.page.asset.linear.middle} />
             </div>
           </div>
         </div>
-        <div className={classes.middleLineContainer}>
-          <ApyMiddleLinear id={colors.page.asset.apy.middleId} color={colors.page.asset.apy.middleLinear} />
-        </div>
-        <YvaultRoi />
+        {showYvaultRoi && (
+          <>
+            <div className={classes.middleLineContainer}>
+              <ApyMiddleLinear id={colors.page.asset.apy.middleId} color={colors.page.asset.apy.middleLinear} />
+            </div>
+            <YvaultRoi address={address} />
+          </>
+        )}
       </div>
       <div className={classes.lineContainer}>
         <AssetLinear
