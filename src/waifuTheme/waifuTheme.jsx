@@ -15,7 +15,7 @@ const PTSansFont = {
 const snackbarColors = {
   title: '#000',
   subtitle: '#000',
-  background: '#ffede7',
+  background: '#fff',
   infoIcon: '#000',
   warnIcon: '#000',
   errorIcon: '#000',
