@@ -32,9 +32,6 @@ const styles = (theme) => {
       position: 'relative',
       flexWrap: 'wrap',
       overflow: 'hidden',
-      [theme.breakpoints.down('xs')]: {
-        justifyContent: 'flex-start',
-      },
     },
     gradient: {
       background: colors.footer.gradient,
@@ -78,8 +75,19 @@ const styles = (theme) => {
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
-      [theme.breakpoints.down('md')]: {
-        display: 'none',
+      maxWidth: '134px',
+      width: '100%',
+      padding: '0px 24px',
+      [theme.breakpoints.down('sm')]: {
+        padding: '0px 15px',
+        marginBottom: '25px',
+        maxWidth: '250px',
+        width: '100%',
+      },
+      [theme.breakpoints.down('xs')]: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       },
     },
     builtWithLink: {
@@ -96,20 +104,46 @@ const styles = (theme) => {
     products: {
       padding: '0px 24px',
       position: 'relative',
+      [theme.breakpoints.down('sm')]: {
+        padding: '0px 15px',
+        marginBottom: '25px',
+        maxWidth: '250px',
+        width: '100%',
+      },
       [theme.breakpoints.down('xs')]: {
-        paddingBottom: '24px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       },
     },
     community: {
       padding: '0px 24px',
       position: 'relative',
+      [theme.breakpoints.down('sm')]: {
+        padding: '0px 15px',
+        marginBottom: '25px',
+        maxWidth: '250px',
+        width: '100%',
+      },
       [theme.breakpoints.down('xs')]: {
-        paddingBottom: '24px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       },
     },
     socials: {
       padding: '0px 24px',
       position: 'relative',
+      [theme.breakpoints.down('sm')]: {
+        padding: '0px 15px',
+        maxWidth: '250px',
+        width: '100%',
+      },
+      [theme.breakpoints.down('xs')]: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      },
     },
     linearContainer: {
       display: 'flex',
@@ -158,7 +192,7 @@ class Footer extends Component {
     return (
       <>
         <div className={classes.linearContainer}>
-          <img alt="footer linear" src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
+          <img alt='footer linear' src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
         </div>
         <div className={classes.footer}>
           <div className={classes.gradient} />
@@ -166,7 +200,7 @@ class Footer extends Component {
             <Typography className={classes.builtHeading} variant={'h6'}>
               yearn.finance
             </Typography>
-            <img className={classes.logo} alt="footer logo" src={require('../../assets/YFI-logo.png')} />
+            <img className={classes.logo} alt='footer logo' src={require('../../assets/YFI-logo.png')} />
             <div
               className={`${classes.link} ${classes.builtWithLink}`}
               onClick={() => {
@@ -180,8 +214,10 @@ class Footer extends Component {
                 built with...
               </Typography>
             </div>
-            <ThemeChooser themeName={themeName} setTheme={setTheme} />
-            <LangChooser currentLang={currentLang} setCurrentLang={setCurrentLang} langList={langList} />
+            <div>
+              <ThemeChooser themeName={themeName} setTheme={setTheme} />
+              <LangChooser currentLang={currentLang} setCurrentLang={setCurrentLang} langList={langList} />
+            </div>
           </div>
           <div className={classes.products}>
             <Typography className={classes.heading} variant={'h6'}>

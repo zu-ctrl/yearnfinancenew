@@ -159,6 +159,9 @@ const styles = (theme) => {
       padding: '6px 13px',
       borderRadius: '4px',
       border: colors.header.connect.border,
+      [theme.breakpoints.down('sm')]: {
+        marginRight: '20px',
+      },
     },
     connectedButton: {
       padding: '7px 13px',
@@ -172,9 +175,7 @@ const styles = (theme) => {
         background: colors.header.connect.hover,
       },
       [theme.breakpoints.down('sm')]: {
-        display: 'flex',
-        position: 'absolute',
-        top: '90px',
+        marginRight: '20px',
       },
     },
     connectedDot: {
@@ -201,6 +202,64 @@ const styles = (theme) => {
       borderTop: colors.header.connect.arrow,
       borderRadius: '2px',
       marginLeft: '12px',
+    },
+    burger: {
+      width: '30px',
+      height: '20px',
+      position: 'relative',
+      transform: 'rotate(0deg)',
+      transition: 'all .2s ease-in-out',
+      cursor: 'pointer',
+      '& span': {
+        display: 'block',
+        position: 'absolute',
+        height: '4px',
+        width: '100%',
+        background: colors.beta.close,
+        borderRadius: '4px',
+        opacity: '1',
+        left: '0',
+        transform: 'rotate(0deg)',
+        transition: '.1s ease-in-out',
+        '&:nth-child(1)': {
+          top: '0px',
+        },
+        '&:nth-child(2), &:nth-child(3)': {
+          top: '8px',
+        },
+        '&:nth-child(4)': {
+          top: '16px',
+        },
+      },
+      '&.open': {
+        position: 'fixed',
+        top: '26px',
+        right: '10px',
+        zIndex: '999',
+        transition: 'all .2s ease-in-out',
+      },
+      '&.open span:nth-child(1)': {
+        top: '12px',
+        width: '0%',
+        left: '50%',
+      },
+      '&.open span:nth-child(2)': {
+        transform: 'rotate(45deg)',
+      },
+      '&.open span:nth-child(3)': {
+        transform: 'rotate(-45deg)',
+      },
+      '&.open span:nth-child(4)': {
+        top: '12px',
+        width: '0%',
+        left: '50%',
+      },
+    },
+    menuContainer: {
+      position: 'fixed',
+      zIndex: '99',
+      top: '0',
+      width: '100%',
     },
   }
 }
@@ -240,11 +299,11 @@ class Header extends Component {
     this.setState({ account: store.getStore('account') })
   }
 
-  openMobileMenu = () => {
-    this.setState({ showMobileMenu: true })
-  }
-
-  closeMobileMenu = () => {
+  toggleMobileMenu = () => {
+    const { showMobileMenu } = this.state
+    if (showMobileMenu === false) {
+      return this.setState({ showMobileMenu: true })
+    }
     this.setState({ showMobileMenu: false })
   }
 
@@ -266,7 +325,7 @@ class Header extends Component {
         <div className={classes.headerV2}>
           <div className={classes.icon}>
             <img
-              alt=""
+              alt=''
               src={require('../../assets/YFI-logo.png')}
               height={'40px'}
               onClick={() => {
@@ -294,7 +353,7 @@ class Header extends Component {
           )}
           <div className={classes.account}>
             {address && (
-              <Button variant="text" color="primary" className={classes.connectedButton} onClick={this.addressClicked}>
+              <Button variant='text' color='primary' className={classes.connectedButton} onClick={this.addressClicked}>
                 <div className={classes.connectedDot}></div>
                 <Typography variant={'h4'} className={classes.walletTitle} noWrap>
                   {address}
@@ -303,7 +362,7 @@ class Header extends Component {
               </Button>
             )}
             {!address && (
-              <Button variant="text" color="primary" className={classes.connectButton} onClick={this.addressClicked}>
+              <Button variant='text' color='primary' className={classes.connectButton} onClick={this.addressClicked}>
                 <Typography variant={'h4'} className={classes.walletTitle} noWrap>
                   CONNECT WALLET
                 </Typography>
@@ -311,28 +370,17 @@ class Header extends Component {
             )}
           </div>
           {isMobile && (
-            <div onClick={this.openMobileMenu} style={{ fontSize: '36px' }}>
-              🍔
+            <div onClick={this.toggleMobileMenu} className={showMobileMenu ? `${classes.burger} open` : classes.burger}>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
           )}
         </div>
         {showMobileMenu && (
-          <div style={{ position: 'absolute', zIndex: 9999, width: '100%' }}>
-            <div
-              style={{
-                position: 'absolute',
-                zIndex: 99999,
-                top: '0',
-                right: '0',
-                width: '50px',
-                height: '50px',
-                background: 'blue',
-              }}
-              onClick={this.closeMobileMenu}
-            >
-              ⤫
-            </div>
-            <Home closeMobileMenu={this.closeMobileMenu} />
+          <div className={classes.menuContainer}>
+            <Home closeMobileMenu={this.toggleMobileMenu} />
           </div>
         )}
         {modalOpen && this.renderModal()}
