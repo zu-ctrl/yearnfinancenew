@@ -15,16 +15,29 @@ const styles = (theme) => {
       width: '100%',
       padding: '18px 16px',
       background: colors.page.asset.apy.bg,
+      [theme.breakpoints.down('sm')]: {
+        padding: '8px 16px 18px',
+      },
+      [theme.breakpoints.down('xs')]: {
+        padding: '8px 10px 18px',
+      },
     },
     row: {
       display: 'flex',
       justifyContent: 'space-between',
       width: '100%',
+      [theme.breakpoints.down('sm')]: {
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
+      },
     },
     container: {
       display: 'flex',
       alignItems: 'center',
       width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        alignItems: 'flex-start',
+      },
     },
     lineContainer: {
       display: 'flex',
@@ -34,6 +47,9 @@ const styles = (theme) => {
       display: 'flex',
       justifyContent: 'center',
       margin: '15px 0',
+      [theme.breakpoints.down('sm')]: {
+        margin: '15px 0 5px',
+      },
     },
     apy: {
       fontWeight: 'bold',
@@ -42,6 +58,10 @@ const styles = (theme) => {
       letterSpacing: '0.02em',
       color: colors.page.asset.apy.title,
       minWidth: '80px',
+      [theme.breakpoints.down('xs')]: {
+        minWidth: '45px',
+        marginTop: '10px',
+      },
     },
     title: {
       fontWeight: 'normal',
@@ -49,6 +69,9 @@ const styles = (theme) => {
       lineHeight: '22px',
       color: colors.page.asset.apy.cellTitle,
       display: 'flex',
+      [theme.breakpoints.down('sm')]: {
+        margin: '10px 0 0 15px',
+      },
     },
     description: {
       fontWeight: 'bold',
@@ -62,6 +85,11 @@ const styles = (theme) => {
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
+      [theme.breakpoints.down('sm')]: {
+        '& svg': {
+          marginTop: '10px',
+        },
+      },
     },
     link: {
       fontWeight: 'bold',
@@ -69,6 +97,9 @@ const styles = (theme) => {
       lineHeight: '25px',
       color: colors.page.asset.apy.link,
       marginRight: '10px',
+      [theme.breakpoints.down('sm')]: {
+        margin: '10px 0 0 15px',
+      },
     },
   }
 }
@@ -86,11 +117,11 @@ const ApyTable = ({ pyEarnData, classes, theme, address, showYvaultRoi }) => {
       </div>
       <div className={classes.root}>
         <div className={classes.container}>
-          <Typography className={classes.apy} variant="h5">
+          <Typography className={classes.apy} variant='h5'>
             APY
           </Typography>
           <div className={classes.row}>
-            <Typography className={classes.title} variant="h6">
+            <Typography className={classes.title} variant='h6'>
               Dayly{' '}
               <span className={classes.description}>
                 {!pyEarnData ? (
@@ -102,7 +133,7 @@ const ApyTable = ({ pyEarnData, classes, theme, address, showYvaultRoi }) => {
                 )}{' '}
               </span>
             </Typography>
-            <Typography className={classes.title} variant="h6">
+            <Typography className={classes.title} variant='h6'>
               Weekly{' '}
               <span className={classes.description}>
                 {!pyEarnData ? (
@@ -114,7 +145,7 @@ const ApyTable = ({ pyEarnData, classes, theme, address, showYvaultRoi }) => {
                 )}
               </span>
             </Typography>
-            <Typography className={classes.title} variant="h6">
+            <Typography className={classes.title} variant='h6'>
               Monthly{' '}
               <span className={classes.description}>
                 {!pyEarnData ? (
@@ -126,7 +157,7 @@ const ApyTable = ({ pyEarnData, classes, theme, address, showYvaultRoi }) => {
                 )}
               </span>
             </Typography>
-            <Typography className={classes.title} variant="h6">
+            <Typography className={classes.title} variant='h6'>
               Yearly{' '}
               <span className={classes.description}>
                 {!pyEarnData ? (
@@ -139,13 +170,13 @@ const ApyTable = ({ pyEarnData, classes, theme, address, showYvaultRoi }) => {
               </span>
             </Typography>
             <div className={classes.linkContainer} onClick={() => window.open('/', '_blank')}>
-              <Typography className={classes.link} variant="h6">
+              <Typography className={classes.link} variant='h6'>
                 tutorial
               </Typography>
               <LinkIcon color={colors.page.asset.linear.middle} />
             </div>
             <div className={classes.linkContainer} onClick={() => window.open('/', '_blank')}>
-              <Typography className={classes.link} variant="h6">
+              <Typography className={classes.link} variant='h6'>
                 strategy
               </Typography>
               <LinkIcon color={colors.page.asset.linear.middle} />

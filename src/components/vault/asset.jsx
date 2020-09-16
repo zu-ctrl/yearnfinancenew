@@ -42,12 +42,13 @@ const styles = (theme) => {
     actionsContainer: {
       maxWidth: '750px',
       width: '100%',
-      margin: '24px auto 0',
+      margin: '24px auto 15px',
       display: 'flex',
       justifyContent: 'space-between',
       flex: '1',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
         flexDirection: 'column',
+        alignItems: 'center',
       },
     },
     title: {
@@ -116,6 +117,16 @@ const styles = (theme) => {
       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
         borderWidth: '0',
       },
+      [theme.breakpoints.down('sm')]: {
+        padding: '0 5px',
+      },
+      [theme.breakpoints.down('xs')]: {
+        padding: '0',
+        maxWidth: '500px',
+        '&:last-of-type': {
+          marginTop: '24px',
+        },
+      },
     },
     scaleContainer: {
       display: 'flex',
@@ -135,6 +146,12 @@ const styles = (theme) => {
       textTransform: 'uppercase',
       color: colors.page.asset.input.color,
       marginLeft: '11px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '12px',
+      },
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '14px',
+      },
     },
     headingContainer: {
       width: '100%',
@@ -244,6 +261,12 @@ const styles = (theme) => {
           content: '"%"',
         },
       },
+      [theme.breakpoints.down('md')]: {
+        width: '90%',
+      },
+      [theme.breakpoints.down('xs')]: {
+        width: '98%',
+      },
     },
     percentContainer: {
       display: 'flex',
@@ -262,6 +285,12 @@ const styles = (theme) => {
       },
       '& h5:last-of-type': {
         marginRight: '-10px',
+      },
+      [theme.breakpoints.down('md')]: {
+        width: '90%',
+      },
+      [theme.breakpoints.down('xs')]: {
+        width: '98%',
       },
     },
     percent: {

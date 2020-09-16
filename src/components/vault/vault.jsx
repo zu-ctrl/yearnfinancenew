@@ -53,8 +53,11 @@ const styles = (theme) => {
       backgroundColor: colors.bg,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'bottom right',
-      paddingBottom: '90px',
+      padding: '0 15px 90px',
       width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        overflow: 'hidden',
+      },
     },
     investedContainer: {
       display: 'flex',
@@ -81,9 +84,6 @@ const styles = (theme) => {
       justifyContent: 'center',
       width: '100%',
       maxWidth: '450px',
-      [theme.breakpoints.up('md')]: {
-        width: '450',
-      },
     },
     intro: {
       width: '100%',
@@ -158,6 +158,13 @@ const styles = (theme) => {
     between: {
       width: '40px',
     },
+    inputContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      [theme.breakpoints.down('xs')]: {
+        width: '100%',
+      },
+    },
     expansionPanel: {
       maxWidth: 'calc(100vw - 24px)',
       width: '100%',
@@ -210,8 +217,8 @@ const styles = (theme) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: '44px',
-      [theme.breakpoints.down('sm')]: {
-        padding: '0px 12px',
+      [theme.breakpoints.down('xs')]: {
+        flexDirection: 'column-reverse',
       },
     },
     searchField: {
@@ -258,6 +265,10 @@ const styles = (theme) => {
         borderColor: colors.page.filter.input.borderColor,
         boxShadow: colors.page.filter.input.hoverShadow,
       },
+      [theme.breakpoints.down('xs')]: {
+        maxWidth: '500px',
+        minWidth: '100px',
+      },
     },
     checkbox: {
       flex: 1,
@@ -290,6 +301,9 @@ const styles = (theme) => {
       },
       '& .MuiButtonBase-root': {
         padding: '11px 11px',
+      },
+      [theme.breakpoints.down('xs')]: {
+        marginTop: '15px !important',
       },
     },
     flexy: {
@@ -552,11 +566,11 @@ class Vault extends Component {
       <div className={classes.root}>
         <div className={classes.investedContainer}>
           <div className={classes.titleContainer}>
-            <Typography className={classes.title} variant="h2">
+            <Typography className={classes.title} variant='h2'>
               How does
             </Typography>
             <VaultIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
-            <Typography className={classes.title} variant="h2">
+            <Typography className={classes.title} variant='h2'>
               <span className={classes.titleSpan}>Vault</span> work?
             </Typography>
           </div>
@@ -565,7 +579,7 @@ class Vault extends Component {
               <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
             </div>
           )}
-          <Typography className={classes.description} variant="h6">
+          <Typography className={classes.description} variant='h6'>
             Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
             is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in
             the list below to get started!
@@ -631,12 +645,12 @@ class Vault extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=""
+                      alt=''
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
@@ -725,61 +739,63 @@ class Vault extends Component {
         <div className={classes.filters}>
           <FormControlLabel
             className={classes.checkbox}
-            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color="primary" />}
-            label="Hide zero balances"
+            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color='primary' />}
+            label='Hide zero balances'
           />
-          <div className={classes.between}>
-            <Tooltip
-              title={
-                <React.Fragment>
-                  <Typography variant={'h5'} className={classes.fees}>
-                    There is a 0.5% withdrawal fee on all vaults.
-                    <br />
-                    <br />
-                    There is a 5% performance fee on subsidized gas.
-                  </Typography>
-                </React.Fragment>
-              }
-              arrow
-            >
-              <div>
-                <InfoIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
-              </div>
-            </Tooltip>
+          <div className={classes.inputContainer}>
+            <div className={classes.between}>
+              <Tooltip
+                title={
+                  <React.Fragment>
+                    <Typography variant={'h5'} className={classes.fees}>
+                      There is a 0.5% withdrawal fee on all vaults.
+                      <br />
+                      <br />
+                      There is a 5% performance fee on subsidized gas.
+                    </Typography>
+                  </React.Fragment>
+                }
+                arrow
+              >
+                <div>
+                  <InfoIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
+                </div>
+              </Tooltip>
+            </div>
+            <TextField
+              fullWidth
+              disabled={loading}
+              className={classes.searchField}
+              id={'search'}
+              value={search}
+              error={searchError}
+              onChange={this.onSearchChanged}
+              placeholder='ETH, CRV, ...'
+              variant='outlined'
+              InputProps={{
+                startAdornment: (
+                  <>
+                    <InputAdornment position='end' className={classes.inputSearch}>
+                      <SearchIcon color='#BBBDBF' />
+                    </InputAdornment>
+                    <InputAdornment position='start' className={classes.inputFilter}>
+                      <FilterIcon color='#BBBDBF' />
+                    </InputAdornment>
+                  </>
+                ),
+              }}
+            />
           </div>
-          <TextField
-            fullWidth
-            disabled={loading}
-            className={classes.searchField}
-            id={'search'}
-            value={search}
-            error={searchError}
-            onChange={this.onSearchChanged}
-            placeholder="ETH, CRV, ..."
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <>
-                  <InputAdornment position="end" className={classes.inputSearch}>
-                    <SearchIcon color="#BBBDBF" />
-                  </InputAdornment>
-                  <InputAdornment position="start" className={classes.inputFilter}>
-                    <FilterIcon color="#BBBDBF" />
-                  </InputAdornment>
-                </>
-              ),
-            }}
-          />
         </div>
         <div className={classes.sortContainer}>
           <Typography variant={'h6'} className={classes.label}>
             Sort by
           </Typography>
           <select className={classes.select} value={sortBy} onChange={(e) => this.setState({ sortBy: e.target.value })}>
-            <option className={classes.option} value="balance">
+            <option className={classes.option} value='balance'>
               Balance
             </option>
-            <option className={classes.option} value="apy">
+            <option className={classes.option} value='apy'>
               APY
             </option>
           </select>

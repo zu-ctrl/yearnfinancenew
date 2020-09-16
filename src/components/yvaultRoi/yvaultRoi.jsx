@@ -11,11 +11,27 @@ const styles = (theme) => {
       display: 'flex',
       alignItems: 'center',
       width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        alignItems: 'flex-start',
+      },
+    },
+    descriptionContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      width: '100%',
+      [theme.breakpoints.down('sm')]: {
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
+      },
     },
     titleContainer: {
       display: 'flex',
       flexDirection: 'column',
       minWidth: '80px',
+      [theme.breakpoints.down('xs')]: {
+        minWidth: '45px',
+        marginTop: '10px',
+      },
     },
     valueContainer: {
       minWidth: '207px',
@@ -35,6 +51,10 @@ const styles = (theme) => {
       lineHeight: '22px',
       color: colors.page.asset.apy.cellTitle,
       display: 'flex',
+      [theme.breakpoints.down('sm')]: {
+        margin: '10px 0 0 15px',
+        display: 'inline-flex',
+      },
     },
     description: {
       fontWeight: 'bold',
@@ -79,37 +99,39 @@ const YvaultRoi = ({ theme, address, classes }) => {
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
-        <Typography className={classes.title} variant="h5">
+        <Typography className={classes.title} variant='h5'>
           yVault
         </Typography>
-        <Typography className={classes.title} variant="h5">
+        <Typography className={classes.title} variant='h5'>
           ROI
         </Typography>
       </div>
-      <div className={classes.valueContainer}>
-        <Typography className={classes.cellTitle} variant="h5">
-          Earnings:<span className={classes.description}>{getDataProp('earnings')}</span>
-        </Typography>
-        <Typography className={classes.cellTitle} variant="h5">
-          Net Deposits:<span className={classes.description}>{getDataProp('netDeposits')}</span>
-        </Typography>
-      </div>
-      <div className={classes.valueContainer}>
-        <Typography className={classes.cellTitle} variant="h5">
-          IRR:<span className={classes.description}>{getDataProp('irr')}</span>
-        </Typography>
-        <Typography className={classes.cellTitle} variant="h5">
-          IRR Annualized:<span className={classes.description}>{getDataProp('irrAnnualized')}</span>
-        </Typography>
-      </div>
-      <div className={classes.valueContainer}>
-        <Typography className={classes.cellTitle} variant="h5">
-          Simple Return:<span className={classes.description}>{getDataProp('simpleReturn')}</span>
-        </Typography>
-        <Typography className={classes.cellTitle} variant="h5">
-          Simple Return Annualized:
-          <span className={classes.description}>{getDataProp('simpleReturnAnnualized')}</span>
-        </Typography>
+      <div className={classes.descriptionContainer}>
+        <div className={classes.valueContainer}>
+          <Typography className={classes.cellTitle} variant='h5'>
+            Earnings:<span className={classes.description}>{getDataProp('earnings')}</span>
+          </Typography>
+          <Typography className={classes.cellTitle} variant='h5'>
+            Net Deposits:<span className={classes.description}>{getDataProp('netDeposits')}</span>
+          </Typography>
+        </div>
+        <div className={classes.valueContainer}>
+          <Typography className={classes.cellTitle} variant='h5'>
+            IRR:<span className={classes.description}>{getDataProp('irr')}</span>
+          </Typography>
+          <Typography className={classes.cellTitle} variant='h5'>
+            IRR Annualized:<span className={classes.description}>{getDataProp('irrAnnualized')}</span>
+          </Typography>
+        </div>
+        <div className={classes.valueContainer}>
+          <Typography className={classes.cellTitle} variant='h5'>
+            Simple Return:<span className={classes.description}>{getDataProp('simpleReturn')}</span>
+          </Typography>
+          <Typography className={classes.cellTitle} variant='h5'>
+            Simple Return Annualized:
+            <span className={classes.description}>{getDataProp('simpleReturnAnnualized')}</span>
+          </Typography>
+        </div>
       </div>
     </div>
   )

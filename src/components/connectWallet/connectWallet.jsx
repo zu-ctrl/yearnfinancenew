@@ -13,7 +13,7 @@ const styles = (theme) => {
     root: {
       background: colors.bg,
       width: '100%',
-      padding: '50px 0 100px',
+      padding: '50px 15px 100px',
     },
     carousel: {
       maxWidth: '460px',
@@ -75,6 +75,9 @@ const styles = (theme) => {
         border: 'none',
         color: colors.button.hover,
       },
+      [theme.breakpoints.down('xs')]: {
+        maxWidth: '140px',
+      },
     },
     buttonLeft: {
       left: '0',
@@ -107,11 +110,17 @@ const styles = (theme) => {
       maxWidth: '840px',
       width: '100%',
       justifyContent: 'center',
+      [theme.breakpoints.down('xs')]: {
+        marginTop: '120px',
+      },
     },
     connectContainer: {
       margin: '78px auto 0',
       maxWidth: '460px',
       width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        marginTop: '50px',
+      },
     },
     walletTitle: {
       fontWeight: 'bold',

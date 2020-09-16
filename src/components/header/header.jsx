@@ -26,12 +26,11 @@ const styles = (theme) => {
       margin: '0 auto',
       width: '100%',
       display: 'flex',
-      padding: '16px 10px',
+      padding: '16px 15px',
       alignItems: 'center',
       justifyContent: 'center',
       [theme.breakpoints.down('sm')]: {
         justifyContent: 'space-between',
-        padding: '16px 10px',
       },
     },
     icon: {
@@ -234,7 +233,7 @@ const styles = (theme) => {
       '&.open': {
         position: 'fixed',
         top: '26px',
-        right: '10px',
+        right: '15px',
         zIndex: '999',
         transition: 'all .2s ease-in-out',
       },
