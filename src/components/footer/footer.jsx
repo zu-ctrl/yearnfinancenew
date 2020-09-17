@@ -73,17 +73,17 @@ const styles = (theme) => {
       alignItems: "center",
     },
     builtWith: {
-      display: "flex",
-      flexDirection: "column",
-      position: "relative",
-      maxWidth: "134px",
-      width: "100%",
-      padding: "0px 24px",
-      [theme.breakpoints.down("sm")]: {
-        padding: "0px 15px",
-        marginBottom: "25px",
-        maxWidth: "250px",
-        width: "100%",
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+      maxWidth: '229px',
+      width: '100%',
+      padding: '0px 24px',
+      [theme.breakpoints.down('sm')]: {
+        padding: '0px 15px',
+        marginBottom: '25px',
+        maxWidth: '250px',
+        width: '100%',
       },
       [theme.breakpoints.down("xs")]: {
         display: "flex",
@@ -169,8 +169,12 @@ const styles = (theme) => {
       letterSpacing: "0.02em",
       color: colors.footer.link,
     },
-  };
-};
+    settingsContainer: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+  }
+}
 
 class Footer extends Component {
   constructor(props) {
@@ -193,7 +197,7 @@ class Footer extends Component {
     return (
       <>
         <div className={classes.linearContainer}>
-          <img alt="footer linear" src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
+          <img alt='footer linear' src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
         </div>
         <div className={classes.footer}>
           <div className={classes.gradient} />
@@ -201,7 +205,7 @@ class Footer extends Component {
             <Typography className={classes.builtHeading} variant={"h6"}>
               yearn.finance
             </Typography>
-            <img className={classes.logo} alt="footer logo" src={require("../../assets/YFI-logo.png")} />
+            <img className={classes.logo} alt='footer logo' src={require('../../assets/YFI-logo.png')} />
             <div
               className={`${classes.link} ${classes.builtWithLink}`}
               onClick={() => {
@@ -215,7 +219,7 @@ class Footer extends Component {
                 built with...
               </Typography>
             </div>
-            <div>
+            <div className={classes.settingsContainer}>
               <ThemeChooser themeName={themeName} setTheme={setTheme} />
               <LangChooser currentLang={currentLang} setCurrentLang={setCurrentLang} langList={langList} />
             </div>

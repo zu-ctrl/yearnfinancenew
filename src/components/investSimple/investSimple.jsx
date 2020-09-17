@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, withTheme } from '@material-ui/core/styles'
 import { Typography, Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
@@ -12,6 +12,7 @@ import Asset from './asset'
 import Loader from '../loader'
 import ConnectWallet from '../connectWallet'
 import WalletIcon from '../icons/walletIcon'
+import LinearLine from '../icons/linearLine'
 
 import {
   ERROR,
@@ -32,13 +33,15 @@ const styles = (theme) => {
   const colors = theme.themeColors
   return {
     root: {
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      maxWidth: '1200px',
+      backgroundImage: colors.bgImage,
+      backgroundColor: colors.bg,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom right',
+      padding: '0 15px 90px',
       width: '100%',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
+      [theme.breakpoints.down('xs')]: {
+        overflow: 'hidden',
+      },
     },
     investedContainerLoggedOut: {
       display: 'flex',
@@ -58,11 +61,9 @@ const styles = (theme) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      minWidth: '100%',
-      marginTop: '40px',
-      [theme.breakpoints.up('md')]: {
-        minWidth: '900px',
-      },
+      maxWidth: '870px',
+      width: '100%',
+      margin: '40px auto 0',
     },
     balancesContainer: {
       display: 'flex',
@@ -87,10 +88,37 @@ const styles = (theme) => {
       width: '100%',
       position: 'relative',
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       alignItems: 'center',
+      margin: '60px auto 11px',
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column-reverse',
+      },
+      '& .MuiToggleButtonGroup-root': {
+        border: colors.groupButton.border,
+        boxShadow: colors.groupButton.shadow,
+      },
+    },
+    groupButton: {
+      background: colors.groupButton.bg,
+      '& span h4': {
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '22px',
+        letterSpacing: '0.02em',
+        color: colors.groupButton.color,
+      },
+      '&.Mui-selected': {
+        background: colors.groupButton.bgSelected,
+        '&:hover': {
+          background: colors.groupButton.bgHover,
+        },
+      },
+      '&.Mui-selected:hover span h4': {
+        color: colors.groupButton.activeColor,
+      },
+      '&.MuiToggleButton-root:hover': {
+        background: colors.groupButton.bgHoverDef,
       },
     },
     introCenter: {
@@ -212,6 +240,26 @@ const styles = (theme) => {
     expansionPanel: {
       maxWidth: 'calc(100vw - 24px)',
       width: '100%',
+      border: 'none',
+      margin: '16px 0 0',
+      borderRadius: '20px',
+      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+      '& .MuiIconButton-label': {
+        position: 'relative',
+        '&:after': {
+          content: '""',
+          width: '0',
+          height: '0',
+          position: 'absolute',
+          borderLeft: '7px solid transparent',
+          borderRight: '7px solid transparent',
+          borderTop: colors.page.asset.arrow,
+          borderRadius: '2px',
+        },
+      },
+      '& .MuiAccordionSummary-root': {
+        padding: '22px 41px',
+      },
     },
     versionToggle: {
       display: 'flex',
@@ -246,6 +294,52 @@ const styles = (theme) => {
     },
     grey: {
       color: colors.darkGray,
+    },
+    titleContainer: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '24px',
+      lineHeight: '36px',
+      color: colors.page.header.text,
+      margin: '0 5px',
+    },
+    titleSpan: {
+      color: colors.page.header.title,
+      marginRight: '5px ',
+    },
+    linearContainer: {
+      maxWidth: '379px',
+      width: '100%',
+      minHeight: '69px',
+      display: 'flex',
+      alignItems: 'flex-start',
+      margin: '13px auto -68px',
+      background: colors.page.header.bgGlow,
+    },
+    description: {
+      fontWeight: 'normal',
+      fontSize: '16px',
+      lineHeight: '24px',
+      textAlign: 'center',
+      color: colors.page.header.text,
+      maxWidth: '600px',
+      width: '100%',
+      margin: '21px auto 0',
+    },
+    assetTitle: {
+      fontWeight: 'bold',
+      fontSize: '18px',
+      lineHeight: '28px',
+      color: colors.page.asset.color,
+    },
+    assetDescription: {
+      fontWeight: 'normal',
+      fontSize: '14px',
+      lineHeight: '22px',
+      color: colors.page.asset.description,
     },
   }
 }
@@ -346,8 +440,9 @@ class InvestSimple extends Component {
   }
 
   render() {
-    const { classes, currentTheme } = this.props
+    const { classes, currentTheme, theme } = this.props
     const { loading, account, snackbarMessage, value } = this.state
+    const colors = theme.themeColors
 
     if (!account || !account.address) {
       return <ConnectWallet currentTheme={currentTheme} />
@@ -356,29 +451,40 @@ class InvestSimple extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
-          <h2>
-            How does <WalletIcon color="red" glowColor="blue" /> <span style={{ color: 'red' }}>Earn</span> work?
-          </h2>
-          <p>
+          <div className={classes.titleContainer}>
+            <Typography className={classes.title} variant='h2'>
+              How does
+            </Typography>
+            <WalletIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
+            <Typography className={classes.title} variant='h2'>
+              <span className={classes.titleSpan}>Earn</span>work?
+            </Typography>
+          </div>
+          {currentTheme === 'dark' && (
+            <div className={classes.linearContainer}>
+              <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
+            </div>
+          )}
+          <Typography className={classes.description} variant='h6'>
             Earn is a yield aggregator for lending platforms that rebalances for highest yield during contract
             interaction. Below is a diagram of how things might work in practice. Go ahead and choose the asset you want
             to deposit in the list to your left to get started!
-          </p>
+          </Typography>
           <div className={classes.intro}>
             <ToggleButtonGroup
               value={value}
               onChange={this.handleTabChange}
-              aria-label="version"
+              aria-label='version'
               exclusive
               size={'small'}
             >
-              <ToggleButton value={0} aria-label="v1">
+              <ToggleButton className={classes.groupButton} value={0} aria-label='v1'>
                 <Typography variant={'h4'}>v1</Typography>
               </ToggleButton>
-              <ToggleButton value={1} aria-label="v2">
+              <ToggleButton className={classes.groupButton} value={1} aria-label='v2'>
                 <Typography variant={'h4'}>y.curve.fi</Typography>
               </ToggleButton>
-              <ToggleButton value={2} aria-label="v3">
+              <ToggleButton className={classes.groupButton} value={2} aria-label='v3'>
                 <Typography variant={'h4'}>busd.curve.fi</Typography>
               </ToggleButton>
             </ToggleButtonGroup>
@@ -429,39 +535,41 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=""
+                      alt=''
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
                     />
                   </div>
                   <div>
-                    <Typography variant={'h3'}>{asset.name}</Typography>
-                    <Typography variant={'h5'} className={classes.grey}>
+                    <Typography className={classes.assetTitle} variant={'h3'}>
+                      {asset.name}
+                    </Typography>
+                    <Typography className={classes.assetDescription} variant={'h5'}>
                       {asset.description}
                     </Typography>
                   </div>
                 </div>
                 <div className={classes.heading}>
-                  <Typography variant={'h3'}>
+                  <Typography className={classes.assetTitle} variant={'h3'}>
                     {asset.maxApr ? (asset.maxApr * 100).toFixed(4) + ' %' : '0.0000 %'}
                   </Typography>
-                  <Typography variant={'h5'} className={classes.grey}>
+                  <Typography variant={'h5'} className={classes.assetDescription}>
                     {t('InvestSimple.InterestRate')}
                   </Typography>
                 </div>
                 <div className={classes.heading}>
-                  <Typography variant={'h3'}>
+                  <Typography className={classes.assetTitle} variant={'h3'}>
                     {asset.balance
                       ? asset.balance.toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
                       : '0.0000 ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)}
                   </Typography>
-                  <Typography variant={'h5'} className={classes.grey}>
+                  <Typography variant={'h5'} className={classes.assetDescription}>
                     {t('InvestSimple.AvailableBalance')}
                   </Typography>
                 </div>
@@ -497,39 +605,41 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=""
+                      alt=''
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
                     />
                   </div>
                   <div>
-                    <Typography variant={'h3'}>{asset.name}</Typography>
-                    <Typography variant={'h5'} className={classes.grey}>
+                    <Typography className={classes.assetTitle} variant={'h3'}>
+                      {asset.name}
+                    </Typography>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
                       {asset.description}
                     </Typography>
                   </div>
                 </div>
                 <div className={classes.heading}>
-                  <Typography variant={'h3'}>
+                  <Typography className={classes.assetTitle} variant={'h3'}>
                     {asset.maxApr ? (asset.maxApr * 100).toFixed(4) + ' %' : '0.0000 %'}
                   </Typography>
-                  <Typography variant={'h5'} className={classes.grey}>
+                  <Typography variant={'h5'} className={classes.assetDescription}>
                     {t('InvestSimple.InterestRate')}
                   </Typography>
                 </div>
                 <div className={classes.heading}>
-                  <Typography variant={'h3'}>
+                  <Typography className={classes.assetTitle} variant={'h3'}>
                     {asset.balance
                       ? asset.balance.toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
                       : '0.0000 ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)}
                   </Typography>
-                  <Typography variant={'h5'} className={classes.grey}>
+                  <Typography variant={'h5'} className={classes.assetDescription}>
                     {t('InvestSimple.AvailableBalance')}
                   </Typography>
                 </div>
@@ -566,39 +676,41 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=""
+                      alt=''
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
                     />
                   </div>
                   <div>
-                    <Typography variant={'h3'}>{asset.name}</Typography>
-                    <Typography variant={'h5'} className={classes.grey}>
+                    <Typography className={classes.assetTitle} variant={'h3'}>
+                      {asset.name}
+                    </Typography>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
                       {asset.description}
                     </Typography>
                   </div>
                 </div>
                 <div className={classes.heading}>
-                  <Typography variant={'h3'}>
+                  <Typography className={classes.assetTitle} variant={'h3'}>
                     {asset.maxApr ? (asset.maxApr * 100).toFixed(4) + ' %' : '0.0000 %'}
                   </Typography>
-                  <Typography variant={'h5'} className={classes.grey}>
+                  <Typography variant={'h5'} className={classes.assetDescription}>
                     {t('InvestSimple.InterestRate')}
                   </Typography>
                 </div>
                 <div className={classes.heading}>
-                  <Typography variant={'h3'}>
+                  <Typography className={classes.assetTitle} variant={'h3'}>
                     {asset.balance
                       ? asset.balance.toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
                       : '0.0000 ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)}
                   </Typography>
-                  <Typography variant={'h5'} className={classes.grey}>
+                  <Typography variant={'h5'} className={classes.assetDescription}>
                     {t('InvestSimple.AvailableBalance')}
                   </Typography>
                 </div>
@@ -626,4 +738,4 @@ class InvestSimple extends Component {
   }
 }
 
-export default withNamespaces()(withRouter(withStyles(styles)(InvestSimple)))
+export default withNamespaces()(withRouter(withStyles(styles)(withTheme(InvestSimple))))

@@ -57,6 +57,7 @@ const styles = (theme) => {
     actionButton: {
       background: colors.page.asset.button.bg,
       boxShadow: colors.page.asset.button.shadow,
+      border: 'none',
       borderRadius: '20px',
       display: 'flex',
       alignItems: 'center',
@@ -182,6 +183,13 @@ const styles = (theme) => {
         '& h5': {
           color: colors.page.asset.button.disabled.color,
         },
+      },
+      '& h5': {
+        color: colors.page.asset.button.disabled.color,
+      },
+      '& .MuiButton-outlinedPrimary:hover': {
+        background: colors.page.asset.button.bg,
+        border: 'none',
       },
     },
     disabledContainer: {
@@ -465,7 +473,6 @@ class Asset extends Component {
             </div>
           )}
         </div>
-
         <div className={classes.tradeContainer}>
           <TextField
             fullWidth

@@ -6,13 +6,19 @@ const styles = (theme) => {
   const colors = theme.themeColors
   return {
     assetSelectRoot: {
+      margin: '29px 0 0 7px',
+      height: '40px',
+      width: '40px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
       '& .MuiInputBase-root': {
-        background: colors.page.asset.input.bg,
-        border: colors.page.asset.input.border,
+        padding: '8px',
+        background: colors.langChooser.bg,
+        boxShadow: colors.langChooser.shadow,
         boxSizing: 'border-box',
-        boxShadow: colors.page.asset.input.shadow,
         borderRadius: '20px',
-        padding: '4px',
         fontWeight: 'bold',
         fontSize: '14px',
         lineHeight: '22px',
@@ -27,7 +33,7 @@ const styles = (theme) => {
         border: 'none',
       },
       '& .MuiSelect-icon': {
-        color: '#818FA6',
+        display: 'none',
       },
       '& .MuiOutlinedInput-notchedOutline': {
         border: 'none',
@@ -37,7 +43,7 @@ const styles = (theme) => {
       },
     },
     assetSelectMenu: {
-      padding: '15px 15px 15px 20px',
+      padding: '10',
       // minWidth: '30px',
     },
     assetSelectIcon: {
@@ -45,8 +51,8 @@ const styles = (theme) => {
       verticalAlign: 'middle',
       borderRadius: '25px',
       background: '#dedede',
-      height: '30px',
-      width: '30px',
+      height: '24px',
+      width: '24px',
       textAlign: 'center',
       cursor: 'pointer',
       objectFit: 'cover',
@@ -70,40 +76,24 @@ const LangChooser = ({ currentLang, setCurrentLang, langList, classes }) => {
       SelectProps={{
         native: false,
       }}
-      variant="outlined"
+      variant='outlined'
       fullWidth
       // disabled={loading}
       className={classes.assetSelectRoot}
     >
       {langList.map((el, i) => {
-        console.log({ el })
         return (
           <MenuItem key={i} value={el.toUpperCase()} className={classes.assetSelectMenu}>
             <img
               className={classes.assetSelectIcon}
               src={require(`../../assets/countries/${el.toLowerCase()}.svg`)}
-              alt=""
+              alt=''
             />
             <span className={classes.assetSelectLabel}>{el.toUpperCase()}</span>
           </MenuItem>
         )
       })}
     </TextField>
-  )
-  return (
-    <div>
-      <select value={currentLang} onChange={(e) => handleChangeLang(e.target.value)}>
-        {langList.map((el, i) => {
-          console.log({ el })
-          return (
-            <option key={i} value={el.toUpperCase()}>
-              {require(`../../assets/countries/${el.toLowerCase()}.svg`)}
-              {/* <img src={require(`../../assets/countries/${el.toLowerCase()}.svg`)} alt="" /> */}
-            </option>
-          )
-        })}
-      </select>
-    </div>
   )
 }
 
