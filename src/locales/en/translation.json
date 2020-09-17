@@ -161,5 +161,19 @@
   "earn.item.balance": "Balance",
   "earn.item.disabled": "Disabled",
   "earn.item.earn": "Earn",
-  "earn.item.claim": "Claim"
+  "earn.item.claim": "Claim",
+  "zap.title1": "How does",
+  "zap.title2": "work",
+  "zap.desc": "Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in the list below to get started!",
+  "zap.zap": "Zap",
+  "zap.swap": "Swap",
+  "zap.trade": "Trade",
+  "zap.balance": "Balance",
+  "zap.iHave": "I have",
+  "zap.iWant": "I will receive",
+  "zap.sendAmount": "Send amount",
+  "apr.title1": "How does",
+  "apr.title2": "work",
+  "apr.desc": "Need some text here! n is a yield aggregator for lending platforms that rebalances for highest yield during contract interaction. Below is a diagram of how things might work in practice. Go ahead and choose the asset you want to deposit...",
+  "apr.howMuch": "How much do you want to invest?"
 }

@@ -143,5 +143,19 @@
   "earn.item.balance": "Saldo",
   "earn.item.disabled": "Disabili",
   "earn.item.earn": "Guadagnare",
-  "earn.item.claim": "Reclamo"
+  "earn.item.claim": "Reclamo",
+  "zap.title1": "Come fa",
+  "zap.title2": "lavoro",
+  "zap.desc": "I Vault automatizzano una serie di processi intensivi e forniscono il più alto rendimento aggiustato per il rischio disponibile. Di seguito è riportato un diagramma di come una coppia potrebbe funzionare in pratica. Vai avanti e scegli il bene che vuoi depositare nella lista qui sotto per iniziare!",
+  "zap.zap": "Zap",
+  "zap.swap": "Scambiare",
+  "zap.trade": "Commercio",
+  "zap.balance": "Saldo",
+  "zap.iHave": "Ho",
+  "zap.iWant": "Riceverò",
+  "zap.sendAmount": "Inviare l'importo",
+  "apr.title1": "Come fa",
+  "apr.title2": "lavoro",
+  "apr.desc": "Qui serve un po' di testo! n è un aggregatore di rendimento per piattaforme di prestito che riequilibra il rendimento più alto durante l'interazione del contratto. Di seguito è riportato un diagramma di come le cose potrebbero funzionare nella pratica. Vai avanti e scegli il bene che vuoi depositare...",
+  "apr.howMuch": "Quanto volete investire?"
 }

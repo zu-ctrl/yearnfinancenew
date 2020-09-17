@@ -143,5 +143,19 @@
   "earn.item.balance": "Balance",
   "earn.item.disabled": "Discapacitados",
   "earn.item.earn": "Gane",
-  "earn.item.claim": "Reclamación"
+  "earn.item.claim": "Reclamación",
+  "zap.title1": "¿Cómo es que",
+  "zap.title2": "trabajo",
+  "zap.desc": "Las bóvedas automatizan una serie de procesos intensivos y proporcionan el mayor rendimiento ajustado al riesgo disponible. A continuación se muestra un diagrama de cómo podría funcionar una pareja en la práctica. Adelante, elija el activo que quiere depositar en la lista de abajo para empezar!",
+  "zap.zap": "Zap",
+  "zap.swap": "Intercambio",
+  "zap.trade": "Comercio",
+  "zap.balance": "Balance",
+  "zap.iHave": "Tengo...",
+  "zap.iWant": "Recibiré",
+  "zap.sendAmount": "Envía la cantidad",
+  "apr.title1": "¿Cómo es que",
+  "apr.title2": "trabajo",
+  "apr.desc": "¡Necesito un poco de texto aquí! n es un agregador de rendimiento para plataformas de préstamo que se reequilibra para obtener el mayor rendimiento durante la interacción del contrato. A continuación se muestra un diagrama de cómo las cosas podrían funcionar en la práctica. Adelante y elija el activo que quiere depositar...",
+  "apr.howMuch": "¿Cuánto quiere invertir?"
 }

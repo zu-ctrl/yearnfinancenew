@@ -143,5 +143,19 @@
   "earn.item.balance": "Bilanz",
   "earn.item.disabled": "Behinderte",
   "earn.item.earn": "Verdienen",
-  "earn.item.claim": "Anspruch"
+  "earn.item.claim": "Anspruch",
+  "zap.title1": "Wie funktioniert",
+  "zap.title2": "arbeiten",
+  "zap.desc": "Tresorräume automatisieren eine Reihe intensiver Prozesse und bieten die höchste verfügbare risikobereinigte Rendite. Unten sehen Sie ein Diagramm, wie ein Paar in der Praxis arbeiten könnte. Wählen Sie in der untenstehenden Liste die Anlage, die Sie hinterlegen möchten, und legen Sie los!",
+  "zap.zap": "Zap",
+  "zap.swap": "Tausch",
+  "zap.trade": "Handel",
+  "zap.balance": "Bilanz",
+  "zap.iHave": "Ich habe",
+  "zap.iWant": "Ich werde erhalten",
+  "zap.sendAmount": "Betrag senden",
+  "apr.title1": "Wie funktioniert",
+  "apr.title2": "arbeiten",
+  "apr.desc": "Ich brauche hier etwas Text! n ist ein Ertragsaggregator für Kreditvergabeplattformen, der während der Vertragsinteraktion für höchste Erträge sorgt. Unten sehen Sie ein Diagramm, wie die Dinge in der Praxis funktionieren könnten. Fahren Sie fort und wählen Sie das Vermögen, das Sie hinterlegen möchten...",
+  "apr.howMuch": "Wie viel möchten Sie investieren?"
 }

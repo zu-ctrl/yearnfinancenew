@@ -143,5 +143,19 @@
   "earn.item.balance": "Balans",
   "earn.item.disabled": "Uitgeschakeld",
   "earn.item.earn": "Verdien",
-  "earn.item.claim": "Bewering"
+  "earn.item.claim": "Bewering",
+  "zap.title1": "Hoe werkt",
+  "zap.title2": "werk",
+  "zap.desc": "Vaults automatiseren een aantal intensieve processen en zorgen voor het hoogst mogelijke risicogecorrigeerde rendement. Hieronder staat een schema van hoe een koppel in de praktijk zou kunnen werken. Kies in de onderstaande lijst het actief dat u wilt storten om aan de slag te gaan!",
+  "zap.zap": "Zap",
+  "zap.swap": "Swap",
+  "zap.trade": "Handel",
+  "zap.balance": "Balans",
+  "zap.iHave": "Ik heb",
+  "zap.iWant": "Ik ontvang",
+  "zap.sendAmount": "Stuur bedrag",
+  "apr.title1": "Hoe werkt",
+  "apr.title2": "werk",
+  "apr.desc": "Hier is wat tekst nodig! n is een rendementsaggregator voor uitleenplatforms die het hoogste rendement tijdens de contractinteractie weer in evenwicht brengt. Hieronder staat een schema van hoe het in de praktijk zou kunnen werken. Ga je gang en kies de asset die je wilt deponeren...",
+  "apr.howMuch": "Hoeveel wilt u investeren?"
 }

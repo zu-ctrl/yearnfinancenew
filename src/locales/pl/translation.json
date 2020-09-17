@@ -143,5 +143,19 @@
   "earn.item.balance": "Bilans",
   "earn.item.disabled": "Niepełnosprawni",
   "earn.item.earn": "Zarobić",
-  "earn.item.claim": "Roszczenie"
+  "earn.item.claim": "Roszczenie",
+  "zap.title1": "Jak to się dzieje, że",
+  "zap.title2": "Praca",
+  "zap.desc": "Skrzynki zautomatyzowały szereg intensywnych procesów i zapewniają najwyższą dostępną wydajność dostosowaną do ryzyka. Poniżej znajduje się diagram, jak para może działać w praktyce. Idź i wybierz aktywa, które chcesz złożyć na poniższej liście, aby rozpocząć!",
+  "zap.zap": "Zap",
+  "zap.swap": "Swap",
+  "zap.trade": "Handel",
+  "zap.balance": "Bilans",
+  "zap.iHave": "Mam",
+  "zap.iWant": "Otrzymam",
+  "zap.sendAmount": "Wyślij kwotę",
+  "apr.title1": "Jak to się dzieje, że",
+  "apr.title2": "Praca",
+  "apr.desc": "Potrzebuję trochę tekstu! n to agregator rentowności dla platform pożyczkowych, które zmieniają równowagę w celu uzyskania najwyższej rentowności podczas interakcji kontraktowej. Poniżej znajduje się diagram, jak to może działać w praktyce. Śmiało, wybierz środek, który chcesz zdeponować...",
+  "apr.howMuch": "Ile chcesz zainwestować?"
 }

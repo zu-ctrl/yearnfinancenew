@@ -143,5 +143,19 @@
   "earn.item.balance": "Balance",
   "earn.item.disabled": "Handicapés",
   "earn.item.earn": "Gagnez",
-  "earn.item.claim": "Revendication"
+  "earn.item.claim": "Revendication",
+  "zap.title1": "Comment",
+  "zap.title2": "travail",
+  "zap.desc": "Les chambres fortes automatisent un certain nombre de processus intensifs et fournissent le rendement ajusté au risque le plus élevé possible. Vous trouverez ci-dessous un schéma de la manière dont un couple pourrait fonctionner en pratique. Pour commencer, choisissez l'actif que vous souhaitez déposer dans la liste ci-dessous !",
+  "zap.zap": "Zap",
+  "zap.swap": "Échange",
+  "zap.trade": "Commerce",
+  "zap.balance": "Balance",
+  "zap.iHave": "J'ai",
+  "zap.iWant": "Je vais recevoir",
+  "zap.sendAmount": "Envoyer le montant",
+  "apr.title1": "Comment",
+  "apr.title2": "travail",
+  "apr.desc": "Besoin de texte ici ! n est un agrégateur de rendement pour les plateformes de prêt qui rééquilibre le rendement le plus élevé lors de l'interaction des contrats. Vous trouverez ci-dessous un schéma de la manière dont les choses pourraient fonctionner en pratique. Allez-y et choisissez l'actif que vous voulez déposer...",
+  "apr.howMuch": "Combien voulez-vous investir ?"
 }
