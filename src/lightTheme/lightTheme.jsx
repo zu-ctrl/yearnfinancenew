@@ -91,6 +91,10 @@ export const colors = {
     bgSelected: '#096DD9',
     bgHoverDef: 'rgba(47,128,237, 0.2)',
   },
+  langChooser: {
+    bg: '#E3E5E8',
+    shadow: 'inset 0px 0px 2px rgba(0, 0, 0, 0.25)',
+  },
   bg: '#f7f9fc',
   bgImage: 'none',
   headerBg: '#f7f9fc',

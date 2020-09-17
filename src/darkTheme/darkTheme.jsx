@@ -72,6 +72,10 @@ export const colors = {
     bgSelected: '#1890FF',
     bgHoverDef: 'rgba(47,128,237, 0.2)',
   },
+  langChooser: {
+    bg: '#354154',
+    shadow: 'inset 0px 0px 2px rgba(0, 0, 0, 0.25)',
+  },
   glowShadow: 'radial-gradient(52.66% 50.98% at 50% 0%, rgba(64, 169, 255, 0.15) 0%, rgba(64, 169, 255, 0) 89.58%);',
   textShadow: '0px 0px 10px #40A9FF',
   connectedShadow: '0px 0px 10px #73D13D',

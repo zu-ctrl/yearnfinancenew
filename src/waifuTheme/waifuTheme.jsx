@@ -91,6 +91,10 @@ export const colors = {
     bgSelected: '#9551BA',
     bgHoverDef: 'rgba(149,81,186, 0.2)',
   },
+  langChooser: {
+    bg: '#E3E5E8',
+    shadow: 'inset 0px 0px 2px rgba(0, 0, 0, 0.25)',
+  },
   bg: '#f7f9fc',
   headerBg: '#f7f9fc',
   bgImage: `url(${require('../assets/theme/waifu_bg.png')})`,
