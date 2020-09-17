@@ -75,7 +75,7 @@ const styles = (theme) => {
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
-      maxWidth: '134px',
+      maxWidth: '160px',
       width: '100%',
       padding: '0px 24px',
       [theme.breakpoints.down('sm')]: {
