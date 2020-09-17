@@ -192,7 +192,7 @@ class Footer extends Component {
     return (
       <>
         <div className={classes.linearContainer}>
-          <img alt='footer linear' src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
+          <img alt="footer linear" src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
         </div>
         <div className={classes.footer}>
           <div className={classes.gradient} />
@@ -200,7 +200,7 @@ class Footer extends Component {
             <Typography className={classes.builtHeading} variant={'h6'}>
               yearn.finance
             </Typography>
-            <img className={classes.logo} alt='footer logo' src={require('../../assets/YFI-logo.png')} />
+            <img className={classes.logo} alt="footer logo" src={require('../../assets/YFI-logo.png')} />
             <div
               className={`${classes.link} ${classes.builtWithLink}`}
               onClick={() => {
