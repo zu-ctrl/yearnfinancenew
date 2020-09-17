@@ -57,7 +57,7 @@ i18n
   .use(reactI18nextModule) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: localStorage.getItem("yearnfinewLang").toLowerCase() || "en",
+    lng: localStorage.getItem("yearnfinewLang") ? localStorage.getItem("yearnfinewLang").toLowerCase() : "en",
     fallbackLng: "en",
 
     keySeparator: false, // we do not use keys in form messages.welcome
