@@ -73,17 +73,17 @@ const styles = (theme) => {
       alignItems: "center",
     },
     builtWith: {
-      display: 'flex',
-      flexDirection: 'column',
-      position: 'relative',
-      maxWidth: '229px',
-      width: '100%',
-      padding: '0px 24px',
-      [theme.breakpoints.down('sm')]: {
-        padding: '0px 15px',
-        marginBottom: '25px',
-        maxWidth: '250px',
-        width: '100%',
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      maxWidth: "229px",
+      width: "100%",
+      padding: "0px 24px",
+      [theme.breakpoints.down("sm")]: {
+        padding: "0px 15px",
+        marginBottom: "25px",
+        maxWidth: "250px",
+        width: "100%",
       },
       [theme.breakpoints.down("xs")]: {
         display: "flex",
@@ -170,11 +170,11 @@ const styles = (theme) => {
       color: colors.footer.link,
     },
     settingsContainer: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
     },
-  }
-}
+  };
+};
 
 class Footer extends Component {
   constructor(props) {
@@ -197,7 +197,7 @@ class Footer extends Component {
     return (
       <>
         <div className={classes.linearContainer}>
-          <img alt='footer linear' src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
+          <img alt="footer linear" src={require(`../../assets/theme/footer-linear-${themeName}.svg`)} />
         </div>
         <div className={classes.footer}>
           <div className={classes.gradient} />
@@ -205,7 +205,7 @@ class Footer extends Component {
             <Typography className={classes.builtHeading} variant={"h6"}>
               yearn.finance
             </Typography>
-            <img className={classes.logo} alt='footer logo' src={require('../../assets/YFI-logo.png')} />
+            <img className={classes.logo} alt="footer logo" src={require("../../assets/YFI-logo.png")} />
             <div
               className={`${classes.link} ${classes.builtWithLink}`}
               onClick={() => {
@@ -216,7 +216,7 @@ class Footer extends Component {
                 <BuiltWithIcon color={colors.footer.icon} />
               </div>
               <Typography className={classes.linkText} variant={"h4"}>
-                built with...
+                {`${t("footer.BuiltWith")}...`}
               </Typography>
             </div>
             <div className={classes.settingsContainer}>
@@ -271,7 +271,7 @@ class Footer extends Component {
           </div>
           <div className={classes.community}>
             <Typography className={classes.heading} variant={"h6"}>
-              Community
+              {t("footer.Community")}
             </Typography>
             <div className={classes.link} onClick={() => window.open("https://ycosystem.info", "_blank")}>
               <div className={`${themeName === "dark" ? classes.glow : classes.icon}`}>
@@ -324,7 +324,7 @@ class Footer extends Component {
           </div>
           <div className={classes.socials}>
             <Typography className={classes.heading} variant={"h6"}>
-              Socials
+              {t("footer.Socials")}
             </Typography>
             <div className={classes.link} onClick={() => window.open("https://twitter.com/iearnfinance", "_blank")}>
               <div className={`${themeName === "dark" ? classes.glow : classes.icon}`}>
