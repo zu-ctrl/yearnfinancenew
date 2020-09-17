@@ -68,6 +68,9 @@ const styles = (theme) => {
       maxWidth: '870px',
       width: '100%',
       margin: '40px auto 0',
+      '& .MuiAccordionSummary-root': {
+        padding: '22px 41px',
+      },
     },
     balancesContainer: {
       display: 'flex',
@@ -345,7 +348,7 @@ const styles = (theme) => {
       color: colors.page.header.text,
       maxWidth: '600px',
       width: '100%',
-      margin: '19px auto 0',
+      margin: '21px auto 0',
     },
     sortContainer: {
       display: 'flex',
@@ -566,11 +569,11 @@ class Vault extends Component {
       <div className={classes.root}>
         <div className={classes.investedContainer}>
           <div className={classes.titleContainer}>
-            <Typography className={classes.title} variant="h2">
+            <Typography className={classes.title} variant='h2'>
               How does
             </Typography>
             <VaultIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
-            <Typography className={classes.title} variant="h2">
+            <Typography className={classes.title} variant='h2'>
               <span className={classes.titleSpan}>Vault</span> work?
             </Typography>
           </div>
@@ -579,7 +582,7 @@ class Vault extends Component {
               <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
             </div>
           )}
-          <Typography className={classes.description} variant="h6">
+          <Typography className={classes.description} variant='h6'>
             Vaults automate a number of intensive processes and provide the highest risk-adjusted yield available. Below
             is a diagram of how a couple might work in practice. Go ahead and choose the asset you want to deposit in
             the list below to get started!
@@ -651,12 +654,12 @@ class Vault extends Component {
                 this.handleChange(asset.id)
               }}
             >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
                 <div className={classes.assetSummary}>
                   <div className={classes.headingName}>
                     <div className={classes.assetIcon}>
                       <img
-                        alt=""
+                        alt=''
                         src={require('../../assets/' + asset.symbol + '-logo.png')}
                         height={width > 600 ? '40px' : '30px'}
                         style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
@@ -758,8 +761,8 @@ class Vault extends Component {
         <div className={classes.filters}>
           <FormControlLabel
             className={classes.checkbox}
-            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color="primary" />}
-            label="Hide zero balances"
+            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color='primary' />}
+            label='Hide zero balances'
           />
           <div className={classes.inputContainer}>
             <div className={classes.between}>
@@ -789,16 +792,16 @@ class Vault extends Component {
               value={search}
               error={searchError}
               onChange={this.onSearchChanged}
-              placeholder="ETH, CRV, ..."
-              variant="outlined"
+              placeholder='ETH, CRV, ...'
+              variant='outlined'
               InputProps={{
                 startAdornment: (
                   <>
-                    <InputAdornment position="end" className={classes.inputSearch}>
-                      <SearchIcon color="#BBBDBF" />
+                    <InputAdornment position='end' className={classes.inputSearch}>
+                      <SearchIcon color='#BBBDBF' />
                     </InputAdornment>
-                    <InputAdornment position="start" className={classes.inputFilter}>
-                      <FilterIcon color="#BBBDBF" />
+                    <InputAdornment position='start' className={classes.inputFilter}>
+                      <FilterIcon color='#BBBDBF' />
                     </InputAdornment>
                   </>
                 ),
@@ -811,10 +814,10 @@ class Vault extends Component {
             Sort by
           </Typography>
           <select className={classes.select} value={sortBy} onChange={(e) => this.setState({ sortBy: e.target.value })}>
-            <option className={classes.option} value="balance">
+            <option className={classes.option} value='balance'>
               Balance
             </option>
-            <option className={classes.option} value="apy">
+            <option className={classes.option} value='apy'>
               APY
             </option>
           </select>

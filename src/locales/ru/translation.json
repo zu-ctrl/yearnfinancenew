@@ -52,7 +52,7 @@
   "Insure.ExpectedReturns": "Ожидаемая прибыль",
   "Insure.Unknown": "Неизвестный",
   "Insure.TokensMinted": "Жетоны отчеканены",
-  "Insure.CostPerToken": "Стоимость жетона",
+  "Insure.CostPerToken": "Стоимость за жетон",
   "Insure.CollateralizationRatio": "Коэффициент обеспеченности",
   "Insure.MinimumCollateralizationRatio": "Минимальный коэффициент обеспеченности",
   "Home.Earn": "Заработать",
