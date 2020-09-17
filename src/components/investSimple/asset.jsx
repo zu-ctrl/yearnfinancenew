@@ -15,6 +15,9 @@ const store = Store.store
 const styles = (theme) => {
   const colors = theme.themeColors
   return {
+    container: {
+      width: '100%',
+    },
     value: {
       cursor: 'pointer',
       fontSize: '12px',
@@ -367,7 +370,7 @@ class Asset extends Component {
     const colors = theme.themeColors
 
     return (
-      <div>
+      <div className={classes.container}>
         <div className={classes.lineContainer}>
           <AssetLinear
             id={colors.page.asset.linear.id}
@@ -453,7 +456,6 @@ class Asset extends Component {
               </Button>
             </div>
           </div>
-          <div className={classes.sepperator}></div>
           <div className={classes.tradeContainer}>
             <TextField
               fullWidth
