@@ -544,7 +544,6 @@ class Vault extends Component {
       console.error('[pyearn]', e.toString())
     }
     this.setState({ assets: updatedAssets })
-    console.log('updatedAssets', updatedAssets)
     setTimeout(this.refresh, 300000)
   }
 

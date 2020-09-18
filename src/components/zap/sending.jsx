@@ -238,12 +238,11 @@ class Sending extends Component {
 
   render() {
     const { classes, sendAsset, sendAmount, loading, t } = this.props
-    console.log({ sendAsset })
     const { slider } = this.state
     return (
       <div className={classes.root}>
         <div className={classes.inputCard}>
-          <Typography variant='h3' className={classes.title}>
+          <Typography variant="h3" className={classes.title}>
             {t('zap.sendAmount')}
           </Typography>
           {this.renderAmountInput('amount', sendAmount, false, 'Amount', '0.00', sendAsset ? sendAsset.symbol : '')}
@@ -276,43 +275,43 @@ class Sending extends Component {
         <div className={classes.labeledInput}>
           <TextField
             fullWidth
-            id='amount'
+            id="amount"
             value={sendAmount}
             error={error}
             onChange={(e) => this.handleChangeValue(e.target.value)}
             disabled={loading}
             placeholder={placeholder}
-            variant='outlined'
+            variant="outlined"
           />
           {sendAsset && <span>{sendAsset.symbol}</span>}
         </div>
         <div className={classes.sliderContainer}>
           <Slider
             value={sliderValue}
-            aria-labelledby='discrete-slider'
+            aria-labelledby="discrete-slider"
             step={1}
             marks
             min={0}
             max={100}
-            valueLabelDisplay='on'
+            valueLabelDisplay="on"
             disabled={loading}
             onChange={(_, val) => this.handleChangeSlider(val)}
           />
         </div>
         <div className={classes.percentContainer}>
-          <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeSlider(0)}>
+          <Typography variant="h5" className={classes.percent} onClick={() => this.handleChangeSlider(0)}>
             0%
           </Typography>
-          <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeSlider(25)}>
+          <Typography variant="h5" className={classes.percent} onClick={() => this.handleChangeSlider(25)}>
             25%
           </Typography>
-          <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeSlider(50)}>
+          <Typography variant="h5" className={classes.percent} onClick={() => this.handleChangeSlider(50)}>
             50%
           </Typography>
-          <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeSlider(75)}>
+          <Typography variant="h5" className={classes.percent} onClick={() => this.handleChangeSlider(75)}>
             75%
           </Typography>
-          <Typography variant='h5' className={classes.percent} onClick={() => this.handleChangeSlider(100)}>
+          <Typography variant="h5" className={classes.percent} onClick={() => this.handleChangeSlider(100)}>
             100%
           </Typography>
         </div>

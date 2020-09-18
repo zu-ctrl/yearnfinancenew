@@ -47,7 +47,6 @@ const styles = (theme) => {
 
 const ThemeChooser = ({ themeName, setTheme, classes, theme }) => {
   const colors = theme.themeColors
-  console.log({ colors, theme })
   const handleChangeTheme = (newTheme) => {
     setTheme(newTheme)
     localStorage.setItem('yearnfinewTheme', newTheme)

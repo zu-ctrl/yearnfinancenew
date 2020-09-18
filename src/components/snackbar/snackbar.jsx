@@ -101,7 +101,6 @@ class MySnackbar extends Component {
 
   render() {
     const { type, message, t, theme, classes } = this.props
-    console.log({ classes })
     const colors = theme.themeColors
     let icon = <SuccessIcon color={theme.snackbar.successIcon} />
     let color = theme.snackbar.title
