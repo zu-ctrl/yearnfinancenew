@@ -611,11 +611,11 @@ class Vault extends Component {
       <div className={classes.root}>
         <div className={classes.investedContainer}>
           <div className={classes.titleContainer}>
-            <Typography className={classes.title} variant='h2'>
+            <Typography className={classes.title} variant="h2">
               {t('vaults.title1')}
             </Typography>
             <VaultIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
-            <Typography className={classes.title} variant='h2'>
+            <Typography className={classes.title} variant="h2">
               <span className={classes.titleSpan}>Vault</span> {t('vaults.title2')}?
             </Typography>
           </div>
@@ -624,7 +624,7 @@ class Vault extends Component {
               <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
             </div>
           )}
-          <Typography className={classes.description} variant='h6'>
+          <Typography className={classes.description} variant="h6">
             {t('vaults.desc')}
           </Typography>
           {this.renderFilters({ colors })}
@@ -657,139 +657,132 @@ class Vault extends Component {
     const { classes, t } = this.props
     const width = window.innerWidth
     const _assets = [...assets]
-    return (
-      this.sortedAssets(_assets, sortBy)
-        .filter((asset) => {
-          if (hideZero && asset.balance === 0 && asset.vaultBalance === 0) {
-            return false
-          }
+    return this.sortedAssets(_assets, sortBy)
+      .filter((asset) => {
+        if (hideZero && asset.balance === 0 && asset.vaultBalance === 0) {
+          return false
+        }
 
-          if (search && search !== '') {
-            return (
-              asset.id.toLowerCase().includes(search.toLowerCase()) ||
-              asset.name.toLowerCase().includes(search.toLowerCase()) ||
-              asset.symbol.toLowerCase().includes(search.toLowerCase()) ||
-              asset.description.toLowerCase().includes(search.toLowerCase()) ||
-              asset.vaultSymbol.toLowerCase().includes(search.toLowerCase())
-            )
-            // asset.erc20address.toLowerCase().includes(search.toLowerCase()) ||
-            // asset.vaultContractAddress.toLowerCase().includes(search.toLowerCase())
-          } else {
-            return true
-          }
-        })
-        // .map((asset, i) => {
-        //   // TODO: for testing
-        //   asset.balance = 123
-        //   return asset
-        // })
-        .map((asset) => {
+        if (search && search !== '') {
           return (
-            <Accordion
-              className={classes.expansionPanel}
-              square
-              key={asset.id + '_expand'}
-              expanded={expanded === asset.id}
-              onChange={() => {
-                this.handleChange(asset.id)
-              }}
-            >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
-                <div className={classes.assetSummary}>
-                  <div className={classes.headingName}>
-                    <div className={classes.assetIcon}>
-                      <img
-                        alt=''
-                        src={require('../../assets/' + asset.symbol + '-logo.png')}
-                        height={width > 600 ? '40px' : '30px'}
-                        style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
-                      />
-                    </div>
-                    <div>
-                      <Typography className={classes.assetTitle} variant={'h3'} noWrap>
-                        {asset.name}
-                      </Typography>
-                      <Typography className={classes.assetDescription} variant={'h5'}>
-                        {asset.description}
-                      </Typography>
-                    </div>
+            asset.id.toLowerCase().includes(search.toLowerCase()) ||
+            asset.name.toLowerCase().includes(search.toLowerCase()) ||
+            asset.symbol.toLowerCase().includes(search.toLowerCase()) ||
+            asset.description.toLowerCase().includes(search.toLowerCase()) ||
+            asset.vaultSymbol.toLowerCase().includes(search.toLowerCase())
+          )
+          // asset.erc20address.toLowerCase().includes(search.toLowerCase()) ||
+          // asset.vaultContractAddress.toLowerCase().includes(search.toLowerCase())
+        } else {
+          return true
+        }
+      })
+      .map((asset) => {
+        return (
+          <Accordion
+            className={classes.expansionPanel}
+            square
+            key={asset.id + '_expand'}
+            expanded={expanded === asset.id}
+            onChange={() => {
+              this.handleChange(asset.id)
+            }}
+          >
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+              <div className={classes.assetSummary}>
+                <div className={classes.headingName}>
+                  <div className={classes.assetIcon}>
+                    <img
+                      alt=""
+                      src={require('../../assets/' + asset.symbol + '-logo.png')}
+                      height={width > 600 ? '40px' : '30px'}
+                      style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
+                    />
                   </div>
-                  {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
-                    <div className={classes.headingEarning}>
-                      <Typography variant={'h5'} className={classes.assetDescription}>
-                        You are earning:
-                      </Typography>
-                      <div className={classes.flexy}>
-                        <Typography variant={'h3'} noWrap>
-                          {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
-                        </Typography>
-                      </div>
-                    </div>
-                  )}
-                  {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
-                    <div className={classes.headingEarning}>
-                      <Typography variant={'h5'} className={classes.assetDescription}>
-                        You are earning:
-                      </Typography>
-                      <div className={classes.flexy}>
-                        <Typography variant={'h3'} noWrap>
-                          {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
-                        </Typography>
-                        <Typography variant={'h5'} className={classes.assetDescription}>
-                          {' '}
-                          on{' '}
-                        </Typography>
-                        <Typography className={classes.assetDescription} variant={'h3'} noWrap>
-                          {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : <Skeleton style={{ width: '50px' }} />}{' '}
-                          {asset.vaultSymbol}
-                        </Typography>
-                      </div>
-                    </div>
-                  )}
-                  {!['LINK'].includes(asset.id) && asset.vaultBalance === 0 && (
-                    <div className={classes.headingEarning}>
-                      <div className={classes.flexy}>
-                        <Typography className={classes.assetTitle} variant={'h3'} noWrap>
-                          {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
-                        </Typography>
-                      </div>
-                      <Typography variant={'h5'} className={classes.assetDescription}>
-                        {t('vaults.item.earning')}
-                      </Typography>
-                    </div>
-                  )}
-                  {['LINK'].includes(asset.id) && (
-                    <div className={classes.headingEarning}>
-                      <Typography className={classes.assetTitle} variant={'h3'} noWrap>
-                        N/A
-                      </Typography>
-                      <Typography variant={'h5'} className={classes.assetDescription}>
-                        {t('vaults.item.earning')}
-                      </Typography>
-                    </div>
-                  )}
-                  <div className={classes.heading}>
+                  <div>
                     <Typography className={classes.assetTitle} variant={'h3'} noWrap>
-                      {(asset.balance ? asset.balance.toFixed(2) : '0.00') + ' ' + asset.symbol}
+                      {asset.name}
                     </Typography>
-                    <Typography variant={'h5'} className={classes.assetDescription}>
-                      {t('vaults.item.availableDeposit')}
+                    <Typography className={classes.assetDescription} variant={'h5'}>
+                      {asset.description}
                     </Typography>
                   </div>
                 </div>
-              </AccordionSummary>
-              <ApyTable
-                pyEarnData={asset.pyEarnData}
-                address={account.address}
-                showYvaultRoi={account.address && asset.description === 'renBTC/wBTC/sBTC'}
-              />
-              <AccordionDetails>
-                <Asset asset={asset} startLoading={this.startLoading} />
-              </AccordionDetails>
-            </Accordion>
-          )
-        })
-    )
+                {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
+                  <div className={classes.headingEarning}>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
+                      You are earning:
+                    </Typography>
+                    <div className={classes.flexy}>
+                      <Typography variant={'h3'} noWrap>
+                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
+                      </Typography>
+                    </div>
+                  </div>
+                )}
+                {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
+                  <div className={classes.headingEarning}>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
+                      You are earning:
+                    </Typography>
+                    <div className={classes.flexy}>
+                      <Typography variant={'h3'} noWrap>
+                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
+                      </Typography>
+                      <Typography variant={'h5'} className={classes.assetDescription}>
+                        {' '}
+                        on{' '}
+                      </Typography>
+                      <Typography className={classes.assetDescription} variant={'h3'} noWrap>
+                        {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : <Skeleton style={{ width: '50px' }} />}{' '}
+                        {asset.vaultSymbol}
+                      </Typography>
+                    </div>
+                  </div>
+                )}
+                {!['LINK'].includes(asset.id) && asset.vaultBalance === 0 && (
+                  <div className={classes.headingEarning}>
+                    <div className={classes.flexy}>
+                      <Typography className={classes.assetTitle} variant={'h3'} noWrap>
+                        {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
+                      </Typography>
+                    </div>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
+                      {t('vaults.item.earning')}
+                    </Typography>
+                  </div>
+                )}
+                {['LINK'].includes(asset.id) && (
+                  <div className={classes.headingEarning}>
+                    <Typography className={classes.assetTitle} variant={'h3'} noWrap>
+                      N/A
+                    </Typography>
+                    <Typography variant={'h5'} className={classes.assetDescription}>
+                      {t('vaults.item.earning')}
+                    </Typography>
+                  </div>
+                )}
+                <div className={classes.heading}>
+                  <Typography className={classes.assetTitle} variant={'h3'} noWrap>
+                    {(asset.balance ? asset.balance.toFixed(2) : '0.00') + ' ' + asset.symbol}
+                  </Typography>
+                  <Typography variant={'h5'} className={classes.assetDescription}>
+                    {t('vaults.item.availableDeposit')}
+                  </Typography>
+                </div>
+              </div>
+            </AccordionSummary>
+            <ApyTable
+              pyEarnData={asset.pyEarnData}
+              address={account.address}
+              showYvaultRoi={account.address && asset.description === 'renBTC/wBTC/sBTC'}
+            />
+            <AccordionDetails>
+              <Asset asset={asset} startLoading={this.startLoading} />
+            </AccordionDetails>
+          </Accordion>
+        )
+      })
   }
 
   renderFilters = ({ colors }) => {
@@ -801,7 +794,7 @@ class Vault extends Component {
         <div className={classes.filters}>
           <FormControlLabel
             className={classes.checkbox}
-            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color='primary' />}
+            control={<Checkbox checked={hideZero} onChange={this.handleChecked} color="primary" />}
             label={t('vaults.hideBalances')}
           />
           <div className={classes.inputContainer}>
@@ -832,16 +825,16 @@ class Vault extends Component {
               value={search}
               error={searchError}
               onChange={this.onSearchChanged}
-              placeholder='ETH, CRV, ...'
-              variant='outlined'
+              placeholder="ETH, CRV, ..."
+              variant="outlined"
               InputProps={{
                 startAdornment: (
                   <>
-                    <InputAdornment position='end' className={classes.inputSearch}>
-                      <SearchIcon color='#BBBDBF' />
+                    <InputAdornment position="end" className={classes.inputSearch}>
+                      <SearchIcon color="#BBBDBF" />
                     </InputAdornment>
-                    <InputAdornment position='start' className={classes.inputFilter}>
-                      <FilterIcon color='#BBBDBF' />
+                    <InputAdornment position="start" className={classes.inputFilter}>
+                      <FilterIcon color="#BBBDBF" />
                     </InputAdornment>
                   </>
                 ),
@@ -860,15 +853,15 @@ class Vault extends Component {
             SelectProps={{
               native: false,
             }}
-            variant='outlined'
+            variant="outlined"
             fullWidth
             // disabled={loading}
             className={classes.assetSelectRoot}
           >
-            <MenuItem value='balance' className={classes.assetSelectMenu}>
+            <MenuItem value="balance" className={classes.assetSelectMenu}>
               <span className={classes.assetSelectLabel}>{t('vaults.balance')}</span>
             </MenuItem>
-            <MenuItem value='apy' className={classes.assetSelectMenu}>
+            <MenuItem value="apy" className={classes.assetSelectMenu}>
               <span className={classes.assetSelectLabel}>APY</span>
             </MenuItem>
           </TextField>

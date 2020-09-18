@@ -1,6 +1,5 @@
 const config = {
-  infuraProvider: 'https://eth-mainnet.alchemyapi.io/v2/BvXuP2T5xJO_SB6ggiuySo3vnssE2oXm', // TODO: changed for dev. johnnykramer
-  // infuraProvider: 'https://eth-mainnet.alchemyapi.io/v2/k2--UT_xVVXMOvAyoxJYqtKhlmyBbqnX',
+  infuraProvider: 'https://eth-mainnet.alchemyapi.io/v2/k2--UT_xVVXMOvAyoxJYqtKhlmyBbqnX',
   iEarnContract: '0x9Dde7cdd09dbed542fC422d18d89A589fA9fD4C0',
   erc20ABI: [
     {
