@@ -1,70 +1,61 @@
 # iearn finance
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+App is based on [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## NEW UI/UX IMPORTANT NOTES
 
-In the project directory, you can run:
+### 1. Serverless functions
 
-### `npm start`
+For fetching data from 2 another sources (`YvaultRoi` and `ApyTable` components) we used simple serverless functions — [Vercel functions](https://vercel.com/docs/serverless-functions/introduction). They're mostly the same as Netlify Functions, AWS Lambda, Google Cloud Functions or Cloudflare Workers. And also they can be easily reworked to become a part of ExpressJS app or similar.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Actually both functions are data scrapers, so for reduce latency and improve UX we've made also optional(!) Redis caching. You can add env variables by example to enable caching. If env variable `CACHING_ENABLED` is not equal `"true"` — caching will be disabled and each request to serverless functions will be fully processed.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+`.env` file example to enable Redis caching for both serverless functions:
 
-### `npm test`
+```
+CACHE_EXPIRE="600"
+REDIS_PASSWORD="supersecurepassword"
+REDIS_DB="1"
+REDIS_HOST="123.123.123.123"
+REDIS_PORT="6379"
+CACHING_ENABLED="true"
+```
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Theming
 
-### `npm run build`
+We made theming using MaterialUI library. Now we have 3 themes: Dark, Light and Waifu. Each from them has a specific theme file with invididual color scheme and props. Just need to follow unified theme files structure, to don't break any style.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. i18n
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+We made internationalisation using i18next library and [DeepL](http://deepl.com/) translation service.
+Script `translator.js` in root folder handles that.
+First need to add DeepL API Key to your `.env` file:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+DEEPL_API_KEY="myfavouritedeeplapikey"
+```
 
-### `npm run eject`
+Then update `/src/locales/en/translation.json` file with new static renderable strings.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+And then — run `npm run i18n`. Script will translate all content from EN translation file to all available languages on DeepL and generate appropriated translation folders/files.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to use
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Main commands
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+$ npm run i18n # rebuilds all the translations based on EN translation using DeepL service
 
-## Learn More
+$ npm run start # starts the project to develop locally
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+$ npm run build # creates an optimized production build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### CRA basic commands
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```bash
+$ npm start
+$ npm test
+$ npm run build
+$ npm run eject
+```

@@ -96,7 +96,7 @@
   "connectWallet.slide3.title": "¿Por qué usar Yearn?",
   "connectWallet.slide3.subtitle": "Usar un producto de Yearn es como tener acceso al administrador de dinero más avanzado del mundo. Yearn ayuda a los depositantes grandes y pequeños a ahorrar tiempo, dinero y esfuerzo en la administración activa y el despliegue de los fondos a la estrategia más rentable en cualquier momento.",
   "connectWallet.slide4.title": "¿No puedo hacer todo esto yo mismo?",
-  "connectWallet.slide4.subtitle": "Sí, puedes. Sin embargo, las bóvedas le ayudan a ahorrar gasolina, manejar los activos a niveles saludables, auto-optimizar para las estrategias de mayor rendimiento en cualquier momento, incluso cuando está durmiendo... y lo más importante, ciclos continuos y retornos compuestos.",
+  "connectWallet.slide4.subtitle": "Sí, puedes. Sin embargo, las bóvedas le ayudan a ahorrar gasolina, manejar los activos a niveles saludables, auto-optimizar para las estrategias de mayor rendimiento en cualquier momento, incluso cuando está durmiendo... y lo más importante, continuamente ciclos y retornos compuestos.",
   "connectWallet.slide5.title": "¿Cuáles son los riesgos?",
   "connectWallet.slide5.subtitle": "Mientras que los activos depositados no pueden disminuir, la deuda de la bóveda sí puede. Si una estrategia no logra superar la deuda, entonces una parte del activo se bloqueará de forma impermanente. Si una estrategia vuelve a superar la deuda, este activo se desbloqueará. Hay mecanismos en las bóvedas para ayudar a que esto no suceda, pero nada es infalible. Hasta ahora, las bóvedas no han sido auditadas. También hay un riesgo de Contrato Inteligente con cualquier contrato con el que las bóvedas interactúen.",
   "connectWallet.previous": "Anterior",
