@@ -24,6 +24,9 @@ const styles = (theme) => {
       backgroundPosition: 'bottom right',
       paddingBottom: '90px',
       width: '100%',
+      [theme.breakpoints.up('md')]: {
+        minHeight: 'calc(100vh - 376px)',
+      },
       [theme.breakpoints.down('md')]: {
         paddingLeft: '10px',
         paddingRight: '10px',

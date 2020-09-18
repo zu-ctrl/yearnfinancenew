@@ -56,6 +56,9 @@ const styles = (theme) => {
       backgroundPosition: 'bottom right',
       padding: '0 15px 90px',
       width: '100%',
+      [theme.breakpoints.up('md')]: {
+        minHeight: 'calc(100vh - 376px)',
+      },
       [theme.breakpoints.down('xs')]: {
         overflow: 'hidden',
         padding: '0 15px 40px',
