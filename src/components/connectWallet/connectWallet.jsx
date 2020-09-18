@@ -87,6 +87,9 @@ const styles = (theme) => {
       '&.MuiButton-root': {
         transition: 'none',
       },
+      '&.MuiButton-outlinedPrimary:hover': {
+        border: colors.button.border,
+      },
     },
     buttonLeft: {
       left: '0',
@@ -97,6 +100,10 @@ const styles = (theme) => {
       boxShadow: colors.button.shadow,
       border: 'none',
       color: colors.button.hover,
+      '&.MuiButton-outlinedPrimary:hover': {
+        background: colors.button.bg,
+        border: 'none',
+      },
     },
     imageSlide: {
       maxWidth: '100%',
