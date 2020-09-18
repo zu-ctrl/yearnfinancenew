@@ -70,7 +70,7 @@ const styles = (theme) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      maxWidth: '870px',
+      maxWidth: '1000px',
       width: '100%',
       margin: '40px auto 0',
       '& .MuiAccordionSummary-root': {
@@ -120,7 +120,7 @@ const styles = (theme) => {
     },
     heading: {
       display: 'none',
-      flex: 1,
+      // flex: 1,
       [theme.breakpoints.up('md')]: {
         display: 'block',
       },
@@ -128,7 +128,7 @@ const styles = (theme) => {
     headingName: {
       display: 'flex',
       alignItems: 'center',
-      width: '325px',
+      minWidth: '250px',
       [theme.breakpoints.down('sm')]: {
         width: 'auto',
         flex: 1,
@@ -136,13 +136,14 @@ const styles = (theme) => {
     },
     headingEarning: {
       display: 'none',
-      width: '300px',
+      // width: '300px',
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
     },
     assetSummary: {
       display: 'flex',
+      justifyContent: 'space-between',
       alignItems: 'center',
       flex: 1,
       flexWrap: 'wrap',
@@ -710,7 +711,7 @@ class Vault extends Component {
                 {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
                   <div className={classes.headingEarning}>
                     <Typography variant={'h5'} className={classes.assetDescription}>
-                      You are earning:
+                      {t('vaults.item.youAreEarning')}
                     </Typography>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
@@ -722,15 +723,14 @@ class Vault extends Component {
                 {!['LINK'].includes(asset.id) && asset.vaultBalance > 0 && (
                   <div className={classes.headingEarning}>
                     <Typography variant={'h5'} className={classes.assetDescription}>
-                      You are earning:
+                      {t('vaults.item.youAreEarning')}
                     </Typography>
                     <div className={classes.flexy}>
                       <Typography variant={'h3'} noWrap>
                         {asset.apy ? `${asset.apy.toFixed(2)}%` : <Skeleton style={{ width: '50px' }} />}{' '}
                       </Typography>
                       <Typography variant={'h5'} className={classes.assetDescription}>
-                        {' '}
-                        on{' '}
+                        &nbsp;{t('vaults.item.on')}&nbsp;
                       </Typography>
                       <Typography className={classes.assetDescription} variant={'h3'} noWrap>
                         {asset.vaultBalance ? asset.vaultBalance.toFixed(2) : <Skeleton style={{ width: '50px' }} />}{' '}

@@ -129,6 +129,8 @@
   "vaults.info1": "Des frais de retrait de 0,5 % sont prélevés sur toutes les chambres fortes.",
   "vaults.info2": "Une commission de performance de 5 % est prélevée sur le gaz subventionné.",
   "vaults.item.earning": "Cette chambre forte gagne",
+  "vaults.item.youAreEarning": "Vous gagnez",
+  "vaults.item.on": "sur",
   "vaults.item.availableDeposit": "Disponible pour le dépôt",
   "vaults.item.depositsDisabled": "Les dépôts sont actuellement désactivés pour ce coffre-fort",
   "vaults.item.walletBalance": "Solde du portefeuille",

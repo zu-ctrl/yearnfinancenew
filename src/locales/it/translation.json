@@ -129,6 +129,8 @@
   "vaults.info1": "Su tutti i caveau è prevista una tassa di prelievo dello 0,5%.",
   "vaults.info2": "C'è una tassa di performance del 5% sul gas sovvenzionato.",
   "vaults.item.earning": "Questo caveau sta guadagnando",
+  "vaults.item.youAreEarning": "Stai guadagnando",
+  "vaults.item.on": "sopra",
   "vaults.item.availableDeposit": "Disponibile a depositare",
   "vaults.item.depositsDisabled": "I depositi sono attualmente disabilitati per questo caveau",
   "vaults.item.walletBalance": "Bilanciamento del portafoglio",

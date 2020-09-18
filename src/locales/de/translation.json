@@ -129,6 +129,8 @@
   "vaults.info1": "Auf alle Tresore wird eine Rücknahmegebühr von 0,5% erhoben.",
   "vaults.info2": "Auf subventioniertes Gas wird eine Aufführungsgebühr von 5% erhoben.",
   "vaults.item.earning": "Dieser Tresor verdient",
+  "vaults.item.youAreEarning": "Sie verdienen",
+  "vaults.item.on": "auf",
   "vaults.item.availableDeposit": "Verfügbar zur Hinterlegung",
   "vaults.item.depositsDisabled": "Einzahlungen sind für diesen Tresor derzeit deaktiviert.",
   "vaults.item.walletBalance": "Brieftasche Balance",
@@ -157,6 +159,6 @@
   "zap.sendAmount": "Betrag senden",
   "apr.title1": "Wie funktioniert",
   "apr.title2": "arbeiten",
-  "apr.desc": "Ich brauche hier etwas Text! n ist ein Ertragsaggregator für Kreditvergabeplattformen, der während der Vertragsinteraktion für höchste Erträge sorgt. Unten sehen Sie ein Diagramm, wie die Dinge in der Praxis funktionieren könnten. Wählen Sie den Vermögenswert aus, den Sie hinterlegen möchten...",
+  "apr.desc": "Ich brauche hier etwas Text! n ist ein Ertragsaggregator für Kreditvergabeplattformen, der während der Vertragsinteraktion für höchste Erträge sorgt. Unten sehen Sie ein Diagramm, wie die Dinge in der Praxis funktionieren könnten. Fahren Sie fort und wählen Sie das Vermögen, das Sie hinterlegen möchten...",
   "apr.howMuch": "Wie viel möchten Sie investieren?"
 }

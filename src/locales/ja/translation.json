@@ -129,6 +129,8 @@
   "vaults.info1": "全金庫に0.5％の引出手数料がかかります。",
   "vaults.info2": "補助金ガスには5％の成果報酬があります。",
   "vaults.item.earning": "この金庫は稼いでいます",
+  "vaults.item.youAreEarning": "あなたは稼いでいる",
+  "vaults.item.on": "オン",
   "vaults.item.availableDeposit": "入金可能",
   "vaults.item.depositsDisabled": "現在、この金庫では預託ができません。",
   "vaults.item.walletBalance": "財布の残高",

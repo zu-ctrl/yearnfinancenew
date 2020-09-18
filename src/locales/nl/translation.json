@@ -129,6 +129,8 @@
   "vaults.info1": "Op alle kluizen worden 0,5% opnamekosten in rekening gebracht.",
   "vaults.info2": "Er is een prestatievergoeding van 5% op gesubsidieerd gas.",
   "vaults.item.earning": "Deze kluis verdient",
+  "vaults.item.youAreEarning": "U verdient",
+  "vaults.item.on": "Aan",
   "vaults.item.availableDeposit": "Beschikbaar om te storten",
   "vaults.item.depositsDisabled": "Deposito's zijn momenteel uitgeschakeld voor deze kluis",
   "vaults.item.walletBalance": "Portemonnee Balans",

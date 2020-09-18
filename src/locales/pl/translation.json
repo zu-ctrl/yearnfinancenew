@@ -129,6 +129,8 @@
   "vaults.info1": "Na wszystkich sklepieniach obowiązuje opłata za wypłatę w wysokości 0,5%.",
   "vaults.info2": "Od dotowanego gazu pobierana jest opłata w wysokości 5%.",
   "vaults.item.earning": "To skarbiec zarabia",
+  "vaults.item.youAreEarning": "Zarabiasz",
+  "vaults.item.on": "na",
   "vaults.item.availableDeposit": "Dostępne do zdeponowania",
   "vaults.item.depositsDisabled": "Depozyty są obecnie wyłączone dla tego skarbca",
   "vaults.item.walletBalance": "Bilans portfela",
