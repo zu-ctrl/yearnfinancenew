@@ -101,6 +101,7 @@
   "connectWallet.slide5.subtitle": "Während die hinterlegten Vermögenswerte nicht abnehmen können, können die Schulden des Tresors abnehmen. Wenn eine Strategie es nicht schafft, die Schulden zu übertreffen, dann wird ein Teil des Vermögens vorübergehend gesperrt. Wenn es einer Strategie dann wieder gelingt, die Verschuldung zu übertreffen, wird dieser Teil des Vermögens entsperrt. Es gibt Mechanismen in den Tresoren, die dazu beitragen, dass dies nicht geschieht, aber nichts ist narrensicher. Bis jetzt wurden die Tresorräume noch nicht geprüft. Es gibt auch ein Smart Contract-Risiko bei allen Verträgen, mit denen die Tresorräume interagieren.",
   "connectWallet.previous": "Vorherige",
   "connectWallet.next": "Nächste",
+  "connectWallet.startOver": "Neu anfangen",
   "connectWallet.connectText": "Bitte schließen Sie zum Start eine Brieftasche an",
   "header.connectWallet": "Brieftasche verbinden",
   "home.vaults.desc": "Tresorräume verfolgen eine einzigartige Strategie, die darauf ausgerichtet ist, den Ertrag des hinterlegten Vermögens zu maximieren und das Risiko zu minimieren.",

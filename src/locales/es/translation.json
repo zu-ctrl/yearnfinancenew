@@ -101,6 +101,7 @@
   "connectWallet.slide5.subtitle": "Mientras que los activos depositados no pueden disminuir, la deuda de la bóveda sí puede. Si una estrategia no logra superar la deuda, entonces una parte del activo se bloqueará de forma impermanente. Si una estrategia vuelve a superar la deuda, este activo se desbloqueará. Hay mecanismos en las bóvedas para ayudar a que esto no suceda, pero nada es infalible. Hasta ahora, las bóvedas no han sido auditadas. También hay un riesgo de Contrato Inteligente con cualquier contrato con el que las bóvedas interactúen.",
   "connectWallet.previous": "Anterior",
   "connectWallet.next": "Siguiente",
+  "connectWallet.startOver": "Empieza de nuevo.",
   "connectWallet.connectText": "Por favor, conecte una cartera para empezar",
   "header.connectWallet": "Conecta la cartera",
   "home.vaults.desc": "Las bóvedas siguen una estrategia única diseñada para maximizar el rendimiento del activo depositado y minimizar el riesgo.",

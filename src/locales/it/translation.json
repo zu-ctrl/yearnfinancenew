@@ -101,6 +101,7 @@
   "connectWallet.slide5.subtitle": "Mentre i beni depositati non possono diminuire, il debito del caveau può farlo. Se una strategia non riesce a superare il debito, allora una parte del patrimonio sarà impermanentemente bloccata. Se una strategia supera di nuovo il debito, questo asset verrà sbloccato. Ci sono meccanismi nei caveau per evitare che ciò accada, ma nulla è infallibile. Per ora, i caveau non sono stati sottoposti a revisione. C'è anche il rischio di contratto intelligente con qualsiasi contratto con cui i caveau interagiscono.",
   "connectWallet.previous": "Precedente",
   "connectWallet.next": "Avanti",
+  "connectWallet.startOver": "Ricominciare da capo",
   "connectWallet.connectText": "Si prega di collegare un portafoglio per iniziare",
   "header.connectWallet": "Portafoglio Connect",
   "home.vaults.desc": "I caveau seguono una strategia unica che è stata progettata per massimizzare il rendimento dell'attività depositata e minimizzare il rischio.",

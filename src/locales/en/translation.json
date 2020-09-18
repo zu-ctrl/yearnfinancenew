@@ -119,6 +119,7 @@
   "connectWallet.slide5.subtitle": "While the assets deposited can't decrease, the debt of the vault can. If a strategy does not manage to outperform the debt, then a portion of the asset will be impermanently locked. If a strategy then outperforms the debt again, this asset will become unlocked. There are mechanisms in the vaults to help this not to happen, but nothing is foolproof. As of now, the Vaults have not been audited. There is also Smart Contract risk with any contracts that the vaults interact with.",
   "connectWallet.previous": "Previous",
   "connectWallet.next": "Next",
+  "connectWallet.startOver": "Start over",
   "connectWallet.connectText": "Please connect a wallet to start",
   "header.connectWallet": "Connect wallet",
   "home.vaults.desc": "Vaults follow a unique strategy that are designed to maximize the yield of the deposited asset and minimize risk.",

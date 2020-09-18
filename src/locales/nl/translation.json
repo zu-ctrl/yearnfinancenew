@@ -101,6 +101,7 @@
   "connectWallet.slide5.subtitle": "Terwijl de gedeponeerde activa niet kunnen afnemen, kan de schuld van de kluis wel afnemen. Als een strategie er niet in slaagt om de schuld te overtreffen, dan zal een deel van het vermogen vergankelijk worden vergrendeld. Als een strategie dan weer beter presteert dan de schuld, dan wordt dit activum weer vrijgemaakt. Er zijn mechanismen in de kluizen om dit niet te laten gebeuren, maar niets is onfeilbaar. Tot nu toe zijn de kluizen niet gecontroleerd. Er is ook een slim contractrisico bij de contracten waarmee de kluizen in wisselwerking staan.",
   "connectWallet.previous": "Vorige",
   "connectWallet.next": "Volgende",
+  "connectWallet.startOver": "Begin opnieuw",
   "connectWallet.connectText": "Sluit een portemonnee aan om te beginnen",
   "header.connectWallet": "Portefeuille aansluiten",
   "home.vaults.desc": "De Vaults volgen een unieke strategie die ontworpen is om het rendement van het gedeponeerde actief te maximaliseren en het risico te minimaliseren.",

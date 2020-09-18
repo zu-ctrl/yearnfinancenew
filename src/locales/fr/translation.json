@@ -101,6 +101,7 @@
   "connectWallet.slide5.subtitle": "Si les actifs déposés ne peuvent pas diminuer, la dette du coffre-fort le peut. Si une stratégie ne parvient pas à surperformer la dette, une partie de l'actif sera alors bloquée de façon impermanente. Si une stratégie parvient à surpasser à nouveau la dette, cet actif sera déverrouillé. Il existe des mécanismes dans les coffres pour éviter que cela ne se produise, mais rien n'est infaillible. Pour l'instant, les chambres fortes n'ont pas été auditées. Il existe également un risque de contrat intelligent pour tous les contrats avec lesquels les chambres fortes interagissent.",
   "connectWallet.previous": "Précédent",
   "connectWallet.next": "Suivant",
+  "connectWallet.startOver": "Recommencer à zéro",
   "connectWallet.connectText": "Veuillez connecter un portefeuille pour commencer",
   "header.connectWallet": "Connecter le portefeuille",
   "home.vaults.desc": "Les chambres fortes suivent une stratégie unique conçue pour maximiser le rendement de l'actif déposé et minimiser le risque.",

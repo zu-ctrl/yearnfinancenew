@@ -101,6 +101,7 @@
   "connectWallet.slide5.subtitle": "虽然存入的资产不能减少，但金库的债务可以。如果一个策略没能跑赢债务，那么一部分资产将被永久锁定。如果一个策略随后再次超越债务，那么这部分资产将被解锁。金库中有一些机制可以帮助这种情况不发生，但没有什么是万能的。截至目前，金库还没有经过审计。金库与之交互的任何合约也存在智能合约风险。",
   "connectWallet.previous": "上一篇",
   "connectWallet.next": "下一个",
+  "connectWallet.startOver": "重新开始",
   "connectWallet.connectText": "请连接一个钱包开始",
   "header.connectWallet": "连接钱包",
   "home.vaults.desc": "金库遵循独特的策略，旨在最大限度地提高存款资产的收益率，并将风险降至最低。",
