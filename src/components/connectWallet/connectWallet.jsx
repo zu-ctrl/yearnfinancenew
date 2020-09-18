@@ -14,6 +14,9 @@ const styles = (theme) => {
       background: colors.bg,
       width: '100%',
       padding: '50px 15px 100px',
+      [theme.breakpoints.down('xs')]: {
+        padding: '20px 15px 60px',
+      },
     },
     carousel: {
       maxWidth: '460px',
@@ -49,6 +52,10 @@ const styles = (theme) => {
       lineHeight: '36px',
       textAlign: 'center',
       color: colors.text,
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '22px',
+        lineHeight: '34px',
+      },
     },
     subTitle: {
       fontWeight: 'normal',
@@ -57,6 +64,11 @@ const styles = (theme) => {
       textAlign: 'center',
       color: colors.text,
       marginTop: '32px',
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '16px',
+        lineHeight: '26px',
+        marginTop: '25px',
+      },
     },
     button: {
       position: 'absolute',
@@ -69,9 +81,11 @@ const styles = (theme) => {
       width: '100%',
       minHeight: '36px',
       border: colors.button.border,
-      '&:hover': {},
       [theme.breakpoints.down('xs')]: {
         maxWidth: '140px',
+      },
+      '&.MuiButton-root': {
+        transition: 'none',
       },
     },
     buttonLeft: {
@@ -179,17 +193,17 @@ const ConnectWallet = ({ t, classes, currentTheme }) => {
           onChange={(val) => setSelectedSlide(val < 0 ? slidesData.length - 1 : val > slidesData.length - 1 ? 0 : val)}
           addArrowClickHandler
           arrowLeft={
-            <Button variant="outlined" color="primary" className={`${classes.button} ${classes.buttonLeft}`}>
+            <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonLeft}`}>
               {t('connectWallet.previous').toUpperCase()}
             </Button>
           }
           arrowRight={
             slidesData.length - 1 === selectedSlide ? (
-              <Button variant="outlined" color="primary" className={`${classes.button} ${classes.buttonRight}`}>
+              <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonRight}`}>
                 {t('connectWallet.startOver').toUpperCase()}
               </Button>
             ) : (
-              <Button variant="outlined" color="primary" className={`${classes.button} ${classes.buttonRight}`}>
+              <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonRight}`}>
                 {t('connectWallet.next').toUpperCase()}
               </Button>
             )
@@ -216,14 +230,14 @@ const ConnectWallet = ({ t, classes, currentTheme }) => {
       <div className={classes.linearContainerSm}>
         <img
           className={classes.line}
-          alt="connect linear"
+          alt='connect linear'
           src={require(`../../assets/theme/connect-linear-middle-${currentTheme}.svg`)}
         />
       </div>
       <div className={classes.linear}>
         <img
           className={classes.line}
-          alt="connect linear"
+          alt='connect linear'
           src={require(`../../assets/theme/connect-linear-lg-${currentTheme}.svg`)}
         />
       </div>

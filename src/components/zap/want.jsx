@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import { Typography, TextField, MenuItem, InputAdornment } from "@material-ui/core";
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles'
+import { Typography, TextField, MenuItem, InputAdornment } from '@material-ui/core'
 
-import { withNamespaces } from "react-i18next";
+import { withNamespaces } from 'react-i18next'
 // import {
 //   BALANCES_RETURNED
 // } from '../../constants'
@@ -14,223 +14,219 @@ import { withNamespaces } from "react-i18next";
 // const store = Store.store
 
 const styles = (theme) => {
-  const colors = theme.themeColors;
+  const colors = theme.themeColors
   return {
     root: {
-      display: "flex",
-      flexDirection: "column",
+      display: 'flex',
+      flexDirection: 'column',
       flex: 1,
-      minWidth: "100%",
+      minWidth: '100%',
+      marginTop: '16px',
     },
     inputCard: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-    },
-    inputCardHeading: {
-      width: "100%",
-      padding: "12px 0px 12px 20px",
-      color: colors.darkGray,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
     assetSelectRoot: {
-      "& .MuiInputBase-root": {
+      marginTop: '8px',
+      '& .MuiInputBase-root': {
         background: colors.page.asset.input.bg,
         border: colors.page.asset.input.border,
-        boxSizing: "border-box",
+        boxSizing: 'border-box',
         boxShadow: colors.page.asset.input.shadow,
-        borderRadius: "20px",
-        padding: "4px",
-        fontWeight: "bold",
-        fontSize: "14px",
-        lineHeight: "22px",
-        letterSpacing: "0.02em",
+        borderRadius: '20px',
+        padding: '4px',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        lineHeight: '22px',
+        letterSpacing: '0.02em',
         color: colors.page.asset.input.color,
-        height: "40px",
+        height: '40px',
       },
-      "& .MuiOutlinedInput-input": {
-        padding: "0",
+      '& .MuiOutlinedInput-input': {
+        padding: '0',
       },
-      "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        border: "none",
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        border: 'none',
       },
-      "& .MuiSelect-icon": {
-        color: "#818FA6",
+      '& .MuiSelect-icon': {
+        color: '#818FA6',
       },
-      "& .MuiOutlinedInput-notchedOutline": {
-        border: "none",
+      '& .MuiOutlinedInput-notchedOutline': {
+        border: 'none',
       },
-      "& .MuiSelect-select:focus": {
-        background: "transparent",
+      '& .MuiSelect-select:focus': {
+        background: 'transparent',
       },
     },
     assetSelectMenu: {
-      padding: "15px 15px 15px 20px",
-      minWidth: "200px",
+      padding: '15px 15px 15px 20px',
+      minWidth: '200px',
     },
     assetSelectIcon: {
-      display: "inline-block",
-      verticalAlign: "middle",
-      borderRadius: "25px",
-      background: "#dedede",
-      height: "30px",
-      width: "30px",
-      textAlign: "center",
-      cursor: "pointer",
+      display: 'inline-block',
+      verticalAlign: 'middle',
+      borderRadius: '25px',
+      background: '#dedede',
+      height: '30px',
+      width: '30px',
+      textAlign: 'center',
+      cursor: 'pointer',
     },
     assetSelectIconName: {
-      paddingLeft: "10px",
-      display: "inline-block",
-      verticalAlign: "middle",
+      paddingLeft: '10px',
+      display: 'inline-block',
+      verticalAlign: 'middle',
     },
     assetSelectPlus: {
-      paddingLeft: "10px",
-      paddingRight: "10px",
-      display: "inline-block",
-      verticalAlign: "middle",
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      display: 'inline-block',
+      verticalAlign: 'middle',
     },
     title: {
-      fontWeight: "bold",
-      fontSize: "24px",
-      lineHeight: "36px",
+      fontWeight: 'bold',
+      fontSize: '18px',
+      lineHeight: '28px',
       color: colors.page.header.text,
-      margin: "0 5px",
     },
-  };
-};
+  }
+}
 
 class Want extends Component {
   constructor(props) {
-    super();
+    super()
 
     this.state = {
-      asset: "",
+      asset: '',
       assets: props.assets,
       curveContracts: props.curveContracts,
       assetOptions: [...props.assets, ...props.curveContracts],
       assetError: false,
-    };
+    }
   }
 
   componentWillReceiveProps(props) {
     if (props.assets && props.curveContracts) {
-      const a = props.assets;
-      const b = props.curveContracts;
-      const assetOptions = [...a, ...b];
+      const a = props.assets
+      const b = props.curveContracts
+      const assetOptions = [...a, ...b]
 
       const _assetOption = assetOptions.filter((option) => {
-        if (props.sendAsset && ["crvV1", "crvV2"].includes(props.sendAsset.id)) {
-          return ["crvV3"].includes(option.id) === true;
+        if (props.sendAsset && ['crvV1', 'crvV2'].includes(props.sendAsset.id)) {
+          return ['crvV3'].includes(option.id) === true
         }
-        if (props.sendAsset && ["crvV3"].includes(props.sendAsset.id)) {
-          return ["crvV1", "crvV2", "crvV3", "ETHv1"].includes(option.id) === false;
+        if (props.sendAsset && ['crvV3'].includes(props.sendAsset.id)) {
+          return ['crvV1', 'crvV2', 'crvV3', 'ETHv1'].includes(option.id) === false
         }
-        if (props.sendAsset && ["crvV4"].includes(props.sendAsset.id)) {
-          return ["crvV1", "crvV2", "crvV3", "crvV4", "ETHv1"].includes(option.id) === false;
+        if (props.sendAsset && ['crvV4'].includes(props.sendAsset.id)) {
+          return ['crvV1', 'crvV2', 'crvV3', 'crvV4', 'ETHv1'].includes(option.id) === false
         }
-        if (props.sendAsset && ["BUSDv3"].includes(props.sendAsset.id)) {
-          return ["crvV4"].includes(option.id) === true;
+        if (props.sendAsset && ['BUSDv3'].includes(props.sendAsset.id)) {
+          return ['crvV4'].includes(option.id) === true
         }
-        if (props.sendAsset && ["TUSDv2"].includes(props.sendAsset.id)) {
-          return ["crvV3"].includes(option.id) === true;
+        if (props.sendAsset && ['TUSDv2'].includes(props.sendAsset.id)) {
+          return ['crvV3'].includes(option.id) === true
         }
 
-        return ["crvV4", "crvV3"].includes(option.id) === true;
-      })[0];
+        return ['crvV4', 'crvV3'].includes(option.id) === true
+      })[0]
 
-      const _asset = this.state.asset ? this.state.asset : _assetOption.symbol;
+      const _asset = this.state.asset ? this.state.asset : _assetOption.symbol
 
       this.setState({
         assetOptions: assetOptions,
         assets: props.assets,
         curveContracts: props.curveContracts,
         asset: _asset,
-      });
+      })
     }
   }
 
   render() {
-    const { classes, sendAsset, t, bestPrice, sendAmount } = this.props;
-    const { assetOptions, asset } = this.state;
+    const { classes, sendAsset, t, bestPrice, sendAmount } = this.props
+    const { assetOptions, asset } = this.state
 
-    let amount = null;
+    let amount = null
     if (bestPrice && bestPrice.price > 0 && sendAmount && sendAmount > 0) {
-      amount = (parseFloat(bestPrice.price) * parseFloat(sendAmount)).toFixed(4);
+      amount = (parseFloat(bestPrice.price) * parseFloat(sendAmount)).toFixed(4)
     }
 
     return (
       <div className={classes.root}>
         <div className={classes.inputCard}>
-          <Typography variant="h3" className={classes.title}>
-            {t("zap.iWant")}
+          <Typography variant='h3' className={classes.title}>
+            {t('zap.iWant')}
           </Typography>
-          {sendAsset && sendAsset.symbol === "ETH" && this.renderAsset("DAI", amount)}
-          {(!sendAsset || sendAsset.symbol !== "ETH") &&
-            this.renderAssetSelect("asset", asset, assetOptions, null, sendAsset)}
+          {sendAsset && sendAsset.symbol === 'ETH' && this.renderAsset('DAI', amount)}
+          {(!sendAsset || sendAsset.symbol !== 'ETH') &&
+            this.renderAssetSelect('asset', asset, assetOptions, null, sendAsset)}
         </div>
       </div>
-    );
+    )
   }
 
   onChange = (event, value) => {
-    let val = [];
-    val[event.target.name] = event.target.value;
-    this.setState(val);
+    let val = []
+    val[event.target.name] = event.target.value
+    this.setState(val)
 
     let asset = this.state.assets.filter((asset) => {
-      return asset.symbol === event.target.value;
-    });
+      return asset.symbol === event.target.value
+    })
 
     if (asset.length > 0) {
-      asset = asset[0];
+      asset = asset[0]
     } else {
       asset = this.state.curveContracts.filter((contract) => {
-        return contract.symbol === event.target.value;
-      });
+        return contract.symbol === event.target.value
+      })
 
       if (asset.length > 0) {
-        asset = asset[0];
+        asset = asset[0]
       } else {
-        asset = null;
+        asset = null
       }
     }
 
-    var that = this;
+    var that = this
     setTimeout(() => {
-      that.props.setReceiveAsset(asset);
-    });
-  };
+      that.props.setReceiveAsset(asset)
+    })
+  }
 
   renderAsset = (id, amount) => {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <TextField
         id={id}
         name={id}
-        value={amount ? amount + " " + id : id}
-        variant="outlined"
+        value={amount ? amount + ' ' + id : id}
+        variant='outlined'
         disabled
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start" className={classes.inputAdornment}>
+            <InputAdornment position='start' className={classes.inputAdornment}>
               <div className={classes.assetSelectIcon}>
                 <img
-                  alt=""
-                  src={require("../../assets/" +
-                    (["crvV1", "crvV2", "crvV3", "crvV3", "crv"].includes(id) ? "CRV" : id) +
-                    "-logo.png")}
-                  height="30px"
+                  alt=''
+                  src={require('../../assets/' +
+                    (['crvV1', 'crvV2', 'crvV3', 'crvV3', 'crv'].includes(id) ? 'CRV' : id) +
+                    '-logo.png')}
+                  height='30px'
                 />
               </div>
             </InputAdornment>
           ),
         }}
       />
-    );
-  };
+    )
+  }
 
   renderAssetSelect = (id, value, options, error, sendAsset) => {
-    const { loading, classes } = this.props;
+    const { loading, classes } = this.props
 
     return (
       <TextField
@@ -242,71 +238,71 @@ class Want extends Component {
         SelectProps={{
           native: false,
         }}
-        variant="outlined"
+        variant='outlined'
         disabled={loading}
         className={classes.assetSelectRoot}
       >
         {options
           ? options
               .filter((option) => {
-                if (sendAsset && ["crvV1", "crvV2"].includes(sendAsset.id)) {
-                  return ["crvV3"].includes(option.id) === true;
+                if (sendAsset && ['crvV1', 'crvV2'].includes(sendAsset.id)) {
+                  return ['crvV3'].includes(option.id) === true
                 }
-                if (sendAsset && ["crvV3"].includes(sendAsset.id)) {
-                  return ["crvV1", "crvV2", "crvV3", "ETHv1", "BUSDv3"].includes(option.id) === false;
+                if (sendAsset && ['crvV3'].includes(sendAsset.id)) {
+                  return ['crvV1', 'crvV2', 'crvV3', 'ETHv1', 'BUSDv3'].includes(option.id) === false
                 }
-                if (sendAsset && ["crvV4"].includes(sendAsset.id)) {
-                  return ["crvV1", "crvV2", "crvV3", "crvV4", "ETHv1", "TUSDv2"].includes(option.id) === false;
+                if (sendAsset && ['crvV4'].includes(sendAsset.id)) {
+                  return ['crvV1', 'crvV2', 'crvV3', 'crvV4', 'ETHv1', 'TUSDv2'].includes(option.id) === false
                 }
-                if (sendAsset && ["BUSDv3"].includes(sendAsset.id)) {
-                  return ["crvV4"].includes(option.id) === true;
+                if (sendAsset && ['BUSDv3'].includes(sendAsset.id)) {
+                  return ['crvV4'].includes(option.id) === true
                 }
-                if (sendAsset && ["TUSDv2"].includes(sendAsset.id)) {
-                  return ["crvV3"].includes(option.id) === true;
+                if (sendAsset && ['TUSDv2'].includes(sendAsset.id)) {
+                  return ['crvV3'].includes(option.id) === true
                 }
 
-                return ["crvV4", "crvV3"].includes(option.id) === true;
+                return ['crvV4', 'crvV3'].includes(option.id) === true
               })
               .map(this.renderAssetOption)
           : null}
       </TextField>
-    );
-  };
+    )
+  }
 
   renderAssetOption = (option) => {
-    const { classes, sendAsset } = this.props;
+    const { classes, sendAsset } = this.props
     return (
       <MenuItem key={option.symbol} value={option.symbol} className={classes.assetSelectMenu}>
         <React.Fragment>
           <div className={classes.assetSelectIcon}>
             <img
-              alt=""
-              src={require("../../assets/" +
-                (["crvV1", "crvV2", "crvV3", "crvV4"].includes(option.id) ? "CRV" : option.symbol) +
-                "-logo.png")}
-              height="30px"
+              alt=''
+              src={require('../../assets/' +
+                (['crvV1', 'crvV2', 'crvV3', 'crvV4'].includes(option.id) ? 'CRV' : option.symbol) +
+                '-logo.png')}
+              height='30px'
             />
           </div>
           <div className={classes.assetSelectIconName}>
-            <Typography variant="h4">{option.symbol}</Typography>
+            <Typography variant='h4'>{option.symbol}</Typography>
           </div>
-          {sendAsset && sendAsset.id === "crvV3" && option.id === "crvV4" && (
+          {sendAsset && sendAsset.id === 'crvV3' && option.id === 'crvV4' && (
             <React.Fragment>
               <div className={classes.assetSelectPlus}>
-                <Typography variant="h4">{"+"}</Typography>
+                <Typography variant='h4'>{'+'}</Typography>
               </div>
               <div className={classes.assetSelectIcon}>
-                <img alt="" src={require("../../assets/TUSD-logo.png")} height="30px" />
+                <img alt='' src={require('../../assets/TUSD-logo.png')} height='30px' />
               </div>
               <div className={classes.assetSelectIconName}>
-                <Typography variant="h4">{"TUSD"}</Typography>
+                <Typography variant='h4'>{'TUSD'}</Typography>
               </div>
             </React.Fragment>
           )}
         </React.Fragment>
       </MenuItem>
-    );
-  };
+    )
+  }
 }
 
-export default withNamespaces()(withRouter(withStyles(styles)(Want)));
+export default withNamespaces()(withRouter(withStyles(styles)(Want)))

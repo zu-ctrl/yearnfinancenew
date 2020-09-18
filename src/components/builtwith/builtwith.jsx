@@ -40,6 +40,9 @@ const styles = (theme) => {
       '&:hover': {
         border: colors.popup.border,
       },
+      [theme.breakpoints.down('xs')]: {
+        minWidth: '250px',
+      },
     },
     buttonText: {
       fontWeight: 'bold',
