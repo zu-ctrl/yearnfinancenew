@@ -120,8 +120,9 @@ export const colors = {
       icon: '#9551BA',
       glow: 'none',
       linear: {
-        color: '#69C0FF',
-        middle: '#40A9FF',
+        color: '#F3DEFF',
+        middle: '#9551BA',
+        id: 'waifu',
       },
       bgGlow: 'radial-gradient(52.66% 50.98% at 50% 0%, rgba(64, 169, 255, 0.15) 0%, rgba(64, 169, 255, 0) 89.58%)',
     },

@@ -122,6 +122,7 @@ export const colors = {
       linear: {
         color: '#69C0FF',
         middle: '#40A9FF',
+        id: 'light',
       },
       bgGlow: 'radial-gradient(52.66% 50.98% at 50% 0%, rgba(64, 169, 255, 0.15) 0%, rgba(64, 169, 255, 0) 89.58%)',
     },
