@@ -11,9 +11,15 @@ const styles = (theme) => {
   const colors = theme.themeColors
   return {
     root: {
-      background: colors.bg,
+      backgroundImage: colors.bgImage,
+      backgroundColor: colors.bg,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom right',
       width: '100%',
       padding: '50px 15px 100px',
+      [theme.breakpoints.up('md')]: {
+        minHeight: 'calc(100vh - 376px)',
+      },
       [theme.breakpoints.down('xs')]: {
         padding: '20px 15px 60px',
       },
@@ -87,6 +93,9 @@ const styles = (theme) => {
       '&.MuiButton-root': {
         transition: 'none',
       },
+      '&.MuiButton-outlinedPrimary:hover': {
+        border: colors.button.border,
+      },
     },
     buttonLeft: {
       left: '0',
@@ -97,6 +106,10 @@ const styles = (theme) => {
       boxShadow: colors.button.shadow,
       border: 'none',
       color: colors.button.hover,
+      '&.MuiButton-outlinedPrimary:hover': {
+        background: colors.button.bg,
+        border: 'none',
+      },
     },
     imageSlide: {
       maxWidth: '100%',
