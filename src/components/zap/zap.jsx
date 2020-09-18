@@ -12,6 +12,7 @@ import Snackbar from '../snackbar'
 import ConnectWallet from '../connectWallet'
 import ZapIcon from '../icons/zapIcon'
 import LinearLine from '../icons/linearLine'
+import Connector from '../connectWallet/connector'
 
 import {
   ERROR,
@@ -138,16 +139,6 @@ const styles = (theme) => {
       width: '100%',
       margin: '40px auto 0',
     },
-    connectContainer: {
-      padding: '12px',
-      display: 'flex',
-      justifyContent: 'center',
-      width: '100%',
-      maxWidth: '450px',
-      [theme.breakpoints.up('md')]: {
-        width: '450',
-      },
-    },
     actionButton: {
       background: colors.page.asset.button.bg,
       boxShadow: colors.page.asset.button.shadow,
@@ -208,10 +199,6 @@ const styles = (theme) => {
     walletAddress: {
       padding: '0px 12px',
     },
-    walletTitle: {
-      flex: 1,
-      color: colors.darkGray,
-    },
     grey: {
       color: colors.darkGray,
     },
@@ -262,6 +249,22 @@ const styles = (theme) => {
       border: 'none',
       margin: '20px 0 0',
       borderRadius: '20px',
+    },
+    connectContainer: {
+      margin: '78px auto 0',
+      maxWidth: '460px',
+      width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        marginTop: '50px',
+      },
+    },
+    walletTitle: {
+      fontWeight: 'bold',
+      fontSize: '20px',
+      lineHeight: '32px',
+      textAlign: 'center',
+      color: colors.text,
+      textShadow: colors.textShadow,
     },
   }
 }
@@ -410,10 +413,6 @@ class Zap extends Component {
     } = this.state
     const colors = theme.themeColors
 
-    if (!account || !account.address) {
-      return <ConnectWallet currentTheme={currentTheme} />
-    }
-
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
@@ -435,97 +434,111 @@ class Zap extends Component {
             {t('zap.desc')}
           </Typography>
         </div>
-        <div className={classes.card}>
-          <Card className={classes.iHaveContainer}>
-            <div className={classes.expansionPanel}>
-              <Have
-                assets={assets}
-                curveContracts={curveContracts}
-                setSendAsset={this.setSendAsset}
-                sendAsset={sendAsset}
-                setSendAmountPercent={this.setSendAmountPercent}
-                loading={loading}
-              />
-              <Sending
-                sendAsset={sendAsset}
-                sendAmount={sendAmount}
-                setSendAmount={this.setSendAmount}
-                setSendAmountPercent={this.setSendAmountPercent}
-                loading={loading}
-              />
-              <div className={classes.lineaFormContainer}>
-                <LinearLine
-                  id={colors.page.header.linear.id}
-                  color={colors.page.header.linear.color}
-                  middle={colors.page.header.linear.middle}
-                />
-              </div>
-              {sendAsset && sendAsset.symbol === 'ETH' && (
-                <ConversionRatios bestPrice={bestPrice} sendAsset={sendAsset} receiveAsset={receiveAsset} />
-              )}
-              <Want
-                assets={assets}
-                curveContracts={curveContracts}
-                receiveAsset={receiveAsset}
-                setReceiveAsset={this.setReceiveAsset}
-                sendAsset={sendAsset}
-                loading={loading}
-                bestPrice={bestPrice}
-                sendAmount={sendAmount}
-              />
+        {!account || !account.address ? (
+          <div className={classes.connectContainer}>
+            <Typography className={classes.walletTitle} variant={'h3'}>
+              {`${t('connectWallet.connectText')}...`}
+            </Typography>
+            <Connector closeModal={() => window.scrollTo(0, 0)} />
+          </div>
+        ) : (
+          <>
+            <div className={classes.card}>
+              <Card className={classes.iHaveContainer}>
+                <div className={classes.expansionPanel}>
+                  <Have
+                    assets={assets}
+                    curveContracts={curveContracts}
+                    setSendAsset={this.setSendAsset}
+                    sendAsset={sendAsset}
+                    setSendAmountPercent={this.setSendAmountPercent}
+                    loading={loading}
+                  />
+                  <Sending
+                    sendAsset={sendAsset}
+                    sendAmount={sendAmount}
+                    setSendAmount={this.setSendAmount}
+                    setSendAmountPercent={this.setSendAmountPercent}
+                    loading={loading}
+                  />
+                  <div className={classes.lineaFormContainer}>
+                    <LinearLine
+                      id={colors.page.header.linear.id}
+                      color={colors.page.header.linear.color}
+                      middle={colors.page.header.linear.middle}
+                    />
+                  </div>
+                  {sendAsset && sendAsset.symbol === 'ETH' && (
+                    <ConversionRatios bestPrice={bestPrice} sendAsset={sendAsset} receiveAsset={receiveAsset} />
+                  )}
+                  <Want
+                    assets={assets}
+                    curveContracts={curveContracts}
+                    receiveAsset={receiveAsset}
+                    setReceiveAsset={this.setReceiveAsset}
+                    sendAsset={sendAsset}
+                    loading={loading}
+                    bestPrice={bestPrice}
+                    sendAmount={sendAmount}
+                  />
 
-              {sendAsset &&
-                receiveAsset &&
-                !(['crvV3', 'crvV4'].includes(receiveAsset.id) && ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id)) &&
-                !(sendAsset && sendAsset.symbol === 'ETH') && (
-                  <Button
-                    className={classes.actionButton}
-                    variant="outlined"
-                    color="primary"
-                    disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
-                    onClick={this.onZap}
-                    fullWidth
-                  >
-                    <Typography className={classes.buttonText} variant={'h5'} color="secondary">
-                      {t('zap.zap')}
-                    </Typography>
-                  </Button>
-                )}
-              {sendAsset &&
-                receiveAsset &&
-                ['crvV3', 'crvV4'].includes(receiveAsset.id) &&
-                ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id) && (
-                  <Button
-                    className={classes.actionButton}
-                    variant="outlined"
-                    color="primary"
-                    disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
-                    onClick={this.onSwap}
-                    fullWidth
-                  >
-                    <Typography className={classes.buttonText} variant={'h5'} color="secondary">
-                      {t('zap.swap')}
-                    </Typography>
-                  </Button>
-                )}
-              {sendAsset && sendAsset.symbol === 'ETH' && (
-                <Button
-                  className={classes.actionButton}
-                  variant="outlined"
-                  color="primary"
-                  disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
-                  onClick={this.onTrade}
-                  fullWidth
-                >
-                  <Typography className={classes.buttonText} variant={'h5'} color="secondary">
-                    {t('zap.trade')}
-                  </Typography>
-                </Button>
-              )}
+                  {sendAsset &&
+                    receiveAsset &&
+                    !(
+                      ['crvV3', 'crvV4'].includes(receiveAsset.id) && ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id)
+                    ) &&
+                    !(sendAsset && sendAsset.symbol === 'ETH') && (
+                      <Button
+                        className={classes.actionButton}
+                        variant="outlined"
+                        color="primary"
+                        disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
+                        onClick={this.onZap}
+                        fullWidth
+                      >
+                        <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                          {t('zap.zap')}
+                        </Typography>
+                      </Button>
+                    )}
+                  {sendAsset &&
+                    receiveAsset &&
+                    ['crvV3', 'crvV4'].includes(receiveAsset.id) &&
+                    ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id) && (
+                      <Button
+                        className={classes.actionButton}
+                        variant="outlined"
+                        color="primary"
+                        disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
+                        onClick={this.onSwap}
+                        fullWidth
+                      >
+                        <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                          {t('zap.swap')}
+                        </Typography>
+                      </Button>
+                    )}
+                  {sendAsset && sendAsset.symbol === 'ETH' && (
+                    <Button
+                      className={classes.actionButton}
+                      variant="outlined"
+                      color="primary"
+                      disabled={loading || !sendAsset || !receiveAsset || !sendAmount || sendAmount === ''}
+                      onClick={this.onTrade}
+                      fullWidth
+                    >
+                      <Typography className={classes.buttonText} variant={'h5'} color="secondary">
+                        {t('zap.trade')}
+                      </Typography>
+                    </Button>
+                  )}
+                </div>
+              </Card>
             </div>
-          </Card>
-          <div className={classes.introCenter}></div>
-        </div>
+            <div className={classes.introCenter}></div>
+          </>
+        )}
+
         {snackbarMessage && this.renderSnackbar()}
         {loading && <Loader />}
       </div>

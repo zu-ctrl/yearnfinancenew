@@ -131,8 +131,8 @@ class App extends Component {
                 <Dashboard />
               </Route>
               <Route path="/">
-                <Redirect to="/vaults" />
-                {/* <Home isBeta={isBeta} currentTheme={currentTheme} /> */}
+                <Header />
+                <ConnectWallet currentTheme={currentTheme} />
               </Route>
             </Switch>
             <Footer

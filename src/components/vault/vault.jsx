@@ -25,7 +25,7 @@ import Snackbar from '../snackbar'
 import Asset from './asset'
 import Loader from '../loader'
 import ApyTable from '../apyTable'
-import ConnectWallet from '../connectWallet'
+import Connector from '../connectWallet/connector'
 import VaultIcon from '../icons/vaultIcon'
 import YvaultRoi from '../yvaultRoi'
 import InfoIcon from '../icons/infoIcon'
@@ -88,13 +88,6 @@ const styles = (theme) => {
       justifyContent: 'flex-end',
       padding: '12px 12px',
       position: 'relative',
-    },
-    connectContainer: {
-      padding: '12px',
-      display: 'flex',
-      justifyContent: 'center',
-      width: '100%',
-      maxWidth: '450px',
     },
     intro: {
       width: '100%',
@@ -452,6 +445,22 @@ const styles = (theme) => {
     assetSelectLabel: {
       paddingLeft: '5px',
     },
+    connectContainer: {
+      margin: '78px auto 0',
+      maxWidth: '460px',
+      width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        marginTop: '50px',
+      },
+    },
+    walletTitle: {
+      fontWeight: 'bold',
+      fontSize: '20px',
+      lineHeight: '32px',
+      textAlign: 'center',
+      color: colors.text,
+      textShadow: colors.textShadow,
+    },
   }
 }
 
@@ -603,10 +612,6 @@ class Vault extends Component {
     const { loading, account, snackbarMessage } = this.state
     const colors = theme.themeColors
 
-    if (!account || !account.address) {
-      return <ConnectWallet currentTheme={currentTheme} />
-    }
-
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
@@ -627,8 +632,19 @@ class Vault extends Component {
           <Typography className={classes.description} variant="h6">
             {t('vaults.desc')}
           </Typography>
-          {this.renderFilters({ colors })}
-          {this.renderAssetBlocks()}
+          {!account || !account.address ? (
+            <div className={classes.connectContainer}>
+              <Typography className={classes.walletTitle} variant={'h3'}>
+                {`${t('connectWallet.connectText')}...`}
+              </Typography>
+              <Connector closeModal={() => window.scrollTo(0, 0)} />
+            </div>
+          ) : (
+            <>
+              {this.renderFilters({ colors })}
+              {this.renderAssetBlocks()}
+            </>
+          )}
         </div>
         {loading && <Loader />}
         {snackbarMessage && this.renderSnackbar()}

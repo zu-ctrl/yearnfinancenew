@@ -13,6 +13,7 @@ import Loader from '../loader'
 import ConnectWallet from '../connectWallet'
 import WalletIcon from '../icons/walletIcon'
 import LinearLine from '../icons/linearLine'
+import Connector from '../connectWallet/connector'
 
 import {
   ERROR,
@@ -77,16 +78,6 @@ const styles = (theme) => {
       justifyContent: 'flex-end',
       padding: '12px 12px',
       position: 'relative',
-    },
-    connectContainer: {
-      padding: '12px',
-      display: 'flex',
-      justifyContent: 'center',
-      width: '100%',
-      maxWidth: '450px',
-      [theme.breakpoints.up('md')]: {
-        width: '450',
-      },
     },
     intro: {
       width: '100%',
@@ -292,10 +283,6 @@ const styles = (theme) => {
     walletAddress: {
       padding: '0px 12px',
     },
-    walletTitle: {
-      flex: 1,
-      color: colors.darkGray,
-    },
     grey: {
       color: colors.darkGray,
     },
@@ -344,6 +331,22 @@ const styles = (theme) => {
       fontSize: '14px',
       lineHeight: '22px',
       color: colors.page.asset.description,
+    },
+    connectContainer: {
+      margin: '78px auto 0',
+      maxWidth: '460px',
+      width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        marginTop: '50px',
+      },
+    },
+    walletTitle: {
+      fontWeight: 'bold',
+      fontSize: '20px',
+      lineHeight: '32px',
+      textAlign: 'center',
+      color: colors.text,
+      textShadow: colors.textShadow,
     },
   }
 }
@@ -448,19 +451,19 @@ class InvestSimple extends Component {
     const { loading, account, snackbarMessage, value } = this.state
     const colors = theme.themeColors
 
-    if (!account || !account.address) {
-      return <ConnectWallet currentTheme={currentTheme} />
-    }
+    // if (!account || !account.address) {
+    //   return <ConnectWallet currentTheme={currentTheme} />
+    // }
 
     return (
       <div className={classes.root}>
         <div className={classes.investedContainer}>
           <div className={classes.titleContainer}>
-            <Typography className={classes.title} variant='h2'>
+            <Typography className={classes.title} variant="h2">
               {t('earn.title1')}
             </Typography>
             <WalletIcon color={colors.page.header.icon} glowColor={colors.page.header.glow} />
-            <Typography className={classes.title} variant='h2'>
+            <Typography className={classes.title} variant="h2">
               <span className={classes.titleSpan}>Earn</span> {t('earn.title2')}?
             </Typography>
           </div>
@@ -469,31 +472,42 @@ class InvestSimple extends Component {
               <LinearLine color={colors.page.header.linear.color} middle={colors.page.header.linear.middle} />
             </div>
           )}
-          <Typography className={classes.description} variant='h6'>
+          <Typography className={classes.description} variant="h6">
             {t('earn.desc')}
           </Typography>
-          <div className={classes.intro}>
-            <ToggleButtonGroup
-              value={value}
-              onChange={this.handleTabChange}
-              aria-label='version'
-              exclusive
-              size={'small'}
-            >
-              <ToggleButton className={classes.groupButton} value={0} aria-label='v1'>
-                <Typography variant={'h4'}>v1</Typography>
-              </ToggleButton>
-              <ToggleButton className={classes.groupButton} value={1} aria-label='v2'>
-                <Typography variant={'h4'}>y.curve.fi</Typography>
-              </ToggleButton>
-              <ToggleButton className={classes.groupButton} value={2} aria-label='v3'>
-                <Typography variant={'h4'}>busd.curve.fi</Typography>
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </div>
-          {account.address && value === 0 && this.renderAssetBlocksv1()}
-          {account.address && value === 1 && this.renderAssetBlocksv2()}
-          {account.address && value === 2 && this.renderAssetBlocksv3()}
+          {!account || !account.address ? (
+            <div className={classes.connectContainer}>
+              <Typography className={classes.walletTitle} variant={'h3'}>
+                {`${t('connectWallet.connectText')}...`}
+              </Typography>
+              <Connector closeModal={() => window.scrollTo(0, 0)} />
+            </div>
+          ) : (
+            <>
+              <div className={classes.intro}>
+                <ToggleButtonGroup
+                  value={value}
+                  onChange={this.handleTabChange}
+                  aria-label="version"
+                  exclusive
+                  size={'small'}
+                >
+                  <ToggleButton className={classes.groupButton} value={0} aria-label="v1">
+                    <Typography variant={'h4'}>v1</Typography>
+                  </ToggleButton>
+                  <ToggleButton className={classes.groupButton} value={1} aria-label="v2">
+                    <Typography variant={'h4'}>y.curve.fi</Typography>
+                  </ToggleButton>
+                  <ToggleButton className={classes.groupButton} value={2} aria-label="v3">
+                    <Typography variant={'h4'}>busd.curve.fi</Typography>
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </div>
+              {account.address && value === 0 && this.renderAssetBlocksv1()}
+              {account.address && value === 1 && this.renderAssetBlocksv2()}
+              {account.address && value === 2 && this.renderAssetBlocksv3()}
+            </>
+          )}
         </div>
         {loading && <Loader />}
         {snackbarMessage && this.renderSnackbar()}
@@ -537,12 +551,12 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=''
+                      alt=""
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
@@ -607,12 +621,12 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=''
+                      alt=""
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}
@@ -678,12 +692,12 @@ class InvestSimple extends Component {
               this.handleChange(asset.id)
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
               <div className={classes.assetSummary}>
                 <div className={classes.headingName}>
                   <div className={classes.assetIcon}>
                     <img
-                      alt=''
+                      alt=""
                       src={require('../../assets/' + asset.symbol + '-logo.png')}
                       height={width > 600 ? '40px' : '30px'}
                       style={asset.disabled ? { filter: 'grayscale(100%)' } : {}}

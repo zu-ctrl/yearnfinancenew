@@ -162,7 +162,7 @@ const styles = (theme) => {
   }
 }
 
-const ConnectWallet = ({ t, classes, currentTheme }) => {
+const ConnectWallet = ({ t, classes, currentTheme, history }) => {
   const [selectedSlide, setSelectedSlide] = useState(0)
 
   const slidesData = [
@@ -193,7 +193,6 @@ const ConnectWallet = ({ t, classes, currentTheme }) => {
       imagePath: require('../../assets/connect-wallet-slide-5.svg'),
     },
   ]
-
   return (
     <div className={classes.root}>
       <div className={classes.carousel}>
@@ -206,17 +205,17 @@ const ConnectWallet = ({ t, classes, currentTheme }) => {
           onChange={(val) => setSelectedSlide(val < 0 ? slidesData.length - 1 : val > slidesData.length - 1 ? 0 : val)}
           addArrowClickHandler
           arrowLeft={
-            <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonLeft}`}>
+            <Button variant="outlined" color="primary" className={`${classes.button} ${classes.buttonLeft}`}>
               {t('connectWallet.previous').toUpperCase()}
             </Button>
           }
           arrowRight={
             slidesData.length - 1 === selectedSlide ? (
-              <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonRight}`}>
+              <Button variant="outlined" color="primary" className={`${classes.button} ${classes.buttonRight}`}>
                 {t('connectWallet.startOver').toUpperCase()}
               </Button>
             ) : (
-              <Button variant='outlined' color='primary' className={`${classes.button} ${classes.buttonRight}`}>
+              <Button variant="outlined" color="primary" className={`${classes.button} ${classes.buttonRight}`}>
                 {t('connectWallet.next').toUpperCase()}
               </Button>
             )
@@ -243,14 +242,14 @@ const ConnectWallet = ({ t, classes, currentTheme }) => {
       <div className={classes.linearContainerSm}>
         <img
           className={classes.line}
-          alt='connect linear'
+          alt="connect linear"
           src={require(`../../assets/theme/connect-linear-middle-${currentTheme}.svg`)}
         />
       </div>
       <div className={classes.linear}>
         <img
           className={classes.line}
-          alt='connect linear'
+          alt="connect linear"
           src={require(`../../assets/theme/connect-linear-lg-${currentTheme}.svg`)}
         />
       </div>
@@ -258,7 +257,12 @@ const ConnectWallet = ({ t, classes, currentTheme }) => {
         <Typography className={classes.walletTitle} variant={'h3'}>
           {`${t('connectWallet.connectText')}...`}
         </Typography>
-        <Connector closeModal={() => window.scrollTo(0, 0)} />
+        <Connector
+          closeModal={() => {
+            history.push('/vaults')
+            window.scrollTo(0, 0)
+          }}
+        />
       </div>
     </div>
   )
